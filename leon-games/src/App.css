@@ -182,3 +182,22 @@
     border-right-color: var(--border);
   }
 }
+
+/* Custom mechanical layout variables */
+:root {
+  --nav-backdrop-blur: 12px;
+}
+
+/* Maintain smooth tracking-sweep effect on navigation elements */
+header a, header button {
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+}
+
+/* Ensure focus highlights on interactive components adhere to dark-theme rules */
+header *:focus-visible {
+  outline: 1px solid rgba(16, 185, 129, 0.4);
+  outline-offset: 3px;
+}
