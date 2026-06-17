@@ -150,7 +150,7 @@ export function Navigation() {
         animate={{
           y: 0,
           opacity: 1,
-          height: scrollDirection === "down" && scrolled ? "56px" : "72px"
+          height: scrollDirection === "down" && scrolled ? "64px" : "80px"
         }}
         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         className={`fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 lg:px-12 transition-all duration-300 ${scrolled
@@ -702,7 +702,7 @@ function HeroSection() {
           )}
 
           {/* Connected Layout Flex Container */}
-          <div className="flex flex-col lg:flex-row items-center justify-center lg:items-stretch gap-4 lg:gap-0 w-full max-w-md mx-auto">
+          <div className="flex flex-col lg:flex-row items-center justify-center lg:items-stretch gap-4 lg:gap-0 w-full max-w-md mx-auto origin-center" style={{ rotate: "350deg" }}>
 
             {/* Performance Statistics (Connected Left Column) */}
             <motion.div
