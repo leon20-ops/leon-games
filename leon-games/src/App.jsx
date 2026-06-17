@@ -432,7 +432,12 @@ function TechSparkle({ className }) {
     </div>
   );
 }
-
+// --- SPECIFIED GIFS & STICKERS ---
+const PLATFORM_GIFS = {
+  moneyPenguin: "https://media.tenor.com/7-G9wshYmPAAAAAM/money-penguin-bag.gif",
+  greenDancer: "https://i.gifer.com/3nRK.gif",
+  jumpingPikachu: "https://i.gifer.com/6vw5.gif"
+};
 // --- REVISED CINEMATIC RESPONSIVE HERO SECTION ---
 function HeroSection() {
   const wagersCount = useAnimatedNumber(1.2, 1, 100, "M+");
@@ -667,92 +672,134 @@ function HeroSection() {
 
         </motion.div>
 
-        {/* RIGHT COMPARTMENT: IMAGE SLIDER FRAME & PLATFORM METRICS */}
-        <motion.div
-          style={!isMobile ? { x: sliderFrameX, y: sliderFrameY, rotate: sliderFrameRotate, opacity: sliderFrameOpacity } : undefined}
-          className="lg:col-span-6 flex flex-col justify-center gap-6 lg:gap-8 relative"
-        >
-
-
-          {/* Image Slider Frame */}
-          <motion.div
-            {...getMotionProps("right")}
-            onMouseEnter={() => setIsSliderHovered(true)}
-            onMouseLeave={() => setIsSliderHovered(false)}
-            className="order-5 lg:order-none w-[75vw] sm:w-[320px] lg:w-[300px] xl:w-[340px] aspect-[10/15] mx-auto relative group rounded-2xl overflow-hidden border border-white/[0.08] shadow-[0_20px_50px_rgba(0,0,0,0.8)] aspect-[10/16] bg-[#111]"
-          >
-            <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/30 z-10 pointer-events-none" />
-            <div className="absolute top-3 left-3 z-20 flex items-center gap-1.5 px-2 py-1 rounded bg-[#050505]/80 border border-white/[0.08] backdrop-blur text-[8px] font-mono text-neutral-300 uppercase tracking-widest">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-              LOBBY FEED // CH: 0{currentSlide + 1}
-            </div>
-
-            {/* Slide Images */}
-            <div className="w-full h-full relative">
-              <AnimatePresence mode="popLayout">
-                <motion.img
-                  key={currentSlide}
-                  src={SLIDER_IMAGES[currentSlide]}
-                  alt={`Gameplay Highlight 0${currentSlide + 1}`}
-                  initial={{ opacity: 0, scale: 1.08 }}
-                  animate={{ opacity: 1, scale: 1.02 }}
-                  exit={{ opacity: 0, scale: 0.96 }}
-                  transition={{ duration: 0.8, ease: "easeInOut" }}
-                  className="absolute inset-0 w-full h-full object-cover select-none pointer-events-none"
-                />
-              </AnimatePresence>
-            </div>
-
-            {/* Micro Navigation Dot Bar */}
-            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 flex gap-2">
-              {SLIDER_IMAGES.map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => setCurrentSlide(index)}
-                  className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${index === currentSlide ? "bg-emerald-400 w-4" : "bg-neutral-500 hover:bg-neutral-300"
-                    }`}
-                />
-              ))}
-            </div>
-
-            {/* Slide Manual Controls */}
-            <button
-              onClick={() => setCurrentSlide((prev) => (prev - 1 + SLIDER_IMAGES.length) % SLIDER_IMAGES.length)}
-              className="absolute left-3 top-1/2 -translate-y-1/2 z-20 w-8 h-8 rounded-full bg-[#050505]/70 hover:bg-emerald-500 hover:text-black border border-white/[0.05] text-neutral-400 flex items-center justify-center transition-colors opacity-0 group-hover:opacity-100 duration-300 text-xs"
+        {/* RIGHT COMPARTMENT: ATTACHED SIDEBAR COMPOSITE WIDGET */}
+        <div className="lg:col-span-6 flex flex-col items-center justify-center relative">
+          
+          {/* GREEN DANCING CHARACTER STICKER */}
+          {!isMobile && (
+            <motion.div
+              animate={{ y: [0, 8, 0], rotate: [0, 2, -2, 0] }}
+              transition={{ repeat: Infinity, duration: 5, ease: "easeInOut" }}
+              className="absolute -top-16 -right-10 w-24 h-24 pointer-events-none z-30 select-none drop-shadow-[0_8px_16px_rgba(16,185,129,0.3)]"
             >
-              ◀
-            </button>
-            <button
-              onClick={() => setCurrentSlide((prev) => (prev + 1) % SLIDER_IMAGES.length)}
-              className="absolute right-3 top-1/2 -translate-y-1/2 z-20 w-8 h-8 rounded-full bg-[#050505]/70 hover:bg-emerald-500 hover:text-black border border-white/[0.05] text-neutral-400 flex items-center justify-center transition-colors opacity-0 group-hover:opacity-100 duration-300 text-xs"
+              <img src={PLATFORM_GIFS.greenDancer} alt="Dancing Alien" className="w-full h-full object-contain" />
+            </motion.div>
+          )}
+
+          {/* JUMPING PIKACHU STICKER */}
+          {!isMobile && (
+            <motion.div
+              animate={{ x: [0, 5, 0], y: [0, -10, 0] }}
+              transition={{ repeat: Infinity, duration: 3.5, ease: "easeInOut" }}
+              className="absolute -bottom-10 right-12 w-20 h-20 pointer-events-none z-30 select-none drop-shadow-[0_10px_20px_rgba(234,179,8,0.3)]"
             >
-              ▶
-            </button>
-          </motion.div>
+              <img src={PLATFORM_GIFS.jumpingPikachu} alt="Jumping Pikachu" className="w-full h-full object-contain" />
+            </motion.div>
+          )}
 
-          {/* Performance Statistics with Integrated Emojis 
-          <motion.div
-            {...getMotionProps("bottom")}
-            className="order-6 lg:order-none grid grid-cols-3 gap-4 border-y border-white/[0.06] py-5 w-full max-w-lg mx-auto"
-          >
-            <div className="text-center lg:text-left">
-              <div className="text-xl sm:text-2xl font-black text-white font-mono">{wagersCount}</div>
-              <div className="text-[9px] text-neutral-500 uppercase tracking-widest mt-1">Total Stake 💰</div>
-            </div>
-            <div className="text-center lg:text-left">
-              <div className="text-xl sm:text-2xl font-black text-white font-mono">{matchesCount}</div>
-              <div className="text-[9px] text-neutral-500 uppercase tracking-widest mt-1">Matches Done 🥊</div>
-            </div>
-            <div className="text-center lg:text-left">
-              <div className="text-xl sm:text-2xl font-black text-white font-mono">{countriesCount}</div>
-              <div className="text-[9px] text-neutral-500 uppercase tracking-widest mt-1">Active Regions 🌐</div>
-            </div>
-          </motion.div>
-          */}
+          {/* Connected Layout Flex Container */}
+          <div className="flex flex-col lg:flex-row items-center justify-center lg:items-stretch gap-4 lg:gap-0 w-full max-w-md mx-auto">
+            
+            {/* Performance Statistics (Connected Left Column) */}
+            <motion.div
+              style={!isMobile ? { x: statsX, y: statsY, opacity: statsOpacity } : undefined}
+              {...getMotionProps("bottom")}
+              className="order-2 lg:order-1 flex flex-col justify-around gap-4 border border-white/[0.08] bg-[#0A0A0A]/95 p-5 w-[75vw] sm:w-[320px] lg:w-[130px] xl:w-[145px] rounded-2xl lg:rounded-r-none border-b lg:border-b-white/[0.08] lg:border-r-0 backdrop-blur z-20"
+            >
+              <div className="text-center lg:text-left">
+                <div className="text-xl sm:text-2xl lg:text-[1.2rem] xl:text-[1.35rem] font-black text-white font-mono leading-none">{wagersCount}</div>
+                <div className="text-[9px] text-neutral-500 uppercase tracking-widest mt-1.5 leading-none">Total Stake 💰</div>
+              </div>
+              <div className="text-center lg:text-left border-t lg:border-t border-white/[0.06] pt-3.5 lg:pt-2">
+                <div className="text-xl sm:text-2xl lg:text-[1.2rem] xl:text-[1.35rem] font-black text-white font-mono leading-none">{matchesCount}</div>
+                <div className="text-[9px] text-neutral-500 uppercase tracking-widest mt-1.5 leading-none">Matches Done 🥊</div>
+              </div>
+              <div className="text-center lg:text-left border-t lg:border-t border-white/[0.06] pt-3.5 lg:pt-2">
+                <div className="text-xl sm:text-2xl lg:text-[1.2rem] xl:text-[1.35rem] font-black text-white font-mono leading-none">{countriesCount}</div>
+                <div className="text-[9px] text-neutral-500 uppercase tracking-widest mt-1.5 leading-none">Active Regions 🌐</div>
+              </div>
+            </motion.div>
 
-        </motion.div>
+            {/* Image Slider Frame (Right Component) */}
+            <motion.div
+              style={!isMobile ? { x: sliderFrameX, y: sliderFrameY, rotate: sliderFrameRotate, opacity: sliderFrameOpacity } : undefined}
+              {...getMotionProps("right")}
+              className="order-1 lg:order-2 w-[75vw] sm:w-[320px] lg:w-[270px] xl:w-[305px] aspect-[10/15] relative group rounded-2xl lg:rounded-l-none overflow-hidden border border-white/[0.08] shadow-[0_20px_50px_rgba(0,0,0,0.8)] bg-[#111] z-10"
+            >
+              <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/30 z-10 pointer-events-none" />
+              <div className="absolute top-3 left-3 z-20 flex items-center gap-1.5 px-2 py-1 rounded bg-[#050505]/80 border border-white/[0.08] backdrop-blur text-[8px] font-mono text-neutral-300 uppercase tracking-widest">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                LOBBY FEED // CH: 0{currentSlide + 1}
+              </div>
 
+              {/* Slide Images */}
+              <div className="w-full h-full relative">
+                <AnimatePresence mode="popLayout">
+                  <motion.img
+                    key={currentSlide}
+                    src={SLIDER_IMAGES[currentSlide]}
+                    alt={`Gameplay Highlight 0${currentSlide + 1}`}
+                    initial={{ opacity: 0, scale: 1.08 }}
+                    animate={{ opacity: 1, scale: 1.02 }}
+                    exit={{ opacity: 0, scale: 0.96 }}
+                    transition={{ duration: 0.8, ease: "easeInOut" }}
+                    className="absolute inset-0 w-full h-full object-cover select-none pointer-events-none"
+                  />
+                </AnimatePresence>
+              </div>
+
+              {/* Micro Navigation Dot Bar */}
+              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 flex gap-2">
+                {SLIDER_IMAGES.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setCurrentSlide(index)}
+                    className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${index === currentSlide ? "bg-emerald-400 w-4" : "bg-neutral-500 hover:bg-neutral-300"
+                      }`}
+                  />
+                ))}
+              </div>
+
+              {/* Slide Manual Controls */}
+              <button
+                onClick={() => setCurrentSlide((prev) => (prev - 1 + SLIDER_IMAGES.length) % SLIDER_IMAGES.length)}
+                className="absolute left-3 top-1/2 -translate-y-1/2 z-20 w-8 h-8 rounded-full bg-[#050505]/70 hover:bg-emerald-500 hover:text-black border border-white/[0.05] text-neutral-400 flex items-center justify-center transition-colors opacity-0 group-hover:opacity-100 duration-300 text-xs"
+              >
+                ◀
+              </button>
+              <button
+                onClick={() => setCurrentSlide((prev) => (prev + 1) % SLIDER_IMAGES.length)}
+                className="absolute right-3 top-1/2 -translate-y-1/2 z-20 w-8 h-8 rounded-full bg-[#050505]/70 hover:bg-emerald-500 hover:text-black border border-white/[0.05] text-neutral-400 flex items-center justify-center transition-colors opacity-0 group-hover:opacity-100 duration-300 text-xs"
+              >
+                ▶
+              </button>
+            </motion.div>
+
+          </div>
+        </div>
       </motion.div>
+
+      {/* Scroll Down Indicator */}
+      <motion.div 
+        initial={{ opacity: 0, y: 15 }}
+        animate={{ opacity: 0.5, y: 0 }}
+        transition={{ delay: 1.4, duration: 0.8 }}
+        className="absolute bottom-5 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 pointer-events-none select-none z-20"
+      >
+        <span className="text-[9px] font-mono tracking-[0.25em] text-neutral-400 uppercase">SCROLL</span>
+        <motion.svg 
+          animate={{ y: [0, 5, 0] }}
+          transition={{ repeat: Infinity, duration: 1.8, ease: "easeInOut" }}
+          className="w-3.5 h-3.5 text-emerald-400" 
+          fill="none" 
+          viewBox="0 0 24 24" 
+          stroke="currentColor" 
+          strokeWidth="2.5"
+        >
+          <path strokeLinecap="round" strokeLinejoin="round" d="M19 13l-7 7-7-7m14-6l-7 7-7-7" />
+        </motion.svg>
+      </motion.div>
+
     </section>
   );
 }
