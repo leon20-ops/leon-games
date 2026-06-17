@@ -1,5 +1,10 @@
 import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence, useScroll, useTransform, useSpring, useMotionValue } from "framer-motion";
+import predictionDuel from "./assets/images/prediction-duel.png";
+import reactionSignal from "./assets/images/reaction-signal.png";
+import penaltyShootout from "./assets/images/penalty-shootout.png";
+import rockPaperScissors from "./assets/images/rock-paper-scissors.png";
+import ticTacToe from "./assets/images/tic-tac-toe.png";
 
 // --- CUSTOM HIGH-QUALITY SVG ICONS (Inline to avoid dependency issues) ---
 const Icons = {
@@ -391,20 +396,12 @@ function FaceOffBackground() {
 
 // --- EXACT UPLOADED IMAGES ---
 const SLIDER_IMAGES = [
-  "https://sc0.githubusercontent.com/958/2d11400d3db7b07da7bb93b216ffbf9810f6071f.jpg", // Prediction Duel
-  "https://sc0.githubusercontent.com/958/081ee890ca1540a85fa0a7b4f5352c6f6e80b2d6.jpg", // Reaction Signal
-  "https://sc0.githubusercontent.com/958/517fba69b828773950efdf214bc3ca441a134b28.jpg", // Penalty Shootout
-  "https://sc0.githubusercontent.com/958/bbf4f8c49cc3e8ba77a8355606d48259df9202bd.jpg", // Rock Paper Scissors
-  "https://sc0.githubusercontent.com/958/893a7fafe3ffbe8844f6f1947e93051fe44da4eb.jpg"  // Tic Tac Toe
+  predictionDuel, // Prediction Duel
+  reactionSignal, // Reaction Signal
+  penaltyShootout, // Penalty Shootout
+  rockPaperScissors, // Rock Paper Scissors
+  ticTacToe  // Tic Tac Toe
 ];
-
-// --- SPECIFIED GIFS & STICKERS ---
-const PLATFORM_GIFS = {
-  moneyPenguin: "",
-  greenDancer: "",
-  jumpingPikachu: ""
-};
-
 // --- TYPEWRITER CONFIGURATION ---
 const TYPE_WORDS = [
   { text: "Creators", color: "text-cyan-400" },
@@ -682,7 +679,7 @@ function HeroSection() {
             {...getMotionProps("right")}
             onMouseEnter={() => setIsSliderHovered(true)}
             onMouseLeave={() => setIsSliderHovered(false)}
-            className="order-5 lg:order-none w-full max-w-lg mx-auto relative group rounded-2xl overflow-hidden border border-white/[0.08] shadow-[0_20px_50px_rgba(0,0,0,0.8)] aspect-[16/10] bg-[#111]"
+            className="order-5 lg:order-none w-[75vw] sm:w-[320px] lg:w-[300px] xl:w-[340px] aspect-[10/15] mx-auto relative group rounded-2xl overflow-hidden border border-white/[0.08] shadow-[0_20px_50px_rgba(0,0,0,0.8)] aspect-[10/16] bg-[#111]"
           >
             <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/30 z-10 pointer-events-none" />
             <div className="absolute top-3 left-3 z-20 flex items-center gap-1.5 px-2 py-1 rounded bg-[#050505]/80 border border-white/[0.08] backdrop-blur text-[8px] font-mono text-neutral-300 uppercase tracking-widest">
@@ -733,7 +730,7 @@ function HeroSection() {
             </button>
           </motion.div>
 
-          {/* Performance Statistics with Integrated Emojis */}
+          {/* Performance Statistics with Integrated Emojis 
           <motion.div
             {...getMotionProps("bottom")}
             className="order-6 lg:order-none grid grid-cols-3 gap-4 border-y border-white/[0.06] py-5 w-full max-w-lg mx-auto"
@@ -751,6 +748,7 @@ function HeroSection() {
               <div className="text-[9px] text-neutral-500 uppercase tracking-widest mt-1">Active Regions 🌐</div>
             </div>
           </motion.div>
+          */}
 
         </motion.div>
 
