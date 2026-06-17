@@ -7,7 +7,9 @@
   --color-surface-light: #171717;
   --color-primary: #22C55E;
   --color-accent: #00E5FF;
-  
+  --breakpoint-xl2: 84rem; /* Your custom breakpoint fits here */
+
+
   --animate-marquee: marquee 25s linear infinite;
 
   @keyframes marquee {
@@ -15,7 +17,6 @@
     100% { transform: translateX(-50%); }
   }
 }
-
 html {
   scroll-behavior: smooth;
   background-color: #050505;

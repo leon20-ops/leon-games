@@ -149,8 +149,8 @@ export function Navigation() {
         }}
         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         className={`fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 lg:px-12 transition-all duration-300 ${scrolled
-            ? "bg-[#050505]/90 backdrop-blur-md border-b border-white/[0.04] shadow-[0_4px_30px_rgba(0,0,0,0.8)]"
-            : "bg-transparent border-b border-transparent"
+          ? "bg-[#050505]/90 backdrop-blur-md border-b border-white/[0.04] shadow-[0_4px_30px_rgba(0,0,0,0.8)]"
+          : "bg-transparent border-b border-transparent"
           }`}
       >
         {/* Dynamic Highlight Sweep Line */}
@@ -372,7 +372,7 @@ function FaceOffBackground() {
           <stop offset="100%" stopColor="#10b981" stopOpacity="0" />
         </linearGradient>
       </defs>
-      
+
       {/* Schematic grid mesh lines */}
       <path d="M 100,0 L 100,600 M 300,0 L 300,600 M 500,0 L 500,600 M 700,0 L 700,600 M 900,0 L 900,600" stroke="#1f2937" strokeWidth="0.5" strokeOpacity="0.3" />
       <path d="M 0,100 L 1000,100 M 0,300 L 1000,300 M 0,500 L 1000,500" stroke="#1f2937" strokeWidth="0.5" strokeOpacity="0.3" />
@@ -380,7 +380,7 @@ function FaceOffBackground() {
       {/* Abstract faceoff target circles */}
       <circle cx="250" cy="300" r="180" stroke="url(#glow-cyan)" strokeWidth="1" strokeDasharray="5 10" />
       <circle cx="750" cy="300" r="180" stroke="url(#glow-emerald)" strokeWidth="1" strokeDasharray="5 10" />
-      
+
       {/* Central data nodes */}
       <line x1="250" y1="300" x2="750" y2="300" stroke="#374151" strokeWidth="1" strokeDasharray="4 8" strokeOpacity="0.4" />
       <circle cx="500" cy="300" r="6" fill="#10b981" fillOpacity="0.3" />
@@ -400,9 +400,9 @@ const SLIDER_IMAGES = [
 
 // --- SPECIFIED GIFS & STICKERS ---
 const PLATFORM_GIFS = {
-  moneyPenguin: "https://media.tenor.com/7-G9wshYmPAAAAAM/money-penguin-bag.gif",
-  greenDancer: "https://i.gifer.com/3nRK.gif",
-  jumpingPikachu: "https://i.gifer.com/6vw5.gif"
+  moneyPenguin: "",
+  greenDancer: "",
+  jumpingPikachu: ""
 };
 
 // --- TYPEWRITER CONFIGURATION ---
@@ -418,7 +418,6 @@ const TYPE_WORDS = [
 const FLOATING_EMOJIS = [
   { char: "✨", top: "10%", left: "4%", scale: 1.3, duration: 8, delay: 0 },
   { char: "🔥", top: "72%", left: "6%", scale: 1.1, duration: 9, delay: 1 },
-  { char: "🚀", top: "22%", left: "42%", scale: 1.4, duration: 11, delay: 2 },
   { char: "💫", top: "12%", left: "88%", scale: 1.2, duration: 7, delay: 0.5 },
   { char: "💡", top: "58%", left: "92%", scale: 1.0, duration: 10, delay: 3 },
   { char: "😎", top: "82%", left: "38%", scale: 1.3, duration: 12, delay: 1.5 },
@@ -446,7 +445,7 @@ function HeroSection() {
   const [isMobile, setIsMobile] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isSliderHovered, setIsSliderHovered] = useState(false);
-  
+
   const containerRef = useRef(null);
 
   // --- TYPEWRITER STATE SYSTEM ---
@@ -457,7 +456,7 @@ function HeroSection() {
   useEffect(() => {
     const currentWord = TYPE_WORDS[wordIndex].text;
     let timer;
-    
+
     if (isDeleting) {
       timer = setTimeout(() => {
         setTypedText(currentWord.substring(0, typedText.length - 1));
@@ -546,13 +545,13 @@ function HeroSection() {
   };
 
   return (
-    <section 
+    <section
       ref={containerRef}
       className="relative min-h-screen lg:h-screen lg:min-h-[650px] lg:max-h-[920px] flex items-center justify-center px-6 lg:px-12 pt-28 lg:pt-16 pb-12 overflow-hidden z-10"
     >
-      
+
       {/* 1. LAYERED SCHEMATIC BACKGROUND */}
-      <motion.div 
+      <motion.div
         style={{ scale: bgScale, opacity: bgOpacity }}
         className="absolute inset-0 z-0 pointer-events-none flex items-center justify-center"
       >
@@ -570,12 +569,12 @@ function HeroSection() {
       {FLOATING_EMOJIS.map((emoji, index) => {
         const isLeft = parseFloat(emoji.left) < 50;
         const driftX = isLeft ? -1.5 : 1.5;
-        
+
         return (
           <motion.div
             key={index}
-            style={{ 
-              top: emoji.top, 
+            style={{
+              top: emoji.top,
               left: emoji.left,
               x: useTransform(smoothProgress, [0, 1], [0, isLeft ? -100 : 100]),
               y: useTransform(smoothProgress, [0, 1], [0, -70]),
@@ -609,23 +608,12 @@ function HeroSection() {
       >
 
         {/* LEFT COMPARTMENT: TYPOGRAPHY & ACTIONS */}
-        <motion.div 
+        <motion.div
           style={!isMobile ? { x: contentAreaX, y: contentAreaY, rotate: contentAreaRotate, opacity: contentAreaOpacity } : undefined}
           className="lg:col-span-6 flex flex-col justify-center gap-6 lg:gap-8 relative"
         >
-          {/* MONEY PENGUIN STICKER (Positioned to flow naturally near the typography side) */}
-          {!isMobile && (
-            <motion.div
-              animate={{ y: [0, -6, 0] }}
-              transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
-              className="absolute -top-16 -left-12 w-20 h-20 pointer-events-none z-30 select-none drop-shadow-[0_10px_15px_rgba(0,0,0,0.5)]"
-            >
-              <img src={PLATFORM_GIFS.moneyPenguin} alt="Rich Penguin" className="w-full h-full object-contain" />
-            </motion.div>
-          )}
-
           {/* Platform Status Pill with Integrated Emojis */}
-          <motion.div 
+          <motion.div
             {...getMotionProps("left")}
             className="order-1 lg:order-none self-center lg:self-start flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#111111]/90 border border-white/[0.08] shadow-[inset_0_1px_12px_rgba(255,255,255,0.02)]"
           >
@@ -639,9 +627,10 @@ function HeroSection() {
           </motion.div>
 
           {/* Heading Block with Integrated Typewriter & Sparkle Emojis */}
+          {/* Heading Block */}
           <motion.h1
             {...getMotionProps("left")}
-            className="order-2 lg:order-none text-center lg:text-left font-black text-4xl sm:text-6xl lg:text-[4.75rem] tracking-tight leading-[1.1] select-none"
+            className="order-2 lg:order-none text-center lg:text-left font-black text-[3rem] sm:text-[4rem] min-[71.25rem]:text-[4.5rem] leading-[1.08] tracking-tight select-none"
           >
             <span className="block bg-gradient-to-r from-white via-neutral-100 to-neutral-400 bg-clip-text text-transparent">
               Challenge. ✨
@@ -682,31 +671,11 @@ function HeroSection() {
         </motion.div>
 
         {/* RIGHT COMPARTMENT: IMAGE SLIDER FRAME & PLATFORM METRICS */}
-        <motion.div 
+        <motion.div
           style={!isMobile ? { x: sliderFrameX, y: sliderFrameY, rotate: sliderFrameRotate, opacity: sliderFrameOpacity } : undefined}
           className="lg:col-span-6 flex flex-col justify-center gap-6 lg:gap-8 relative"
         >
-          {/* GREEN DANCING CHARACTER STICKER (Positioned next to the image slider) */}
-          {!isMobile && (
-            <motion.div
-              animate={{ y: [0, 8, 0], rotate: [0, 2, -2, 0] }}
-              transition={{ repeat: Infinity, duration: 5, ease: "easeInOut" }}
-              className="absolute -top-16 -right-10 w-24 h-24 pointer-events-none z-30 select-none drop-shadow-[0_8px_16px_rgba(16,185,129,0.3)]"
-            >
-              <img src={PLATFORM_GIFS.greenDancer} alt="Dancing Alien" className="w-full h-full object-contain" />
-            </motion.div>
-          )}
 
-          {/* JUMPING PIKACHU STICKER (Positioned near bottom card area) */}
-          {!isMobile && (
-            <motion.div
-              animate={{ x: [0, 5, 0], y: [0, -10, 0] }}
-              transition={{ repeat: Infinity, duration: 3.5, ease: "easeInOut" }}
-              className="absolute -bottom-10 right-12 w-20 h-20 pointer-events-none z-30 select-none drop-shadow-[0_10px_20px_rgba(234,179,8,0.3)]"
-            >
-              <img src={PLATFORM_GIFS.jumpingPikachu} alt="Jumping Pikachu" className="w-full h-full object-contain" />
-            </motion.div>
-          )}
 
           {/* Image Slider Frame */}
           <motion.div
@@ -743,9 +712,8 @@ function HeroSection() {
                 <button
                   key={index}
                   onClick={() => setCurrentSlide(index)}
-                  className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${
-                    index === currentSlide ? "bg-emerald-400 w-4" : "bg-neutral-500 hover:bg-neutral-300"
-                  }`}
+                  className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${index === currentSlide ? "bg-emerald-400 w-4" : "bg-neutral-500 hover:bg-neutral-300"
+                    }`}
                 />
               ))}
             </div>
@@ -977,8 +945,8 @@ function StepIndicator({ step, title, active, highlight }) {
   return (
     <div className="text-center flex flex-col items-center">
       <div className={`w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-bold transition-all duration-300 ${active
-          ? highlight ? "bg-emerald-500 text-black shadow-[0_0_10px_rgba(34,197,94,0.4)]" : "bg-cyan-500 text-black"
-          : "bg-[#171717] text-neutral-600 border border-white/[0.04]"
+        ? highlight ? "bg-emerald-500 text-black shadow-[0_0_10px_rgba(34,197,94,0.4)]" : "bg-cyan-500 text-black"
+        : "bg-[#171717] text-neutral-600 border border-white/[0.04]"
         }`}>
         {step}
       </div>
