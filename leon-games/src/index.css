@@ -39,3 +39,13 @@ html {
     transparent
   );
 }
+
+.stats-slider-container {
+  transform-origin: center center;
+}
+
+@media (max-width: 1023px) {
+  .stats-slider-container {
+    transform: rotate(0deg) !important;
+  }
+}
