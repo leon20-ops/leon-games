@@ -706,12 +706,24 @@ function HeroSection() {
             {...getMotionProps("bottom")}
             className="order-4 lg:order-none flex flex-col sm:flex-row items-center gap-4 w-full max-w-md mx-auto lg:mx-0 justify-center lg:justify-start relative"
           >
-            <button className="w-full sm:w-auto relative group overflow-hidden rounded-lg bg-[#22C55E] hover:bg-emerald-400 text-[#050505] font-black text-xs py-3.5 px-6 transition-all duration-300 shadow-[0_4px_20px_rgba(34,197,94,0.25)] hover:shadow-[0_6px_25px_rgba(34,197,94,0.4)] flex items-center justify-center">
-              <span className="relative z-10 flex items-center gap-1.5 uppercase tracking-wider">Start Playing Now 🔥 <Icons.ArrowRight /></span>
-            </button>
-            <button className="w-full sm:w-auto rounded-lg bg-[#111111] hover:bg-[#171717] border border-white/[0.08] text-white font-semibold text-xs py-3.5 px-6 transition-all duration-200 flex items-center justify-center gap-2">
-              <Icons.Play /> Watch Demo Video
-            </button>
+            <motion.button
+              whileTap={{ scale: 0.60, y: 4 }}
+              transition={{ type: "spring", stiffness: 360, damping: 12 }}
+              className="w-full sm:w-auto relative group overflow-hidden rounded-lg bg-[#22C55E] text-[#050505] font-black text-xs py-3.5 px-6 transition-all duration-300 shadow-[0_4px_20px_rgba(34,197,94,0.25)] hover:shadow-[0_6px_25px_rgba(34,197,94,0.4)] flex items-center justify-center cursor-pointer border border-transparent border-b-2 group-hover:border-b-4 group-hover:border-white whitespace-nowrap"
+            >
+              <span className="absolute inset-x-0 bottom-0 h-full bg-[#111111] translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out pointer-events-none z-0" />
+              <span className="relative z-10 flex items-center gap-1.5 uppercase tracking-wider transition-colors duration-500 group-hover:text-white text-[#050505]">Start Playing Now 🔥 <Icons.ArrowRight /></span>
+            </motion.button>
+            <motion.button
+              whileTap={{ scale: 0.60, y: 4 }}
+              transition={{ type: "spring", stiffness: 360, damping: 12 }}
+              className="w-full sm:w-auto relative group overflow-hidden rounded-lg bg-[#111111] border border-white/[0.08] text-white font-semibold text-xs py-3.5 px-6 transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer whitespace-nowrap"
+            >
+              <span className="absolute inset-x-0 bottom-0 h-full bg-orange-400 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out pointer-events-none z-0" />
+              <span className="relative z-10 flex items-center gap-2 uppercase tracking-[0.02em] whitespace-nowrap transition-colors duration-500 group-hover:text-black text-white">
+                <Icons.Play /> Watch Demo Video
+              </span>
+            </motion.button>
           </motion.div>
 
         </motion.div>
