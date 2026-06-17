@@ -50,7 +50,7 @@ export default function LeonGamesLanding() {
     <div className="bg-[#050505] text-white font-sans antialiased selection:bg-emerald-500/30 selection:text-emerald-400 min-h-screen overflow-x-hidden relative">
       {/* Background Grid Pattern Overlay */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#111111_1px,transparent_1px),linear-gradient(to_bottom,#111111_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] pointer-events-none z-0 opacity-80" />
-      
+
       <Navigation />
       <HeroSection />
       <MatchmakingSection />
@@ -113,7 +113,7 @@ export function Navigation() {
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
-      
+
       // Determine background state
       if (currentScrollY > 20) {
         setScrolled(true);
@@ -127,7 +127,7 @@ export function Navigation() {
       } else {
         setScrollDirection("up");
       }
-      
+
       lastScrollY.current = currentScrollY;
     };
 
@@ -142,17 +142,16 @@ export function Navigation() {
     <>
       <motion.header
         initial={{ y: -30, opacity: 0 }}
-        animate={{ 
-          y: 0, 
+        animate={{
+          y: 0,
           opacity: 1,
           height: scrollDirection === "down" && scrolled ? "56px" : "72px"
         }}
         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-        className={`fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 lg:px-12 transition-all duration-300 ${
-          scrolled 
-            ? "bg-[#050505]/90 backdrop-blur-md border-b border-white/[0.04] shadow-[0_4px_30px_rgba(0,0,0,0.8)]" 
+        className={`fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 lg:px-12 transition-all duration-300 ${scrolled
+            ? "bg-[#050505]/90 backdrop-blur-md border-b border-white/[0.04] shadow-[0_4px_30px_rgba(0,0,0,0.8)]"
             : "bg-transparent border-b border-transparent"
-        }`}
+          }`}
       >
         {/* Dynamic Highlight Sweep Line */}
         {scrolled && (
@@ -161,7 +160,7 @@ export function Navigation() {
 
         {/* 1. BRAND LOGO - Subtle scale & mechanical hover */}
         <div className="flex items-center gap-6">
-          <motion.a 
+          <motion.a
             href="#"
             className="flex items-center gap-3 group pointer-events-auto"
             whileHover={{ scale: 1.02 }}
@@ -174,7 +173,7 @@ export function Navigation() {
                 L//G
               </div>
             </div>
-            
+
             <div className="flex flex-col">
               <span className="font-bold text-sm tracking-widest text-white leading-none">
                 LEON <span className="text-emerald-400 font-light">GAMES</span>
@@ -219,15 +218,15 @@ export function Navigation() {
 
         {/* 3. CTA CONTROLS - Tactile spring-based interactions */}
         <div className="hidden md:flex items-center gap-4">
-          <motion.button 
+          <motion.button
             whileHover={{ x: -2 }}
             className="flex items-center gap-1.5 text-xs font-mono font-bold uppercase tracking-wider text-neutral-400 hover:text-white transition-colors py-2 px-3"
           >
             <NavIcons.Terminal />
             <span>Log In</span>
           </motion.button>
-          
-          <motion.button 
+
+          <motion.button
             whileHover={{ scale: 1.03, y: -1 }}
             whileTap={{ scale: 0.97 }}
             transition={springTransition}
@@ -255,7 +254,7 @@ export function Navigation() {
       {/* 4. PREMIUM MOBILE DRAWER PANEL - Spring transitions & layered blur */}
       <AnimatePresence>
         {isMobileOpen && (
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -297,15 +296,15 @@ export function Navigation() {
                 <span>GATEWAY: LIVE-NET</span>
                 <span>PING: 12ms</span>
               </div>
-              
+
               <div className="grid grid-cols-2 gap-4">
-                <button 
+                <button
                   onClick={() => setIsMobileOpen(false)}
                   className="py-3.5 bg-white/[0.02] border border-white/[0.08] hover:border-neutral-700 rounded-md text-xs font-mono uppercase tracking-widest text-neutral-300 hover:text-white transition-colors"
                 >
                   Log In
                 </button>
-                <button 
+                <button
                   onClick={() => setIsMobileOpen(false)}
                   className="py-3.5 bg-emerald-500 text-[#050505] rounded-md text-xs font-mono font-black uppercase tracking-widest hover:bg-emerald-400 transition-colors flex items-center justify-center gap-1.5 shadow-[0_4px_20px_rgba(34,197,94,0.2)]"
                 >
@@ -320,117 +319,473 @@ export function Navigation() {
   );
 }
 
-// --- HERO SECTION ---
+// --- RESPONSIVE ANIMATION VARIANT GENERATOR ---
+// --- ENHANCED RESPONSIVE ANIMATION VARIANT GENERATOR ---
+const getHeroVariants = (direction, isMobile) => {
+  const travelDist = isMobile ? 12 : 35;
+
+  const directions = {
+    left: { x: -travelDist, y: 0 },
+    right: { x: travelDist, y: 0 },
+    top: { x: 0, y: -travelDist },
+    bottom: { x: 0, y: travelDist }
+  };
+
+  const startState = directions[direction] || { x: 0, y: 0 };
+
+  return {
+    hidden: {
+      opacity: 0,
+      ...startState,
+    },
+    visible: {
+      opacity: 1,
+      x: 0,
+      y: 0,
+      transition: {
+        type: "spring",
+        stiffness: isMobile ? 150 : 100,
+        damping: isMobile ? 20 : 15,
+        mass: 1,
+        duration: 0.8
+      }
+    }
+  };
+};
+
+// --- HIGH-PERFORMANCE MAINBOARD BACKGROUND ILLUSTRATION ---
+function FaceOffBackground() {
+  return (
+    <svg
+      className="w-full h-full text-neutral-900/30"
+      viewBox="0 0 1000 600"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <defs>
+        <linearGradient id="glow-cyan" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="#06b6d4" stopOpacity="0.15" />
+          <stop offset="100%" stopColor="#06b6d4" stopOpacity="0" />
+        </linearGradient>
+        <linearGradient id="glow-emerald" x1="100%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stopColor="#10b981" stopOpacity="0.15" />
+          <stop offset="100%" stopColor="#10b981" stopOpacity="0" />
+        </linearGradient>
+      </defs>
+      
+      {/* Schematic grid mesh lines */}
+      <path d="M 100,0 L 100,600 M 300,0 L 300,600 M 500,0 L 500,600 M 700,0 L 700,600 M 900,0 L 900,600" stroke="#1f2937" strokeWidth="0.5" strokeOpacity="0.3" />
+      <path d="M 0,100 L 1000,100 M 0,300 L 1000,300 M 0,500 L 1000,500" stroke="#1f2937" strokeWidth="0.5" strokeOpacity="0.3" />
+
+      {/* Abstract faceoff target circles */}
+      <circle cx="250" cy="300" r="180" stroke="url(#glow-cyan)" strokeWidth="1" strokeDasharray="5 10" />
+      <circle cx="750" cy="300" r="180" stroke="url(#glow-emerald)" strokeWidth="1" strokeDasharray="5 10" />
+      
+      {/* Central data nodes */}
+      <line x1="250" y1="300" x2="750" y2="300" stroke="#374151" strokeWidth="1" strokeDasharray="4 8" strokeOpacity="0.4" />
+      <circle cx="500" cy="300" r="6" fill="#10b981" fillOpacity="0.3" />
+      <circle cx="500" cy="300" r="15" stroke="#06b6d4" strokeWidth="1" strokeOpacity="0.2" />
+    </svg>
+  );
+}
+
+// --- EXACT UPLOADED IMAGES ---
+const SLIDER_IMAGES = [
+  "https://sc0.githubusercontent.com/958/2d11400d3db7b07da7bb93b216ffbf9810f6071f.jpg", // Prediction Duel
+  "https://sc0.githubusercontent.com/958/081ee890ca1540a85fa0a7b4f5352c6f6e80b2d6.jpg", // Reaction Signal
+  "https://sc0.githubusercontent.com/958/517fba69b828773950efdf214bc3ca441a134b28.jpg", // Penalty Shootout
+  "https://sc0.githubusercontent.com/958/bbf4f8c49cc3e8ba77a8355606d48259df9202bd.jpg", // Rock Paper Scissors
+  "https://sc0.githubusercontent.com/958/893a7fafe3ffbe8844f6f1947e93051fe44da4eb.jpg"  // Tic Tac Toe
+];
+
+// --- SPECIFIED GIFS & STICKERS ---
+const PLATFORM_GIFS = {
+  moneyPenguin: "https://media.tenor.com/7-G9wshYmPAAAAAM/money-penguin-bag.gif",
+  greenDancer: "https://i.gifer.com/3nRK.gif",
+  jumpingPikachu: "https://i.gifer.com/6vw5.gif"
+};
+
+// --- TYPEWRITER CONFIGURATION ---
+const TYPE_WORDS = [
+  { text: "Creators", color: "text-cyan-400" },
+  { text: "Founders", color: "text-purple-400" },
+  { text: "Developers", color: "text-emerald-400" },
+  { text: "Dreamers", color: "text-orange-400" },
+  { text: "Innovators", color: "text-pink-400" }
+];
+
+// --- FLOATING DECORATIVE EMOJIS (Controlled Chaos Configuration) ---
+const FLOATING_EMOJIS = [
+  { char: "✨", top: "10%", left: "4%", scale: 1.3, duration: 8, delay: 0 },
+  { char: "🔥", top: "72%", left: "6%", scale: 1.1, duration: 9, delay: 1 },
+  { char: "🚀", top: "22%", left: "42%", scale: 1.4, duration: 11, delay: 2 },
+  { char: "💫", top: "12%", left: "88%", scale: 1.2, duration: 7, delay: 0.5 },
+  { char: "💡", top: "58%", left: "92%", scale: 1.0, duration: 10, delay: 3 },
+  { char: "😎", top: "82%", left: "38%", scale: 1.3, duration: 12, delay: 1.5 },
+  { char: "🌈", top: "48%", left: "12%", scale: 0.9, duration: 13, delay: 2.5 },
+  { char: "⚡", top: "32%", left: "82%", scale: 1.5, duration: 8.5, delay: 0.8 }
+];
+
+// --- AMBIENT GLOW/SPARK DECORATIVE ACCENTS (Pure CSS/SVG) ---
+function TechSparkle({ className }) {
+  return (
+    <div className={`absolute pointer-events-none ${className}`}>
+      <svg className="w-6 h-6 text-emerald-400 animate-pulse" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 2L15 9L22 12L15 15L12 22L9 15L2 12L9 9L12 2Z" fill="currentColor" opacity="0.6" />
+      </svg>
+    </div>
+  );
+}
+
+// --- REVISED CINEMATIC RESPONSIVE HERO SECTION ---
 function HeroSection() {
-  // Simple counting hook for simulated landing stats
   const wagersCount = useAnimatedNumber(1.2, 1, 100, "M+");
   const matchesCount = useAnimatedNumber(250, 0, 80, "K+");
   const countriesCount = useAnimatedNumber(100, 0, 50, "+");
 
+  const [isMobile, setIsMobile] = useState(false);
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [isSliderHovered, setIsSliderHovered] = useState(false);
+  
+  const containerRef = useRef(null);
+
+  // --- TYPEWRITER STATE SYSTEM ---
+  const [typedText, setTypedText] = useState("");
+  const [wordIndex, setWordIndex] = useState(0);
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  useEffect(() => {
+    const currentWord = TYPE_WORDS[wordIndex].text;
+    let timer;
+    
+    if (isDeleting) {
+      timer = setTimeout(() => {
+        setTypedText(currentWord.substring(0, typedText.length - 1));
+      }, 60);
+    } else {
+      timer = setTimeout(() => {
+        setTypedText(currentWord.substring(0, typedText.length + 1));
+      }, 100);
+    }
+
+    if (!isDeleting && typedText === currentWord) {
+      timer = setTimeout(() => setIsDeleting(true), 1500);
+    } else if (isDeleting && typedText === "") {
+      setIsDeleting(false);
+      setWordIndex((prev) => (prev + 1) % TYPE_WORDS.length);
+    }
+
+    return () => clearTimeout(timer);
+  }, [typedText, isDeleting, wordIndex]);
+
+  // Responsive device classification
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 1024);
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  // Slider transition loop
+  useEffect(() => {
+    if (isSliderHovered) return;
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % SLIDER_IMAGES.length);
+    }, 4500);
+    return () => clearInterval(interval);
+  }, [isSliderHovered]);
+
+  // --- SCROLL DRIVEN ASSEMBLY/TEARING SYSTEMS ---
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end start"]
+  });
+
+  const smoothProgress = useSpring(scrollYProgress, {
+    stiffness: 95,
+    damping: 24,
+    restDelta: 0.001
+  });
+
+  const contentAreaX = useTransform(smoothProgress, [0, 1], [0, isMobile ? -30 : -110]);
+  const contentAreaY = useTransform(smoothProgress, [0, 1], [0, isMobile ? 20 : 65]);
+  const contentAreaRotate = useTransform(smoothProgress, [0, 1], [0, isMobile ? -1 : -4]);
+  const contentAreaOpacity = useTransform(smoothProgress, [0, 0.75], [1, 0]);
+
+  const sliderFrameX = useTransform(smoothProgress, [0, 1], [0, isMobile ? 30 : 130]);
+  const sliderFrameY = useTransform(smoothProgress, [0, 1], [0, isMobile ? 40 : 95]);
+  const sliderFrameRotate = useTransform(smoothProgress, [0, 1], [0, isMobile ? 2 : 8]);
+  const sliderFrameOpacity = useTransform(smoothProgress, [0, 0.75], [1, 0]);
+
+  const bgScale = useTransform(smoothProgress, [0, 1], [1, 1.15]);
+  const bgOpacity = useTransform(smoothProgress, [0, 0.8], [0.85, 0]);
+
+  const containerVariants = {
+    hidden: {},
+    visible: {
+      transition: {
+        staggerChildren: 0.08,
+        delayChildren: 0.1
+      }
+    }
+  };
+
+  const getMotionProps = (direction) => {
+    const variants = getHeroVariants(direction, isMobile);
+    if (isMobile) {
+      return {
+        variants,
+        initial: "hidden",
+        whileInView: "visible",
+        viewport: { once: false, amount: 0.1 }
+      };
+    }
+    return { variants };
+  };
+
   return (
-    <section className="relative min-h-screen flex flex-col justify-center items-center px-4 pt-24 overflow-hidden z-10">
+    <section 
+      ref={containerRef}
+      className="relative min-h-screen lg:h-screen lg:min-h-[650px] lg:max-h-[920px] flex items-center justify-center px-6 lg:px-12 pt-28 lg:pt-16 pb-12 overflow-hidden z-10"
+    >
       
-      {/* Dynamic Grid Background / Light Sweep */}
-      <div className="absolute inset-0 z-0 pointer-events-none flex items-center justify-center">
-        <div className="absolute w-[600px] h-[600px] rounded-full bg-emerald-500/5 blur-[120px] mix-blend-screen animate-pulse" style={{ animationDuration: '8s' }} />
-        <div className="absolute w-[400px] h-[400px] rounded-full bg-cyan-500/5 blur-[100px] mix-blend-screen animate-pulse" style={{ animationDuration: '12s' }} />
-      </div>
-
-      {/* Connection Indicator Visual */}
+      {/* 1. LAYERED SCHEMATIC BACKGROUND */}
       <motion.div 
-        initial={{ opacity: 0, scale: 0.9 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 1 }}
-        className="mb-6 flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#111111] border border-white/[0.08] shadow-[inset_0_1px_12px_rgba(255,255,255,0.02)]"
+        style={{ scale: bgScale, opacity: bgOpacity }}
+        className="absolute inset-0 z-0 pointer-events-none flex items-center justify-center"
       >
-        <span className="relative flex h-2 w-2">
-          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-          <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-        </span>
-        <span className="text-[10px] uppercase tracking-widest font-bold text-neutral-300">
-          GLOBAL 1V1 WAGER PLATFORM
-        </span>
+        <FaceOffBackground />
+        <div className="absolute w-[600px] h-[600px] rounded-full bg-emerald-500/[0.04] blur-[140px] mix-blend-screen" />
+        <div className="absolute w-[450px] h-[450px] rounded-full bg-cyan-500/[0.04] blur-[120px] mix-blend-screen" />
       </motion.div>
 
-      {/* Main Headline */}
-      <h1 className="text-center font-extrabold text-5xl md:text-8xl tracking-tight max-w-5xl leading-[1.05] mb-6 select-none">
-        <span className="block overflow-hidden py-1">
-          <motion.span 
-            initial={{ y: 90 }} 
-            animate={{ y: 0 }} 
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.1 }} 
-            className="inline-block bg-gradient-to-r from-white via-neutral-100 to-neutral-400 bg-clip-text text-transparent"
-          >
-            Challenge.
-          </motion.span>
-        </span>
-        <span className="block overflow-hidden py-1">
-          <motion.span 
-            initial={{ y: 90 }} 
-            animate={{ y: 0 }} 
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.25 }} 
-            className="inline-block bg-gradient-to-r from-emerald-400 via-emerald-500 to-emerald-600 bg-clip-text text-transparent"
-          >
-            Compete.
-          </motion.span>
-        </span>
-        <span className="block overflow-hidden py-1">
-          <motion.span 
-            initial={{ y: 90 }} 
-            animate={{ y: 0 }} 
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.4 }} 
-            className="inline-block bg-gradient-to-r from-cyan-400 to-cyan-500 bg-clip-text text-transparent"
-          >
-            Win Real Money.
-          </motion.span>
-        </span>
-      </h1>
+      {/* 2. SPARKLE & GLOW TECH ACCENTS */}
+      <TechSparkle className="top-24 left-[20%] animate-pulse" />
+      <TechSparkle className="bottom-32 right-[45%] [animation-delay:1.5s]" />
+      <TechSparkle className="top-1/2 right-[12%] [animation-delay:0.8s]" />
 
-      {/* Subtext */}
-      <motion.p 
-        initial={{ opacity: 0, y: 15 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 0.6 }}
-        className="text-neutral-400 text-center text-base md:text-lg max-w-xl mb-10 leading-relaxed font-light"
-      >
-        Play skill-based games against real players worldwide.<br/>
-        Stake dollars. Win the prize pool. <strong className="text-white font-medium">No luck. No house advantage.</strong>
-      </motion.p>
+      {/* 3. FLOATING DECORATIVE EMOJIS (Integrated background layout path) */}
+      {FLOATING_EMOJIS.map((emoji, index) => {
+        const isLeft = parseFloat(emoji.left) < 50;
+        const driftX = isLeft ? -1.5 : 1.5;
+        
+        return (
+          <motion.div
+            key={index}
+            style={{ 
+              top: emoji.top, 
+              left: emoji.left,
+              x: useTransform(smoothProgress, [0, 1], [0, isLeft ? -100 : 100]),
+              y: useTransform(smoothProgress, [0, 1], [0, -70]),
+              opacity: useTransform(smoothProgress, [0, 0.8], [1, 0])
+            }}
+            animate={{
+              y: [0, -10, 0],
+              x: [0, driftX * 4, 0],
+              scale: [emoji.scale, emoji.scale * 1.05, emoji.scale]
+            }}
+            transition={{
+              repeat: Infinity,
+              duration: emoji.duration,
+              delay: emoji.delay,
+              ease: "easeInOut"
+            }}
+            className="absolute pointer-events-none select-none text-2xl z-10 opacity-60"
+          >
+            {emoji.char}
+          </motion.div>
+        );
+      })}
 
-      {/* CTAs */}
-      <motion.div 
-        initial={{ opacity: 0, y: 15 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 0.7 }}
-        className="flex flex-col sm:flex-row items-center gap-4 mb-16 w-full max-w-md justify-center"
+      {/* 4. BALANCED SPLIT LAYOUT GRID */}
+      <motion.div
+        variants={!isMobile ? containerVariants : undefined}
+        initial={!isMobile ? "hidden" : undefined}
+        whileInView={!isMobile ? "visible" : undefined}
+        viewport={!isMobile ? { once: false, amount: 0.25 } : undefined}
+        className="w-full max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-center relative z-20"
       >
-        <button className="w-full sm:w-auto relative group overflow-hidden rounded-lg bg-[#22C55E] hover:bg-emerald-400 text-[#050505] font-bold text-sm py-4 px-8 transition-all duration-300 shadow-[0_10px_30px_rgba(34,197,94,0.2)] hover:shadow-[0_10px_35px_rgba(34,197,94,0.4)] flex items-center justify-center">
-          <span className="relative z-10 flex items-center">Start Playing <Icons.ArrowRight /></span>
-        </button>
-        <button className="w-full sm:w-auto rounded-lg bg-[#111111] hover:bg-[#171717] border border-white/[0.08] text-white font-semibold text-sm py-4 px-8 transition-all duration-200 flex items-center justify-center gap-2">
-          <Icons.Play /> Watch Demo
-        </button>
-      </motion.div>
 
-      {/* Live Stats */}
-      <motion.div 
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1, delay: 0.9 }}
-        className="grid grid-cols-3 gap-8 md:gap-16 border-t border-white/[0.06] pt-10 w-full max-w-4xl px-4"
-      >
-        <div className="text-center">
-          <div className="text-2xl md:text-4xl font-black text-white font-mono">{wagersCount}</div>
-          <div className="text-[10px] md:text-xs text-neutral-500 uppercase tracking-widest mt-1">Total Stake</div>
-        </div>
-        <div className="text-center">
-          <div className="text-2xl md:text-4xl font-black text-white font-mono">{matchesCount}</div>
-          <div className="text-[10px] md:text-xs text-neutral-500 uppercase tracking-widest mt-1">Matches Finished</div>
-        </div>
-        <div className="text-center">
-          <div className="text-2xl md:text-4xl font-black text-white font-mono">{countriesCount}</div>
-          <div className="text-[10px] md:text-xs text-neutral-500 uppercase tracking-widest mt-1">Countries Active</div>
-        </div>
+        {/* LEFT COMPARTMENT: TYPOGRAPHY & ACTIONS */}
+        <motion.div 
+          style={!isMobile ? { x: contentAreaX, y: contentAreaY, rotate: contentAreaRotate, opacity: contentAreaOpacity } : undefined}
+          className="lg:col-span-6 flex flex-col justify-center gap-6 lg:gap-8 relative"
+        >
+          {/* MONEY PENGUIN STICKER (Positioned to flow naturally near the typography side) */}
+          {!isMobile && (
+            <motion.div
+              animate={{ y: [0, -6, 0] }}
+              transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
+              className="absolute -top-16 -left-12 w-20 h-20 pointer-events-none z-30 select-none drop-shadow-[0_10px_15px_rgba(0,0,0,0.5)]"
+            >
+              <img src={PLATFORM_GIFS.moneyPenguin} alt="Rich Penguin" className="w-full h-full object-contain" />
+            </motion.div>
+          )}
+
+          {/* Platform Status Pill with Integrated Emojis */}
+          <motion.div 
+            {...getMotionProps("left")}
+            className="order-1 lg:order-none self-center lg:self-start flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#111111]/90 border border-white/[0.08] shadow-[inset_0_1px_12px_rgba(255,255,255,0.02)]"
+          >
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+            </span>
+            <span className="text-[9px] uppercase tracking-widest font-black text-neutral-300 font-mono">
+              ⚡ LIVE GATEWAY: 12,042 IN ARENA 🚀
+            </span>
+          </motion.div>
+
+          {/* Heading Block with Integrated Typewriter & Sparkle Emojis */}
+          <motion.h1
+            {...getMotionProps("left")}
+            className="order-2 lg:order-none text-center lg:text-left font-black text-4xl sm:text-6xl lg:text-[4.75rem] tracking-tight leading-[1.1] select-none"
+          >
+            <span className="block bg-gradient-to-r from-white via-neutral-100 to-neutral-400 bg-clip-text text-transparent">
+              Challenge. ✨
+            </span>
+            <span className="block bg-gradient-to-r from-emerald-400 via-emerald-500 to-emerald-600 bg-clip-text text-transparent">
+              Compete. 🔥
+            </span>
+            <span className="block h-[1.2em] overflow-hidden">
+              <span className="text-white">For </span>
+              <span className={`transition-colors duration-500 ${TYPE_WORDS[wordIndex].color}`}>
+                {typedText}
+              </span>
+              <span className="animate-pulse font-light text-neutral-400">|</span>
+            </span>
+          </motion.h1>
+
+          {/* Narrative Details with Integrated Trophy Emoji */}
+          <motion.p
+            {...getMotionProps("left")}
+            className="order-3 lg:order-none text-neutral-400 text-center lg:text-left text-sm sm:text-base leading-relaxed font-light max-w-lg mx-auto lg:mx-0"
+          >
+            Play skill-based games against real players worldwide. Stake dollars. Win the prize pool. <strong className="text-white font-medium">No luck. No house advantage. 🏆</strong>
+          </motion.p>
+
+          {/* Call-to-Action Controls with Integrated Emojis */}
+          <motion.div
+            {...getMotionProps("bottom")}
+            className="order-4 lg:order-none flex flex-col sm:flex-row items-center gap-4 w-full max-w-md mx-auto lg:mx-0 justify-center lg:justify-start relative"
+          >
+            <button className="w-full sm:w-auto relative group overflow-hidden rounded-lg bg-[#22C55E] hover:bg-emerald-400 text-[#050505] font-black text-xs py-3.5 px-6 transition-all duration-300 shadow-[0_4px_20px_rgba(34,197,94,0.25)] hover:shadow-[0_6px_25px_rgba(34,197,94,0.4)] flex items-center justify-center">
+              <span className="relative z-10 flex items-center gap-1.5 uppercase tracking-wider">Start Playing Now 🔥 <Icons.ArrowRight /></span>
+            </button>
+            <button className="w-full sm:w-auto rounded-lg bg-[#111111] hover:bg-[#171717] border border-white/[0.08] text-white font-semibold text-xs py-3.5 px-6 transition-all duration-200 flex items-center justify-center gap-2">
+              <Icons.Play /> Watch Demo Video
+            </button>
+          </motion.div>
+
+        </motion.div>
+
+        {/* RIGHT COMPARTMENT: IMAGE SLIDER FRAME & PLATFORM METRICS */}
+        <motion.div 
+          style={!isMobile ? { x: sliderFrameX, y: sliderFrameY, rotate: sliderFrameRotate, opacity: sliderFrameOpacity } : undefined}
+          className="lg:col-span-6 flex flex-col justify-center gap-6 lg:gap-8 relative"
+        >
+          {/* GREEN DANCING CHARACTER STICKER (Positioned next to the image slider) */}
+          {!isMobile && (
+            <motion.div
+              animate={{ y: [0, 8, 0], rotate: [0, 2, -2, 0] }}
+              transition={{ repeat: Infinity, duration: 5, ease: "easeInOut" }}
+              className="absolute -top-16 -right-10 w-24 h-24 pointer-events-none z-30 select-none drop-shadow-[0_8px_16px_rgba(16,185,129,0.3)]"
+            >
+              <img src={PLATFORM_GIFS.greenDancer} alt="Dancing Alien" className="w-full h-full object-contain" />
+            </motion.div>
+          )}
+
+          {/* JUMPING PIKACHU STICKER (Positioned near bottom card area) */}
+          {!isMobile && (
+            <motion.div
+              animate={{ x: [0, 5, 0], y: [0, -10, 0] }}
+              transition={{ repeat: Infinity, duration: 3.5, ease: "easeInOut" }}
+              className="absolute -bottom-10 right-12 w-20 h-20 pointer-events-none z-30 select-none drop-shadow-[0_10px_20px_rgba(234,179,8,0.3)]"
+            >
+              <img src={PLATFORM_GIFS.jumpingPikachu} alt="Jumping Pikachu" className="w-full h-full object-contain" />
+            </motion.div>
+          )}
+
+          {/* Image Slider Frame */}
+          <motion.div
+            {...getMotionProps("right")}
+            onMouseEnter={() => setIsSliderHovered(true)}
+            onMouseLeave={() => setIsSliderHovered(false)}
+            className="order-5 lg:order-none w-full max-w-lg mx-auto relative group rounded-2xl overflow-hidden border border-white/[0.08] shadow-[0_20px_50px_rgba(0,0,0,0.8)] aspect-[16/10] bg-[#111]"
+          >
+            <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/30 z-10 pointer-events-none" />
+            <div className="absolute top-3 left-3 z-20 flex items-center gap-1.5 px-2 py-1 rounded bg-[#050505]/80 border border-white/[0.08] backdrop-blur text-[8px] font-mono text-neutral-300 uppercase tracking-widest">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+              LOBBY FEED // CH: 0{currentSlide + 1}
+            </div>
+
+            {/* Slide Images */}
+            <div className="w-full h-full relative">
+              <AnimatePresence mode="popLayout">
+                <motion.img
+                  key={currentSlide}
+                  src={SLIDER_IMAGES[currentSlide]}
+                  alt={`Gameplay Highlight 0${currentSlide + 1}`}
+                  initial={{ opacity: 0, scale: 1.08 }}
+                  animate={{ opacity: 1, scale: 1.02 }}
+                  exit={{ opacity: 0, scale: 0.96 }}
+                  transition={{ duration: 0.8, ease: "easeInOut" }}
+                  className="absolute inset-0 w-full h-full object-cover select-none pointer-events-none"
+                />
+              </AnimatePresence>
+            </div>
+
+            {/* Micro Navigation Dot Bar */}
+            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 flex gap-2">
+              {SLIDER_IMAGES.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setCurrentSlide(index)}
+                  className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${
+                    index === currentSlide ? "bg-emerald-400 w-4" : "bg-neutral-500 hover:bg-neutral-300"
+                  }`}
+                />
+              ))}
+            </div>
+
+            {/* Slide Manual Controls */}
+            <button
+              onClick={() => setCurrentSlide((prev) => (prev - 1 + SLIDER_IMAGES.length) % SLIDER_IMAGES.length)}
+              className="absolute left-3 top-1/2 -translate-y-1/2 z-20 w-8 h-8 rounded-full bg-[#050505]/70 hover:bg-emerald-500 hover:text-black border border-white/[0.05] text-neutral-400 flex items-center justify-center transition-colors opacity-0 group-hover:opacity-100 duration-300 text-xs"
+            >
+              ◀
+            </button>
+            <button
+              onClick={() => setCurrentSlide((prev) => (prev + 1) % SLIDER_IMAGES.length)}
+              className="absolute right-3 top-1/2 -translate-y-1/2 z-20 w-8 h-8 rounded-full bg-[#050505]/70 hover:bg-emerald-500 hover:text-black border border-white/[0.05] text-neutral-400 flex items-center justify-center transition-colors opacity-0 group-hover:opacity-100 duration-300 text-xs"
+            >
+              ▶
+            </button>
+          </motion.div>
+
+          {/* Performance Statistics with Integrated Emojis */}
+          <motion.div
+            {...getMotionProps("bottom")}
+            className="order-6 lg:order-none grid grid-cols-3 gap-4 border-y border-white/[0.06] py-5 w-full max-w-lg mx-auto"
+          >
+            <div className="text-center lg:text-left">
+              <div className="text-xl sm:text-2xl font-black text-white font-mono">{wagersCount}</div>
+              <div className="text-[9px] text-neutral-500 uppercase tracking-widest mt-1">Total Stake 💰</div>
+            </div>
+            <div className="text-center lg:text-left">
+              <div className="text-xl sm:text-2xl font-black text-white font-mono">{matchesCount}</div>
+              <div className="text-[9px] text-neutral-500 uppercase tracking-widest mt-1">Matches Done 🥊</div>
+            </div>
+            <div className="text-center lg:text-left">
+              <div className="text-xl sm:text-2xl font-black text-white font-mono">{countriesCount}</div>
+              <div className="text-[9px] text-neutral-500 uppercase tracking-widest mt-1">Active Regions 🌐</div>
+            </div>
+          </motion.div>
+
+        </motion.div>
+
       </motion.div>
     </section>
   );
@@ -448,7 +803,7 @@ function MatchmakingSection() {
     // Match Found trigger after 3.5s
     timerRef.current = setTimeout(() => {
       setMatchState("found");
-      
+
       // Reset back to idle or show live action loop after a bit
       timerRef.current = setTimeout(() => {
         setMatchState("staging");
@@ -477,10 +832,10 @@ function MatchmakingSection() {
 
         {/* Live Simulation Arena */}
         <div className="relative bg-[#111111] border border-white/[0.08] rounded-2xl p-6 md:p-12 overflow-hidden shadow-2xl max-w-4xl mx-auto">
-          
+
           {/* Action Trigger Button */}
           <div className="absolute top-4 right-4 z-20">
-            <button 
+            <button
               onClick={startSimulation}
               disabled={matchState === "searching" || matchState === "found"}
               className="px-4 py-2 bg-emerald-500 hover:bg-emerald-400 disabled:bg-neutral-800 disabled:text-neutral-500 text-neutral-950 font-bold text-xs rounded-md transition-colors duration-150 shadow-md"
@@ -492,19 +847,19 @@ function MatchmakingSection() {
           </div>
 
           <div className="relative min-h-[300px] flex flex-col justify-between items-center z-10 py-4">
-            
+
             {/* The Staging Layout */}
             <div className="w-full flex flex-col md:flex-row items-center justify-between gap-8 relative">
-              
+
               {/* Player Card Left */}
-              <motion.div 
+              <motion.div
                 className="w-full md:w-64 bg-[#171717] rounded-xl p-5 border border-white/[0.08] relative overflow-hidden"
                 animate={
-                  matchState === "found" 
-                    ? { x: [0, 40, 0], scale: 1.05 } 
-                    : matchState === "searching" 
-                    ? { x: [-10, 0, -10], transition: { repeat: Infinity, duration: 1.5, ease: "easeInOut" } }
-                    : { x: 0 }
+                  matchState === "found"
+                    ? { x: [0, 40, 0], scale: 1.05 }
+                    : matchState === "searching"
+                      ? { x: [-10, 0, -10], transition: { repeat: Infinity, duration: 1.5, ease: "easeInOut" } }
+                      : { x: 0 }
                 }
               >
                 <div className="flex items-center gap-3">
@@ -528,7 +883,7 @@ function MatchmakingSection() {
               <div className="relative flex flex-col items-center justify-center w-24 h-24">
                 <AnimatePresence mode="wait">
                   {matchState === "searching" && (
-                    <motion.div 
+                    <motion.div
                       key="searching"
                       initial={{ scale: 0.8, opacity: 0 }}
                       animate={{ scale: 1, opacity: 1 }}
@@ -544,7 +899,7 @@ function MatchmakingSection() {
                   )}
 
                   {matchState === "found" && (
-                    <motion.div 
+                    <motion.div
                       key="found"
                       initial={{ scale: 0.5, opacity: 0 }}
                       animate={{ scale: [1.2, 1], opacity: 1 }}
@@ -560,7 +915,7 @@ function MatchmakingSection() {
                   )}
 
                   {(matchState === "idle" || matchState === "staging") && (
-                    <motion.div 
+                    <motion.div
                       key="vs"
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
@@ -574,14 +929,14 @@ function MatchmakingSection() {
               </div>
 
               {/* Player Card Right */}
-              <motion.div 
+              <motion.div
                 className="w-full md:w-64 bg-[#171717] rounded-xl p-5 border border-white/[0.08] relative overflow-hidden"
                 animate={
-                  matchState === "found" 
-                    ? { x: [0, -40, 0], scale: 1.05 } 
-                    : matchState === "searching" 
-                    ? { x: [10, 0, 10], transition: { repeat: Infinity, duration: 1.5, ease: "easeInOut" } }
-                    : { x: 0 }
+                  matchState === "found"
+                    ? { x: [0, -40, 0], scale: 1.05 }
+                    : matchState === "searching"
+                      ? { x: [10, 0, 10], transition: { repeat: Infinity, duration: 1.5, ease: "easeInOut" } }
+                      : { x: 0 }
                 }
               >
                 <div className="flex items-center gap-3 justify-end md:justify-start">
@@ -621,16 +976,14 @@ function MatchmakingSection() {
 function StepIndicator({ step, title, active, highlight }) {
   return (
     <div className="text-center flex flex-col items-center">
-      <div className={`w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-bold transition-all duration-300 ${
-        active 
-          ? highlight ? "bg-emerald-500 text-black shadow-[0_0_10px_rgba(34,197,94,0.4)]" : "bg-cyan-500 text-black" 
+      <div className={`w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-bold transition-all duration-300 ${active
+          ? highlight ? "bg-emerald-500 text-black shadow-[0_0_10px_rgba(34,197,94,0.4)]" : "bg-cyan-500 text-black"
           : "bg-[#171717] text-neutral-600 border border-white/[0.04]"
-      }`}>
+        }`}>
         {step}
       </div>
-      <span className={`text-[10px] md:text-xs mt-2 font-medium transition-colors ${
-        active ? "text-white" : "text-neutral-600"
-      }`}>{title}</span>
+      <span className={`text-[10px] md:text-xs mt-2 font-medium transition-colors ${active ? "text-white" : "text-neutral-600"
+        }`}>{title}</span>
     </div>
   );
 }
@@ -694,7 +1047,7 @@ function FeaturedGamesSection() {
           {GAMES.map((game, idx) => {
             const GameDemo = game.component;
             return (
-              <motion.div 
+              <motion.div
                 key={game.id}
                 onMouseEnter={() => setHoveredGame(game.id)}
                 onMouseLeave={() => setHoveredGame(null)}
@@ -703,7 +1056,7 @@ function FeaturedGamesSection() {
               >
                 {/* Micro Animated Background gradient shine */}
                 <div className="absolute inset-0 bg-gradient-to-b from-transparent to-emerald-500/[0.01] pointer-events-none" />
-                
+
                 <div>
                   <div className="flex items-center justify-between mb-4">
                     <span className="text-[10px] font-bold tracking-wider uppercase text-neutral-500 font-mono">
@@ -711,7 +1064,7 @@ function FeaturedGamesSection() {
                     </span>
                     <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
                   </div>
-                  
+
                   <h3 className="text-xl font-bold text-white mb-1 group-hover:text-emerald-400 transition-colors">
                     {game.title}
                   </h3>
@@ -747,7 +1100,7 @@ function FeaturedGamesSection() {
 function RPSPreview({ isHovered }) {
   return (
     <div className="relative w-full h-full flex items-center justify-around px-4">
-      <motion.div 
+      <motion.div
         animate={isHovered ? { x: [0, 10, 0] } : {}}
         transition={{ repeat: Infinity, duration: 1 }}
         className="text-4xl"
@@ -755,7 +1108,7 @@ function RPSPreview({ isHovered }) {
         ✊
       </motion.div>
       <div className="text-xs font-black text-neutral-600">VS</div>
-      <motion.div 
+      <motion.div
         animate={isHovered ? { x: [0, -10, 0], scale: [1, 1.2, 1] } : {}}
         transition={{ repeat: Infinity, duration: 1 }}
         className="text-4xl"
@@ -776,16 +1129,16 @@ function PenaltyPreview({ isHovered }) {
     <div className="relative w-full h-full flex flex-col justify-center items-center px-6">
       <div className="w-40 h-20 border-b-0 border-2 border-dashed border-neutral-700 relative rounded-t-md flex items-center justify-center">
         {/* Goalie glove */}
-        <motion.div 
+        <motion.div
           animate={isHovered ? { x: [-30, 30, -30] } : { x: 0 }}
           transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
           className="w-4 h-4 bg-red-500 rounded-sm absolute top-2 flex items-center justify-center text-[8px] font-bold"
         >
           🧤
         </motion.div>
-        
+
         {/* Football */}
-        <motion.div 
+        <motion.div
           animate={isHovered ? { y: [40, -20, 40], scale: [1, 0.4, 1] } : {}}
           transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
           className="absolute bottom-[-10px] text-lg"
@@ -800,8 +1153,8 @@ function PenaltyPreview({ isHovered }) {
 function ReactionPreview({ isHovered }) {
   return (
     <div className="relative w-full h-full flex items-center justify-center">
-      <motion.div 
-        animate={isHovered ? { 
+      <motion.div
+        animate={isHovered ? {
           backgroundColor: ["#EF4444", "#EF4444", "#10B981", "#10B981"],
           scale: [1, 1, 1.1, 1]
         } : { backgroundColor: "#EF4444" }}
@@ -854,10 +1207,10 @@ function ConnectFourPreview({ isHovered }) {
                 <div className={`w-4 h-4 rounded-full ${isPlayerOne ? "bg-emerald-500" : "bg-cyan-500"}`} />
               )}
               {!filled && isHovered && i === 3 && (
-                <motion.div 
+                <motion.div
                   animate={{ y: [-15, 0] }}
                   transition={{ repeat: Infinity, duration: 1.5 }}
-                  className="w-4 h-4 rounded-full bg-emerald-500" 
+                  className="w-4 h-4 rounded-full bg-emerald-500"
                 />
               )}
             </div>
@@ -918,7 +1271,7 @@ function HowItWorksSection() {
                 <h3 className="text-lg font-bold text-white mb-2">{step.title}</h3>
                 <p className="text-xs text-neutral-400 leading-relaxed">{step.desc}</p>
               </div>
-              
+
               {/* Connector lines visual (Desktop) */}
               {idx < 3 && (
                 <div className="hidden lg:block absolute top-1/2 right-[-16px] w-[32px] h-[1px] bg-gradient-to-r from-emerald-500/40 to-transparent z-0 pointer-events-none" />
@@ -950,13 +1303,13 @@ function LiveActivitySection() {
             🔴 Live Arena Action
           </span>
         </div>
-        
+
         {/* Infinite Marquee Feed Container */}
         <div className="relative flex overflow-x-hidden w-full group mask-gradient">
           <div className="animate-marquee flex whitespace-nowrap gap-6 py-2">
             {LIVE_WINS.concat(LIVE_WINS).map((item, idx) => (
-              <div 
-                key={idx} 
+              <div
+                key={idx}
                 className="inline-flex items-center gap-3 bg-[#111111] border border-white/[0.06] rounded-full py-2.5 px-6 shadow-md"
               >
                 <span className="w-2 h-2 rounded-full bg-emerald-500" />
@@ -989,13 +1342,13 @@ function PaymentsSection() {
     <section className="py-24 bg-[#0A0A0A] relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-6">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          
+
           <div>
             <div className="inline-block px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-xs font-semibold uppercase tracking-widest mb-4">
               Lightning Settlement
             </div>
             <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-6">
-              Deposit in Seconds.<br/>Withdraw Globally.
+              Deposit in Seconds.<br />Withdraw Globally.
             </h2>
             <p className="text-neutral-400 mb-8 leading-relaxed">
               We settle accounts in real-time. Whether utilizing traditional banking infrastructure or secure layer-2 blockchain assets, balances remain constantly visible and stable in USD equivalent valuations.
@@ -1003,8 +1356,8 @@ function PaymentsSection() {
 
             <div className="flex flex-wrap gap-3">
               {PAYMENT_METHODS.map((method, idx) => (
-                <div 
-                  key={idx} 
+                <div
+                  key={idx}
                   className="flex items-center gap-2 bg-[#111111] border border-white/[0.06] rounded-lg py-2 px-4 text-xs font-semibold text-neutral-300"
                 >
                   <span className="text-sm">{method.logo}</span>
@@ -1045,11 +1398,11 @@ function PaymentsSection() {
                 <label className="block text-[10px] font-bold text-neutral-400 uppercase mb-2">Amount (USD)</label>
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-neutral-500 font-bold">$</div>
-                  <input 
-                    type="text" 
-                    readOnly 
-                    value="150.00" 
-                    className="w-full bg-[#171717] border border-white/[0.06] rounded-lg py-3 pl-8 pr-4 text-sm font-bold font-mono focus:outline-none focus:border-emerald-500/40 text-white" 
+                  <input
+                    type="text"
+                    readOnly
+                    value="150.00"
+                    className="w-full bg-[#171717] border border-white/[0.06] rounded-lg py-3 pl-8 pr-4 text-sm font-bold font-mono focus:outline-none focus:border-emerald-500/40 text-white"
                   />
                 </div>
               </div>
@@ -1116,8 +1469,8 @@ function TrustSection() {
           {TRUST_CARDS.map((card, idx) => {
             const IconComponent = card.icon;
             return (
-              <div 
-                key={idx} 
+              <div
+                key={idx}
                 className="bg-[#111111]/60 border border-white/[0.06] hover:border-emerald-500/20 rounded-xl p-6 transition-all duration-300"
               >
                 <div className="mb-4">
@@ -1140,7 +1493,7 @@ function WorldwideSection() {
     <section id="worldwide" className="py-24 bg-[#0A0A0A] relative overflow-hidden border-y border-white/[0.04]">
       <div className="max-w-7xl mx-auto px-6">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-          
+
           <div className="lg:col-span-4">
             <div className="inline-block px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-xs font-semibold uppercase tracking-widest mb-4">
               Decentralized Nodes
@@ -1170,21 +1523,21 @@ function WorldwideSection() {
           <div className="lg:col-span-8 relative">
             {/* Animated SVG minimalist vector map */}
             <div className="bg-[#111111] border border-white/[0.08] rounded-2xl p-6 shadow-2xl overflow-hidden flex items-center justify-center">
-              <svg 
-                className="w-full h-auto max-h-[350px] text-neutral-800 opacity-90" 
-                viewBox="0 0 1000 500" 
-                fill="none" 
+              <svg
+                className="w-full h-auto max-h-[350px] text-neutral-800 opacity-90"
+                viewBox="0 0 1000 500"
+                fill="none"
                 xmlns="http://www.w3.org/2000/svg"
               >
                 {/* Simplified Continent Paths for vector aesthetic */}
                 <path d="M150,150 L200,120 L250,150 L300,100 L350,160 L400,140 L380,250 L250,380 L200,320 Z" fill="#202020" />
                 <path d="M450,120 L550,80 L650,120 L750,90 L850,140 L900,220 L800,350 L750,450 L650,380 L550,350 Z" fill="#1A1A1A" />
                 <path d="M50,220 L100,200 L120,250 L80,300 Z" fill="#1E1E1E" />
-                
+
                 {/* Dynamic connection lines (SVG paths with moving strokes) */}
-                <motion.path 
-                  d="M 230 140 C 350 180, 500 200, 620 130" 
-                  stroke="url(#cyan-gradient)" 
+                <motion.path
+                  d="M 230 140 C 350 180, 500 200, 620 130"
+                  stroke="url(#cyan-gradient)"
                   strokeWidth="2"
                   strokeDasharray="6 6"
                   initial={{ strokeDashoffset: 100 }}
@@ -1192,9 +1545,9 @@ function WorldwideSection() {
                   transition={{ repeat: Infinity, duration: 4, ease: "linear" }}
                 />
 
-                <motion.path 
-                  d="M 620 130 C 650 250, 750 300, 770 330" 
-                  stroke="url(#emerald-gradient)" 
+                <motion.path
+                  d="M 620 130 C 650 250, 750 300, 770 330"
+                  stroke="url(#emerald-gradient)"
                   strokeWidth="1.5"
                   strokeDasharray="8 8"
                   initial={{ strokeDashoffset: -100 }}
@@ -1202,9 +1555,9 @@ function WorldwideSection() {
                   transition={{ repeat: Infinity, duration: 5, ease: "linear" }}
                 />
 
-                <motion.path 
-                  d="M 230 140 C 250 250, 200 320, 250 380" 
-                  stroke="url(#cyan-gradient)" 
+                <motion.path
+                  d="M 230 140 C 250 250, 200 320, 250 380"
+                  stroke="url(#cyan-gradient)"
                   strokeWidth="1"
                   strokeDasharray="5 5"
                   initial={{ strokeDashoffset: 100 }}
@@ -1254,7 +1607,7 @@ function FinalCTASection() {
 
       <div className="max-w-4xl mx-auto px-6 text-center relative z-10">
         <h2 className="text-4xl md:text-7xl font-extrabold tracking-tight mb-6">
-          Your Next Opponent<br/>Is Waiting.
+          Your Next Opponent<br />Is Waiting.
         </h2>
         <p className="text-neutral-400 max-w-xl mx-auto mb-10 text-sm md:text-base leading-relaxed">
           Matches deploy immediately. Claim absolute control of your wagering experience without the interference of arbitrary house odds.
@@ -1284,7 +1637,7 @@ function Footer() {
   return (
     <footer className="bg-[#050505] border-t border-white/[0.04] pt-16 pb-12 text-sm text-neutral-500">
       <div className="max-w-7xl mx-auto px-6 grid grid-cols-2 md:grid-cols-5 gap-10 mb-12">
-        
+
         <div className="col-span-2">
           <div className="flex items-center gap-2 mb-4">
             <div className="relative w-7 h-7 flex items-center justify-center rounded bg-gradient-to-br from-emerald-500 to-cyan-400 p-[1.5px]">
@@ -1355,7 +1708,7 @@ function useAnimatedNumber(target, startValue = 0, speed = 80, suffix = "") {
   useEffect(() => {
     let current = startValue;
     const increment = (target - startValue) / speed;
-    
+
     const interval = setInterval(() => {
       current += increment;
       if (current >= target) {
