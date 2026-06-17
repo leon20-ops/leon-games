@@ -644,7 +644,7 @@ function HeroSection() {
             <span className="block bg-gradient-to-r from-emerald-400 via-emerald-500 to-emerald-600 bg-clip-text text-transparent">
               Compete. 🔥
             </span>
-            <span className="block h-[1.2em] overflow-hidden">
+            <span className="block h-[1.2em] overflow-hidden whitespace-nowrap">
               <span className="text-white">For </span>
               <span className={`transition-colors duration-500 ${TYPE_WORDS[wordIndex].color}`}>
                 {typedText}
