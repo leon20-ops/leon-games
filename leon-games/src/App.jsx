@@ -684,7 +684,7 @@ function HeroSection() {
             <motion.div
               animate={{ y: [0, 8, 0], rotate: [0, 2, -2, 0] }}
               transition={{ repeat: Infinity, duration: 5, ease: "easeInOut" }}
-              className="absolute -top-16 -right-10 w-24 h-24 pointer-events-none z-30 select-none drop-shadow-[0_8px_16px_rgba(16,185,129,0.3)]"
+              className="absolute -top-16 -right-10 w-24 h-24 pointer-events-none z-30 select-none drop-shadow-[0_8px_16px_rgba(16,185,129,0.3)] right-[40px]"
             >
               <img src={PLATFORM_GIFS.greenDancer} alt="Dancing Alien" className="w-full h-full object-contain" />
             </motion.div>
