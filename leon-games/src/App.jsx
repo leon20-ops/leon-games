@@ -702,7 +702,7 @@ function HeroSection() {
           )}
 
           {/* Connected Layout Flex Container */}
-          <div className="flex flex-col lg:flex-row items-center justify-center lg:items-stretch gap-4 lg:gap-0 w-full max-w-md mx-auto origin-center" style={{ rotate: "350deg" }}>
+          <div className="flex flex-col lg:flex-row items-center justify-center lg:items-stretch gap-4 lg:gap-0 w-full max-w-md mx-auto origin-center" style={{ transform: isMobile ? "rotate(0deg)" : "rotate(350deg)" }}>
 
             {/* Performance Statistics (Connected Left Column) */}
             <motion.div
