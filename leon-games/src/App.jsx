@@ -632,26 +632,59 @@ function HeroSection() {
             </span>
           </motion.div>
 
-          {/* Heading Block with Integrated Typewriter & Sparkle Emojis */}
-          {/* Heading Block */}
-          <motion.h1
-            {...getMotionProps("left")}
-            className="order-2 lg:order-none text-center lg:text-left font-black text-[3rem] sm:text-[4rem] min-[71.25rem]:text-[4.5rem] leading-[1.08] tracking-tight select-none"
-          >
-            <span className="block bg-gradient-to-r from-white via-neutral-100 to-neutral-400 bg-clip-text text-transparent">
-              Challenge. ✨
-            </span>
-            <span className="block bg-gradient-to-r from-emerald-400 via-emerald-500 to-emerald-600 bg-clip-text text-transparent">
-              Compete. 🔥
-            </span>
-            <span className="block h-[1.2em] overflow-hidden whitespace-nowrap">
-              <span className="text-white">For </span>
-              <span className={`transition-colors duration-500 ${TYPE_WORDS[wordIndex].color}`}>
-                {typedText}
-              </span>
-              <span className="animate-pulse font-light text-neutral-400">|</span>
-            </span>
-          </motion.h1>
+          {/* Centered Flex Container mapping to content width */}
+          <div className="flex justify-center lg:justify-start w-full order-2 lg:order-none">
+            <div className="relative inline-block max-w-full px-6 sm:px-12 md:px-0">
+              <motion.h1
+                {...getMotionProps("left")}
+                className="relative text-center lg:text-left font-black text-[3.5rem] sm:text-[4rem] min-[71.25rem]:text-[4rem] leading-[1.08] tracking-tight select-none"
+              >
+                <span className="block bg-gradient-to-r from-white via-neutral-100 to-neutral-400 bg-clip-text text-transparent ">
+                  Challenge. ✨
+                </span>
+                <span className="block bg-gradient-to-r from-emerald-400 via-emerald-500 to-emerald-600 bg-clip-text text-transparent ">
+                  Compete. 🔥
+                </span>
+                <span className="block h-[1.2em] overflow-hidden whitespace-nowrap">
+                  <span className="text-white">For </span>
+                  <span className={`transition-colors duration-500 text-[2rem] sm:text-[3rem] min-[71.25rem]:text-[3.5rem] ${TYPE_WORDS[wordIndex].color}`}>
+                    {typedText}
+                  </span>
+                  <span className="animate-pulse font-light text-neutral-400 text-[2rem] sm:text-[3rem] min-[71.25rem]:text-[3.5rem]">|</span>
+                </span>
+              </motion.h1>
+
+              {/* Green Dancer Sticker */}
+              <motion.div
+                animate={{ y: [0, 6, 0], rotate: [0, 2, -2, 0] }}
+                transition={{ repeat: Infinity, duration: 5, ease: "easeInOut" }}
+                className="absolute pointer-events-none z-30 select-none lg:hidden drop-shadow-[0_8px_16px_rgba(16,185,129,0.3)]
+                  /* 700px and Below (Increased Corner Accent Mode): */
+                  max-[768px]:-top-10 max-[768px]:-right-2 max-[768px]:w-15 max-[768px]:h-15
+                  /* 701px to 1023px (Increased Side-aligned Space Filler): */
+                  min-[769px]:top-1/2 min-[769px]:-translate-y-1/2 min-[769px]:-right-30 min-[769px]:w-30 min-[769px]:h-30
+                  /* Maximize tablet scale where horizontal space is generous: */
+                  md:min-[850px]:-right-45 md:min-[850px]:w-40 md:min-[850px]:h-40"
+              >
+                <img src={PLATFORM_GIFS.greenDancer} alt="Dancing Alien" className="w-full h-full object-contain" />
+              </motion.div>
+
+              {/* Jumping Pikachu Sticker */}
+              <motion.div
+                animate={{ x: [0, 4, 0], y: [0, -6, 0] }}
+                transition={{ repeat: Infinity, duration: 3.5, ease: "easeInOut" }}
+                className="absolute pointer-events-none z-30 select-none lg:hidden drop-shadow-[0_10px_20px_rgba(234,179,8,0.3)]
+                  /* 700px and Below (Increased Corner Accent Mode): */
+                  max-[768px]:-bottom-8 max-[768px]:-left-2 max-[768px]:w-18 max-[768px]:h-18 
+                  /* 701px to 1023px (Increased Side-aligned Space Filler): */
+                  min-[769px]:top-1/2 min-[769px]:-translate-y-1/2 min-[769px]:-left-40 min-[769px]:w-45 min-[769px]:h-45
+                  /* Maximize tablet scale where horizontal space is generous: */
+                  md:min-[850px]:-left-50 md:min-[850px]:w-55 md:min-[850px]:h-55"
+              >
+                <img src={PLATFORM_GIFS.jumpingPikachu} alt="Jumping Pikachu" className="w-full h-full object-contain" />
+              </motion.div>
+            </div>
+          </div>
 
           {/* Narrative Details with Integrated Trophy Emoji */}
           <motion.p
