@@ -435,7 +435,7 @@ function TechSparkle({ className }) {
 // --- SPECIFIED GIFS & STICKERS ---
 const PLATFORM_GIFS = {
   moneyPenguin: "https://media.tenor.com/7-G9wshYmPAAAAAM/money-penguin-bag.gif",
-  greenDancer: "https://i.gifer.com/3nRK.gif",
+  greenDancer: "https://i.gifer.com/y5.gif",
   jumpingPikachu: "https://i.gifer.com/6vw5.gif"
 };
 // --- REVISED CINEMATIC RESPONSIVE HERO SECTION ---
@@ -509,6 +509,10 @@ function HeroSection() {
     damping: 24,
     restDelta: 0.001
   });
+
+  const statsX = useTransform(smoothProgress, [0, 1], [0, isMobile ? 10 : 55]);
+  const statsY = useTransform(smoothProgress, [0, 1], [0, isMobile ? 30 : 95]);
+  const statsOpacity = useTransform(smoothProgress, [0, 0.75], [1, 0]);
 
   const contentAreaX = useTransform(smoothProgress, [0, 1], [0, isMobile ? -30 : -110]);
   const contentAreaY = useTransform(smoothProgress, [0, 1], [0, isMobile ? 20 : 65]);
@@ -674,7 +678,7 @@ function HeroSection() {
 
         {/* RIGHT COMPARTMENT: ATTACHED SIDEBAR COMPOSITE WIDGET */}
         <div className="lg:col-span-6 flex flex-col items-center justify-center relative">
-          
+
           {/* GREEN DANCING CHARACTER STICKER */}
           {!isMobile && (
             <motion.div
@@ -699,7 +703,7 @@ function HeroSection() {
 
           {/* Connected Layout Flex Container */}
           <div className="flex flex-col lg:flex-row items-center justify-center lg:items-stretch gap-4 lg:gap-0 w-full max-w-md mx-auto">
-            
+
             {/* Performance Statistics (Connected Left Column) */}
             <motion.div
               style={!isMobile ? { x: statsX, y: statsY, opacity: statsOpacity } : undefined}
@@ -780,20 +784,20 @@ function HeroSection() {
       </motion.div>
 
       {/* Scroll Down Indicator */}
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0, y: 15 }}
         animate={{ opacity: 0.5, y: 0 }}
         transition={{ delay: 1.4, duration: 0.8 }}
         className="absolute bottom-5 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 pointer-events-none select-none z-20"
       >
         <span className="text-[9px] font-mono tracking-[0.25em] text-neutral-400 uppercase">SCROLL</span>
-        <motion.svg 
+        <motion.svg
           animate={{ y: [0, 5, 0] }}
           transition={{ repeat: Infinity, duration: 1.8, ease: "easeInOut" }}
-          className="w-3.5 h-3.5 text-emerald-400" 
-          fill="none" 
-          viewBox="0 0 24 24" 
-          stroke="currentColor" 
+          className="w-3.5 h-3.5 text-emerald-400"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
           strokeWidth="2.5"
         >
           <path strokeLinecap="round" strokeLinejoin="round" d="M19 13l-7 7-7-7m14-6l-7 7-7-7" />
