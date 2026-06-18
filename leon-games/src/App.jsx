@@ -697,9 +697,9 @@ function HeroSection() {
                 transition={{ repeat: Infinity, duration: 5, ease: "easeInOut" }}
                 className="absolute pointer-events-none z-30 select-none lg:hidden drop-shadow-[0_8px_16px_rgba(16,185,129,0.3)]
                   /* 700px and Below (Increased Corner Accent Mode): */
-                  max-[768px]:-top-10 max-[768px]:-right-2 max-[768px]:w-15 max-[768px]:h-15
+                  max-md:-top-10 max-md:-right-2 max-md:w-15 max-md:h-15
                   /* 701px to 1023px (Increased Side-aligned Space Filler): */
-                  min-[769px]:top-1/2 min-[769px]:-translate-y-1/2 min-[769px]:-right-30 min-[769px]:w-30 min-[769px]:h-30
+                  md:top-1/2 md:-translate-y-1/2 md:-right-30 md:w-30 md:h-30
                   /* Maximize tablet scale where horizontal space is generous: */
                   md:min-[850px]:-right-45 md:min-[850px]:w-40 md:min-[850px]:h-40"
               >
@@ -712,9 +712,9 @@ function HeroSection() {
                 transition={{ repeat: Infinity, duration: 3.5, ease: "easeInOut" }}
                 className="absolute pointer-events-none z-30 select-none lg:hidden drop-shadow-[0_10px_20px_rgba(234,179,8,0.3)]
                   /* 700px and Below (Increased Corner Accent Mode): */
-                  max-[768px]:-bottom-8 max-[768px]:-left-2 max-[768px]:w-18 max-[768px]:h-18 
+                  max-md:-bottom-8 max-md:-left-2 max-md:w-18 max-md:h-18 
                   /* 701px to 1023px (Increased Side-aligned Space Filler): */
-                  min-[769px]:top-1/2 min-[769px]:-translate-y-1/2 min-[769px]:-left-40 min-[769px]:w-45 min-[769px]:h-45
+                  md:top-1/2 md:-translate-y-1/2 md:-left-40 md:w-45 md:h-45
                   /* Maximize tablet scale where horizontal space is generous: */
                   md:min-[850px]:-left-50 md:min-[850px]:w-55 md:min-[850px]:h-55"
               >
