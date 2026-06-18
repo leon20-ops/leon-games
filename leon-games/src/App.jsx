@@ -517,6 +517,36 @@ function HeroSection() {
     restDelta: 0.001
   });
 
+  // --- DETECT HOVER & SMOOTH FOLLOW AXIS ---
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  // Soft spring physics configuration for clean, organic movement
+  const followX = useSpring(mouseX, { stiffness: 120, damping: 22, mass: 0.5 });
+  const followY = useSpring(mouseY, { stiffness: 120, damping: 22, mass: 0.5 });
+
+  const handleMouseMove = (e) => {
+    if (isMobile) return;
+    
+    const rect = e.currentTarget.getBoundingClientRect();
+    const width = rect.width;
+    const height = rect.height;
+    
+    // Relative coordinates mapped from center (-0.5 to 0.5)
+    const offsetX = (e.clientX - rect.left) / width - 0.5;
+    const offsetY = (e.clientY - rect.top) / height - 0.5;
+
+    // Constrain maximum displacement range to 16 pixels
+    const maxDisplacement = 16;
+    mouseX.set(offsetX * maxDisplacement);
+    mouseY.set(offsetY * maxDisplacement);
+  };
+
+  const handleMouseLeave = () => {
+    mouseX.set(0);
+    mouseY.set(0);
+  };
+
   const statsX = useTransform(smoothProgress, [0, 1], [0, isMobile ? 10 : 55]);
   const statsY = useTransform(smoothProgress, [0, 1], [0, isMobile ? 30 : 95]);
   const statsOpacity = useTransform(smoothProgress, [0, 0.75], [1, 0]);
@@ -753,8 +783,19 @@ function HeroSection() {
             </motion.div>
           )}
 
-          {/* Connected Layout Flex Container */}
-          <div className="stats-slider-container flex flex-col lg:flex-row items-center justify-center lg:items-stretch gap-4 lg:gap-0 w-full max-w-md mx-auto origin-center" style={{ transform: isMobile ? "rotate(0deg)" : "rotate(350deg)", transformOrigin: "center center" }}>
+          {/* Connected Layout Flex Container with Premium Hover Follow */}
+          <motion.div
+            onMouseMove={handleMouseMove}
+            onMouseLeave={handleMouseLeave}
+            style={{
+              x: !isMobile ? followX : 0,
+              y: !isMobile ? followY : 0,
+              rotate: isMobile ? 0 : 350,
+              transformOrigin: "center center",
+              cursor: !isMobile ? "move" : "default"
+            }}
+            className="stats-slider-container flex flex-col lg:flex-row items-center justify-center lg:items-stretch gap-4 lg:gap-0 w-full max-w-md mx-auto origin-center"
+          >
 
             {/* Performance Statistics (Connected Left Column) */}
             <motion.div
@@ -831,7 +872,7 @@ function HeroSection() {
               </button>
             </motion.div>
 
-          </div>
+          </motion.div>
         </div>
       </motion.div>
 
