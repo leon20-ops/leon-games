@@ -59,7 +59,7 @@ export default function LeonGamesLanding() {
       <Navigation />
       <HeroSection />
       <FeaturedGamesSection />
-      <MatchmakingSection />
+       <VideoAdSection /> 
       <HowItWorksSection />
       <LiveActivitySection />
       <PaymentsSection />
@@ -901,188 +901,6 @@ function HeroSection() {
   );
 }
 
-// --- MATCHMAKING SECTION ---
-function MatchmakingSection() {
-  const [matchState, setMatchState] = useState("idle"); // idle, searching, found, staging
-  const timerRef = useRef(null);
-
-  const startSimulation = () => {
-    if (timerRef.current) clearTimeout(timerRef.current);
-    setMatchState("searching");
-
-    // Match Found trigger after 3.5s
-    timerRef.current = setTimeout(() => {
-      setMatchState("found");
-
-      // Reset back to idle or show live action loop after a bit
-      timerRef.current = setTimeout(() => {
-        setMatchState("staging");
-      }, 5000);
-    }, 3500);
-  };
-
-  useEffect(() => {
-    return () => { if (timerRef.current) clearTimeout(timerRef.current); };
-  }, []);
-
-  return (
-    <section className="py-24 relative overflow-hidden bg-[#0A0A0A] border-y border-white/[0.04]">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <div className="inline-block px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-semibold uppercase tracking-widest mb-4">
-            Direct Matchmaking
-          </div>
-          <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-4">
-            Real Competitors. Instantly Connected.
-          </h2>
-          <p className="text-neutral-400">
-            Our high-frequency Matchmaking Engine pairs you with globally ranked opponents of equivalent skill in under 5 seconds.
-          </p>
-        </div>
-
-        {/* Live Simulation Arena */}
-        <div className="relative bg-[#111111] border border-white/[0.08] rounded-2xl p-6 md:p-12 overflow-hidden shadow-2xl max-w-4xl mx-auto">
-
-          {/* Action Trigger Button */}
-          <div className="absolute top-4 right-4 z-20">
-            <button
-              onClick={startSimulation}
-              disabled={matchState === "searching" || matchState === "found"}
-              className="px-4 py-2 bg-emerald-500 hover:bg-emerald-400 disabled:bg-neutral-800 disabled:text-neutral-500 text-neutral-950 font-bold text-xs rounded-md transition-colors duration-150 shadow-md"
-            >
-              {matchState === "searching" && "FINDING OPPONENT..."}
-              {matchState === "found" && "MATCH CONCLUDED"}
-              {(matchState === "idle" || matchState === "staging") && "TEST SIMULATOR"}
-            </button>
-          </div>
-
-          <div className="relative min-h-[300px] flex flex-col justify-between items-center z-10 py-4">
-
-            {/* The Staging Layout */}
-            <div className="w-full flex flex-col md:flex-row items-center justify-between gap-8 relative">
-
-              {/* Player Card Left */}
-              <motion.div
-                className="w-full md:w-64 bg-[#171717] rounded-xl p-5 border border-white/[0.08] relative overflow-hidden"
-                animate={
-                  matchState === "found"
-                    ? { x: [0, 40, 0], scale: 1.05 }
-                    : matchState === "searching"
-                      ? { x: [-10, 0, -10], transition: { repeat: Infinity, duration: 1.5, ease: "easeInOut" } }
-                      : { x: 0 }
-                }
-              >
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-cyan-400 to-cyan-600 flex items-center justify-center font-bold text-xs">
-                    P1
-                  </div>
-                  <div>
-                    <h4 className="text-sm font-bold text-white">Alex_D</h4>
-                    <span className="text-[10px] text-emerald-500 font-mono">STAKE: $50.00</span>
-                  </div>
-                </div>
-                <div className="mt-4 pt-4 border-t border-white/[0.06] flex justify-between text-[11px] text-neutral-400">
-                  <span>Ping: 14ms</span>
-                  <span>Rank: Gold II</span>
-                </div>
-                {/* Glowing Side bar */}
-                <div className="absolute left-0 top-0 bottom-0 w-1 bg-cyan-400" />
-              </motion.div>
-
-              {/* Center Stage / Pulse / VS */}
-              <div className="relative flex flex-col items-center justify-center w-24 h-24">
-                <AnimatePresence mode="wait">
-                  {matchState === "searching" && (
-                    <motion.div
-                      key="searching"
-                      initial={{ scale: 0.8, opacity: 0 }}
-                      animate={{ scale: 1, opacity: 1 }}
-                      exit={{ scale: 0.8, opacity: 0 }}
-                      className="flex flex-col items-center justify-center"
-                    >
-                      <div className="relative flex h-10 w-10 items-center justify-center mb-1">
-                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-20"></span>
-                        <div className="h-6 w-6 rounded-full border-2 border-emerald-500 border-t-transparent animate-spin" />
-                      </div>
-                      <span className="text-[9px] text-neutral-400 font-bold uppercase tracking-wider animate-pulse">Searching</span>
-                    </motion.div>
-                  )}
-
-                  {matchState === "found" && (
-                    <motion.div
-                      key="found"
-                      initial={{ scale: 0.5, opacity: 0 }}
-                      animate={{ scale: [1.2, 1], opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      className="text-center relative z-20"
-                    >
-                      <div className="bg-emerald-500 text-[#050505] text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-widest shadow-[0_0_20px_rgba(34,197,94,0.4)] animate-bounce">
-                        MATCH FOUND
-                      </div>
-                      <div className="text-xs text-neutral-400 mt-2 font-mono">PRIZE POOL</div>
-                      <div className="text-xl font-black text-emerald-400 font-mono">$100.00</div>
-                    </motion.div>
-                  )}
-
-                  {(matchState === "idle" || matchState === "staging") && (
-                    <motion.div
-                      key="vs"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      className="text-center"
-                    >
-                      <span className="text-3xl font-black tracking-widest text-neutral-600 block italic">VS</span>
-                      <span className="text-[9px] text-neutral-400 uppercase tracking-widest">Wager $50</span>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
-
-              {/* Player Card Right */}
-              <motion.div
-                className="w-full md:w-64 bg-[#171717] rounded-xl p-5 border border-white/[0.08] relative overflow-hidden"
-                animate={
-                  matchState === "found"
-                    ? { x: [0, -40, 0], scale: 1.05 }
-                    : matchState === "searching"
-                      ? { x: [10, 0, 10], transition: { repeat: Infinity, duration: 1.5, ease: "easeInOut" } }
-                      : { x: 0 }
-                }
-              >
-                <div className="flex items-center gap-3 justify-end md:justify-start">
-                  <div className="md:order-1 text-right md:text-left">
-                    <h4 className="text-sm font-bold text-white">Slayer_X</h4>
-                    <span className="text-[10px] text-emerald-500 font-mono">STAKE: $50.00</span>
-                  </div>
-                  <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-emerald-400 to-emerald-600 flex items-center justify-center font-bold text-xs md:order-none">
-                    P2
-                  </div>
-                </div>
-                <div className="mt-4 pt-4 border-t border-white/[0.06] flex justify-between text-[11px] text-neutral-400">
-                  <span>Ping: 22ms</span>
-                  <span>Rank: Gold I</span>
-                </div>
-                {/* Glowing Side bar */}
-                <div className="absolute right-0 top-0 bottom-0 w-1 bg-emerald-400" />
-              </motion.div>
-
-            </div>
-
-            {/* Simulated Match Process Steps */}
-            <div className="w-full mt-12 grid grid-cols-4 gap-2 border-t border-white/[0.04] pt-8">
-              <StepIndicator step={1} title="Join Match" active={matchState === "searching" || matchState === "found" || matchState === "staging"} />
-              <StepIndicator step={2} title="Ready Up" active={matchState === "found" || matchState === "staging"} />
-              <StepIndicator step={3} title="Compete" active={matchState === "found" || matchState === "staging"} />
-              <StepIndicator step={4} title="Winner Paid" active={matchState === "staging"} highlight />
-            </div>
-
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
 function StepIndicator({ step, title, active, highlight }) {
   return (
     <div className="text-center flex flex-col items-center">
@@ -1671,6 +1489,103 @@ const STEPS = [
     desc: "Execute best of three rounds. Instant execution. Smart contract transfers pot immediately."
   }
 ];
+
+// --- VIDEO ADVERTISEMENT SECTION ---
+function VideoAdSection() {
+  return (
+    <section className="py-24 bg-[#050505] relative overflow-hidden border-t border-white/[0.04]">
+      {/* Background Ambience */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] rounded-full bg-emerald-500/[0.02] blur-[120px] pointer-events-none" />
+
+      <div className="max-w-7xl mx-auto px-6">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          
+          {/* Left Column: Compelling Copy & Features */}
+          <div className="lg:col-span-5 flex flex-col justify-center">
+            <div className="inline-block self-start px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-semibold uppercase tracking-widest mb-4">
+              🎬 Inside the Arena
+            </div>
+            
+            <h2 className="text-3xl md:text-5xl font-black tracking-tight text-white mb-6 leading-tight">
+              Discover the Adventure. <br />
+              <span className="bg-gradient-to-r from-emerald-400 to-cyan-400 bg-clip-text text-transparent">
+                See the Action.
+              </span>
+            </h2>
+            
+            <p className="text-neutral-400 text-sm md:text-base mb-8 leading-relaxed font-light">
+              Dive into an epic competitive experience designed around mechanical skill, speed, and strategic calculation. Watch our platform showcase to understand how matchmaking, security layers, and instantaneous settlement execute in real time. 🚀🔥
+            </p>
+
+            {/* Key Features List */}
+            <div className="space-y-4 mb-8">
+              <div className="flex items-start gap-3">
+                <span className="text-lg">⚔️</span>
+                <div>
+                  <h4 className="text-xs font-bold text-white uppercase tracking-wider">Fast-Paced Direct Battles</h4>
+                  <p className="text-xs text-neutral-500 mt-0.5">Test your visual processing limits and decision pathways against verified opponents.</p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-3">
+                <span className="text-lg">🏆</span>
+                <div>
+                  <h4 className="text-xs font-bold text-white uppercase tracking-wider">Transparent Settlement</h4>
+                  <p className="text-xs text-neutral-500 mt-0.5">Automated smart logic processes distribution steps instantly at the close of every round.</p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-3">
+                <span className="text-lg">🌍</span>
+                <div>
+                  <h4 className="text-xs font-bold text-white uppercase tracking-wider">Global Lobbies</h4>
+                  <p className="text-xs text-neutral-500 mt-0.5">Connect and compete across multiple latency-optimized server locations.</p>
+                </div>
+              </div>
+            </div>
+
+            {/* CTA Controls */}
+            <div className="flex flex-wrap gap-4">
+              <button className="py-3 px-6 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-[#050505] font-black text-xs uppercase tracking-wider transition-colors shadow-lg cursor-pointer">
+                🎯 Start Your Journey
+              </button>
+              <button className="py-3 px-6 rounded-lg bg-[#111111] hover:bg-[#171717] border border-white/[0.08] text-white font-semibold text-xs uppercase tracking-wider transition-all">
+                🌟 Join the Community
+              </button>
+            </div>
+          </div>
+
+          {/* Right Column: Premium Video Container */}
+          <div className="lg:col-span-7">
+            <div className="relative bg-[#111111] border border-white/[0.08] rounded-2xl p-2 shadow-2xl overflow-hidden aspect-video group">
+              {/* Decorative HUD corners */}
+              <div className="absolute top-4 left-4 w-3 h-3 border-t-2 border-l-2 border-emerald-500/30 pointer-events-none z-10" />
+              <div className="absolute top-4 right-4 w-3 h-3 border-t-2 border-r-2 border-emerald-500/30 pointer-events-none z-10" />
+              <div className="absolute bottom-4 left-4 w-3 h-3 border-b-2 border-l-2 border-emerald-500/30 pointer-events-none z-10" />
+              <div className="absolute bottom-4 right-4 w-3 h-3 border-b-2 border-r-2 border-emerald-500/30 pointer-events-none z-10" />
+              
+              {/* Video Element (Replace 'src' with your actual video or YouTube embed link) */}
+              <div className="w-full h-full rounded-xl overflow-hidden bg-black relative">
+                <iframe
+                  className="w-full h-full object-cover"
+                  src="https://www.youtube.com/embed/dQw4w9WgXcQ" // Place actual video embed URL here
+                  title="Leon Games Promotional Ad"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                ></iframe>
+              </div>
+            </div>
+            
+            <p className="text-[10px] text-neutral-500 text-center font-mono mt-4 uppercase tracking-widest">
+              🎥 VIDEO PLAYBACK COMPILER ACTIVE // ARENA PROTOCOL SECURED
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  );
+}
 
 function HowItWorksSection() {
   return (
