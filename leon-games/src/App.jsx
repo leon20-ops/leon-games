@@ -1161,21 +1161,30 @@ export function FeaturedGamesSection() {
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[300px] rounded-full bg-emerald-500/[0.02] blur-[150px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-6">
-        {/* Section Header */}
-        <div className="flex flex-col md:flex-row items-start md:items-end justify-between mb-16 gap-6">
-          <motion.div style={{ x: headerTitleX, opacity: headerTitleOpacity }}>
-            <div className="inline-block px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-semibold uppercase tracking-widest mb-4">
-              Arena Catalog
+        {/* Section Header (VIBRANT REDESIGN) */}
+        <div className="flex flex-col lg:flex-row items-start lg:items-end justify-between mb-16 gap-8">
+          <motion.div style={{ x: headerTitleX, opacity: headerTitleOpacity }} className="flex flex-col">
+            {/* Dynamic Segment Status Tag */}
+            <div className="inline-flex items-center gap-2 self-start px-3.5 py-1.5 rounded-full bg-gradient-to-r from-emerald-500/10 via-cyan-500/10 to-blue-500/10 border border-emerald-500/30 text-[10px] font-mono tracking-wider mb-4">
+              <span className="text-emerald-400 font-bold">⚔️ LIVE ARENA CATALOG</span>
+              <span className="text-neutral-600">//</span>
+              <span className="text-cyan-400 animate-pulse">5 DETERMINISTIC SKILL CHALLENGES 🏆</span>
             </div>
-            <h2 className="text-3xl md:text-5xl font-black tracking-tight text-white">
-              5 Competitive Titles
+            
+            {/* High-Impact Gradient Title */}
+            <h2 className="text-3xl md:text-5xl font-black tracking-tight leading-tight select-none">
+              <span className="bg-gradient-to-r from-emerald-400 via-teal-400 to-cyan-500 bg-clip-text text-transparent">
+                5 Legendary Titles!⚡
+              </span>
             </h2>
           </motion.div>
+
+          {/* Color-Vocal Description with Key Terms Highlighted */}
           <motion.p
             style={{ x: headerDescX, opacity: headerDescOpacity }}
-            className="text-neutral-400 max-w-md text-sm font-light leading-relaxed"
+            className="text-neutral-300 max-w-lg text-sm md:text-base leading-relaxed font-light"
           >
-            All battles execute through standard deterministic frameworks. Success depends strictly on player inputs, psychological strategy, and execution speed.
+            Every battle resolves through <strong className="text-cyan-400">100% deterministic mathematical frameworks</strong>. Victory depends strictly on your <span className="text-yellow-400">reflex speeds</span>, <span className="text-emerald-400">psychological bluffs</span>, and <span className="text-red-400">tactical execution</span>. No luck. No house edge! 🧠🛑💡
           </motion.p>
         </div>
 
