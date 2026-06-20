@@ -527,11 +527,11 @@ function HeroSection() {
 
   const handleMouseMove = (e) => {
     if (isMobile) return;
-    
+
     const rect = e.currentTarget.getBoundingClientRect();
     const width = rect.width;
     const height = rect.height;
-    
+
     // Relative coordinates mapped from center (-0.5 to 0.5)
     const offsetX = (e.clientX - rect.left) / width - 0.5;
     const offsetY = (e.clientY - rect.top) / height - 0.5;
@@ -1249,8 +1249,8 @@ const GAME_DATA = [
 
 const sliderColVariants = {
   hidden: { opacity: 0, x: -40 },
-  visible: { 
-    opacity: 1, 
+  visible: {
+    opacity: 1,
     x: 0,
     transition: { type: "spring", stiffness: 70, damping: 16 }
   }
@@ -1302,21 +1302,21 @@ export function FeaturedGamesSection() {
   const headerDescOpacity = useTransform(smoothProgress, [0, 0.32, 0.85, 1], [0, 1, 1, 0]);
 
   // 4. Map Left Column Slider Container
-  const leftColX = useTransform(smoothProgress, [0, 0.42, 0.8, 1], [isMobile ? -20 : -50, 0, 0, isMobile ? -15 : -30]);
+  const leftColX = useTransform(smoothProgress, [0, 0.38, 0.75, 1], [isMobile ? -40 : -140, 0, 0, isMobile ? -45 : -100]);
   const leftColOpacity = useTransform(smoothProgress, [0, 0.34, 0.85, 1], [0, 1, 1, 0]);
 
   // 5. Map Individual Card Items (Scroll-Progressive Stagger)
   const cardTransforms = GAME_DATA.map((_, idx) => {
     const startReveal = 0.12 + idx * 0.04;
     const endReveal = 0.32 + idx * 0.04;
-    
+
     const y = useTransform(smoothProgress, [0, startReveal, endReveal, 0.85, 1], [isMobile ? 15 : 40, isMobile ? 15 : 40, 0, 0, isMobile ? -10 : -20]);
     const opacity = useTransform(smoothProgress, [0, startReveal, endReveal, 0.9, 1], [0, 0, 1, 1, 0]);
     return { y, opacity };
   });
 
   // 6. Map Right Column Container
-  const rightPanelX = useTransform(smoothProgress, [0, 0.42, 0.8, 1], [isMobile ? 20 : 50, 0, 0, isMobile ? 15 : 30]);
+  const rightPanelX = useTransform(smoothProgress, [0, 0.38, 0.75, 1], [isMobile ? 40 : 140, 0, 0, isMobile ? 45 : 100]);
   const rightPanelOpacity = useTransform(smoothProgress, [0, 0.34, 0.85, 1], [0, 1, 1, 0]);
 
   // 7. Map Staggered Detail Tab Sub-Elements (Alert, Grid, Footer)
@@ -1334,9 +1334,9 @@ export function FeaturedGamesSection() {
   const mediaContentOpacity = useTransform(smoothProgress, [0, 0.25, 0.45, 0.9, 1], [0, 0, 1, 1, 0]);
 
   return (
-    <section 
-      ref={sectionRef} 
-      id="games" 
+    <section
+      ref={sectionRef}
+      id="games"
       className="py-24 relative overflow-hidden bg-[#050505] border-t border-white/[0.04]"
     >
       {/* Background Ambience */}
@@ -1353,7 +1353,7 @@ export function FeaturedGamesSection() {
               5 Competitive Titles
             </h2>
           </motion.div>
-          <motion.p 
+          <motion.p
             style={{ x: headerDescX, opacity: headerDescOpacity }}
             className="text-neutral-400 max-w-md text-sm font-light leading-relaxed"
           >
@@ -1363,16 +1363,16 @@ export function FeaturedGamesSection() {
 
         {/* Dual Panel Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
-          
+
           {/* LEFT COLUMN: VERTICAL GAME SLIDER */}
-          <motion.div 
+          <motion.div
             style={{ x: !isMobile ? sliderColVariants.hidden.x : 0, opacity: !isMobile ? sliderColVariants.hidden.opacity : 1 }}
             whileInView={{ x: 0, opacity: 1 }}
             viewport={{ once: false, amount: 0.12 }}
             transition={{ type: "spring", stiffness: 70, damping: 16 }}
             className="lg:col-span-5 flex flex-col justify-between bg-[#0A0A0A] border border-white/[0.06] rounded-2xl p-4 md:p-6 shadow-xl relative overflow-hidden"
           >
-            
+
             {/* Header / Nav Controls */}
             <div className="flex items-center justify-between mb-6 pb-4 border-b border-white/[0.04] relative z-10">
               <div className="flex items-center gap-2">
@@ -1415,11 +1415,10 @@ export function FeaturedGamesSection() {
                       key={game.id}
                       onClick={() => setActiveIdx(idx)}
                       style={{ y, opacity }}
-                      className={`relative flex items-center gap-4 p-4 rounded-xl cursor-pointer border transition-all duration-300 origin-center ${
-                        isActive
+                      className={`relative flex items-center gap-4 p-4 rounded-xl cursor-pointer border transition-all duration-300 origin-center ${isActive
                           ? "bg-[#111111] border-emerald-500/40 shadow-[0_4px_25px_rgba(34,197,94,0.08)] scale-[1.01]"
                           : "bg-transparent border-white/[0.04] hover:border-white/[0.1] opacity-65 hover:opacity-100"
-                      }`}
+                        }`}
                       whileTap={{ scale: 0.99 }}
                     >
                       {/* Left thumbnail marker */}
@@ -1460,11 +1459,11 @@ export function FeaturedGamesSection() {
           </motion.div>
 
           {/* RIGHT COLUMN: DYNAMIC GAME INFORMATION CONTAINER (DOMINANT PANEL) */}
-          <motion.div 
+          <motion.div
             style={{ x: rightPanelX, opacity: rightPanelOpacity }}
             className="lg:col-span-7 flex flex-col bg-[#0A0A0A] border border-white/[0.06] rounded-2xl shadow-2xl relative overflow-hidden"
           >
-            
+
             {/* Dynamic visual overlay background matching game color themes slightly */}
             <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-cyan-500/[0.01] rounded-full blur-[100px] pointer-events-none" />
 
@@ -1473,9 +1472,8 @@ export function FeaturedGamesSection() {
               <div className="flex gap-2">
                 <button
                   onClick={() => setActiveTab("details")}
-                  className={`relative px-4 py-2 text-xs font-mono font-bold uppercase tracking-wider rounded-md transition-colors cursor-pointer ${
-                    activeTab === "details" ? "text-white" : "text-neutral-500 hover:text-neutral-300"
-                  }`}
+                  className={`relative px-4 py-2 text-xs font-mono font-bold uppercase tracking-wider rounded-md transition-colors cursor-pointer ${activeTab === "details" ? "text-white" : "text-neutral-500 hover:text-neutral-300"
+                    }`}
                 >
                   <span className="relative z-10">Game Details & Rules</span>
                   {activeTab === "details" && (
@@ -1488,9 +1486,8 @@ export function FeaturedGamesSection() {
                 </button>
                 <button
                   onClick={() => setActiveTab("media")}
-                  className={`relative px-4 py-2 text-xs font-mono font-bold uppercase tracking-wider rounded-md transition-colors cursor-pointer ${
-                    activeTab === "media" ? "text-white" : "text-neutral-500 hover:text-neutral-300"
-                  }`}
+                  className={`relative px-4 py-2 text-xs font-mono font-bold uppercase tracking-wider rounded-md transition-colors cursor-pointer ${activeTab === "media" ? "text-white" : "text-neutral-500 hover:text-neutral-300"
+                    }`}
                 >
                   <span className="relative z-10">Media View</span>
                   {activeTab === "media" && (
@@ -1515,7 +1512,7 @@ export function FeaturedGamesSection() {
                 {activeTab === "details" ? (
                   <div className="flex flex-col justify-between h-full space-y-8">
                     {/* Universal Format Alert Box - Scroll Progressive */}
-                    <motion.div 
+                    <motion.div
                       style={{ y: detailAlertY, opacity: detailAlertOpacity }}
                       className="bg-[#111111]/80 border border-white/[0.04] p-4 rounded-xl flex items-start gap-3.5 shadow-inner"
                     >
@@ -1535,7 +1532,7 @@ export function FeaturedGamesSection() {
                     </motion.div>
 
                     {/* Left/Right Text Grid split - Scroll Progressive */}
-                    <motion.div 
+                    <motion.div
                       style={{ y: detailGridY, opacity: detailGridOpacity }}
                       className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2"
                     >
@@ -1575,7 +1572,7 @@ export function FeaturedGamesSection() {
                     </motion.div>
 
                     {/* Quick Start Action Row - Scroll Progressive */}
-                    <motion.div 
+                    <motion.div
                       style={{ y: detailFooterY, opacity: detailFooterOpacity }}
                       className="pt-6 border-t border-white/[0.04] flex flex-col sm:flex-row sm:items-center justify-between gap-4"
                     >
@@ -1591,11 +1588,11 @@ export function FeaturedGamesSection() {
                 ) : (
                   <div className="w-full h-full min-h-[300px] flex flex-col justify-between relative">
                     {/* Simulated Cinematic Video Preview Window - Scroll Progressive */}
-                    <motion.div 
+                    <motion.div
                       style={{ y: mediaContentY, opacity: mediaContentOpacity }}
                       className="w-full h-[280px] bg-neutral-950 border border-white/[0.06] rounded-xl relative overflow-hidden flex items-center justify-center group/media shadow-inner"
                     >
-                      
+
                       {/* Active wallpaper */}
                       <img
                         src={activeGame.image}
@@ -1645,7 +1642,7 @@ export function FeaturedGamesSection() {
             </div>
 
           </motion.div>
-          
+
         </div>
       </div>
     </section>
