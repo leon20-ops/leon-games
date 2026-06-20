@@ -1490,94 +1490,154 @@ const STEPS = [
   }
 ];
 
-// --- VIDEO ADVERTISEMENT SECTION ---
+// --- VIDEO ADVERTISEMENT SECTION (VIBRANT REDESIGN) ---
 function VideoAdSection() {
   return (
     <section className="py-24 bg-[#050505] relative overflow-hidden border-t border-white/[0.04]">
-      {/* Background Ambience */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] rounded-full bg-emerald-500/[0.02] blur-[120px] pointer-events-none" />
+      {/* High-Impact Multi-Color Radial Backdrops */}
+      <div className="absolute top-1/4 left-1/4 w-[500px] h-[300px] rounded-full bg-emerald-500/[0.03] blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[300px] rounded-full bg-cyan-500/[0.03] blur-[120px] pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] rounded-full bg-purple-500/[0.015] blur-[140px] pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto px-6">
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           
-          {/* Left Column: Compelling Copy & Features */}
+          {/* Left Column: High-Velocity Multicolored Typography & Bullet Points */}
           <div className="lg:col-span-5 flex flex-col justify-center">
-            <div className="inline-block self-start px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-semibold uppercase tracking-widest mb-4">
-              🎬 Inside the Arena
+            
+            {/* Colorful Multi-Segment Status Tag */}
+            <div className="inline-flex items-center gap-2 self-start px-3.5 py-1.5 rounded-full bg-gradient-to-r from-red-500/10 via-amber-500/10 to-emerald-500/10 border border-emerald-500/30 text-[10px] font-mono tracking-wider mb-6">
+              <span className="text-red-400">🎬 PLAY FEED</span>
+              <span className="text-neutral-600">//</span>
+              <span className="text-amber-400">🔥 HOT PROMO</span>
+              <span className="text-neutral-600">//</span>
+              <span className="text-emerald-400 animate-pulse">🟢 LIVE MATCHES ACTIVATED</span>
             </div>
             
-            <h2 className="text-3xl md:text-5xl font-black tracking-tight text-white mb-6 leading-tight">
-              Discover the Adventure. <br />
-              <span className="bg-gradient-to-r from-emerald-400 to-cyan-400 bg-clip-text text-transparent">
-                See the Action.
+            {/* Dynamic Multi-Color Gradient Headline */}
+            <h2 className="text-3xl md:text-5xl font-black tracking-tight mb-6 leading-tight select-none">
+              <span className="block bg-gradient-to-r from-yellow-300 via-amber-400 to-orange-500 bg-clip-text text-transparent">
+                Discover the Adventure! 🎮✨
+              </span>
+              <span className="block bg-gradient-to-r from-cyan-400 via-emerald-400 to-green-500 bg-clip-text text-transparent mt-1">
+                See the Ultimate Action! ⚔️🔥
               </span>
             </h2>
             
-            <p className="text-neutral-400 text-sm md:text-base mb-8 leading-relaxed font-light">
-              Dive into an epic competitive experience designed around mechanical skill, speed, and strategic calculation. Watch our platform showcase to understand how matchmaking, security layers, and instantaneous settlement execute in real time. 🚀🔥
+            <p className="text-neutral-400 text-sm md:text-base mb-6 leading-relaxed font-light">
+              Step into an outstanding competitive universe mapped around raw coordination, processing velocity, and structural tactics. Look at our platform demonstration showcase to see how matchmaking networks, security layers, and real-time settlement assets align. <strong className="text-white font-medium">No algorithmic delays. No system overrides. ⚡🏆🛡️</strong>
             </p>
 
-            {/* Key Features List */}
-            <div className="space-y-4 mb-8">
-              <div className="flex items-start gap-3">
-                <span className="text-lg">⚔️</span>
-                <div>
-                  <h4 className="text-xs font-bold text-white uppercase tracking-wider">Fast-Paced Direct Battles</h4>
-                  <p className="text-xs text-neutral-500 mt-0.5">Test your visual processing limits and decision pathways against verified opponents.</p>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-3">
-                <span className="text-lg">🏆</span>
-                <div>
-                  <h4 className="text-xs font-bold text-white uppercase tracking-wider">Transparent Settlement</h4>
-                  <p className="text-xs text-neutral-500 mt-0.5">Automated smart logic processes distribution steps instantly at the close of every round.</p>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-3">
-                <span className="text-lg">🌍</span>
-                <div>
-                  <h4 className="text-xs font-bold text-white uppercase tracking-wider">Global Lobbies</h4>
-                  <p className="text-xs text-neutral-500 mt-0.5">Connect and compete across multiple latency-optimized server locations.</p>
-                </div>
+            {/* Strategic Highlight Callout Box */}
+            <div className="bg-amber-500/[0.03] border border-amber-500/20 rounded-xl p-4 mb-6 flex items-start gap-3.5 shadow-[inset_0_1px_12px_rgba(245,158,11,0.02)]">
+              <span className="text-xl">⚠️</span>
+              <div>
+                <h5 className="text-xs font-mono font-black text-amber-400 uppercase tracking-widest mb-1">
+                  Skill-Based Matchmaking Matrix 🧠🛡️
+                </h5>
+                <p className="text-[11px] text-neutral-400 leading-relaxed">
+                  Platform protocols guarantee <strong className="text-white font-semibold">zero random variables</strong> or house advantages. Success relies exclusively on your inputs, tactical calculation, and mechanical speed! 🥊💎
+                </p>
               </div>
             </div>
 
-            {/* CTA Controls */}
+            {/* Colorful & Descriptive Feature List with Custom Icons */}
+            <div className="space-y-4 mb-8 border-l-2 border-dashed border-neutral-800 pl-4">
+              
+              {/* Feature Item 1: RED Accent */}
+              <div className="flex items-start gap-3">
+                <span className="text-xl text-red-500">⚔️</span>
+                <div>
+                  <h4 className="text-xs font-mono font-black text-red-400 uppercase tracking-widest">
+                    Fast-Paced Direct Battles! 🥊⚡
+                  </h4>
+                  <p className="text-xs text-neutral-400 mt-0.5 font-light">
+                    Face off against verified live opponents globally. Show your speed under <span className="text-red-300 font-medium">pressure conditions</span>! 🛑
+                  </p>
+                </div>
+              </div>
+
+              {/* Feature Item 2: YELLOW Accent */}
+              <div className="flex items-start gap-3">
+                <span className="text-xl text-yellow-500">🏆</span>
+                <div>
+                  <h4 className="text-xs font-mono font-black text-yellow-400 uppercase tracking-widest">
+                    Transparent Settlement Guaranteed! 🥇💸
+                  </h4>
+                  <p className="text-xs text-neutral-400 mt-0.5 font-light">
+                    Automated ledger distributions execute <span className="text-yellow-300 font-medium">immediately</span> upon round validation. Instant tracking visibility. 🛡️
+                  </p>
+                </div>
+              </div>
+
+              {/* Feature Item 3: CYAN Accent */}
+              <div className="flex items-start gap-3">
+                <span className="text-xl text-cyan-400">🌍</span>
+                <div>
+                  <h4 className="text-xs font-mono font-black text-cyan-400 uppercase tracking-widest">
+                    Decentralized Gateway Lobbies! 🗺️🛰️
+                  </h4>
+                  <p className="text-xs text-neutral-400 mt-0.5 font-light">
+                    Low-latency routing connections active across a <span className="text-cyan-300 font-medium">global node infrastructure</span>. Play from anywhere! ⚡
+                  </p>
+                </div>
+              </div>
+
+            </div>
+
+            {/* Strategic Call to Action Buttons */}
             <div className="flex flex-wrap gap-4">
-              <button className="py-3 px-6 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-[#050505] font-black text-xs uppercase tracking-wider transition-colors shadow-lg cursor-pointer">
-                🎯 Start Your Journey
+              <button className="py-3.5 px-6 rounded-lg bg-gradient-to-r from-emerald-500 to-green-600 text-[#050505] font-black text-xs uppercase tracking-wider transition-all duration-300 shadow-[0_4px_25px_rgba(16,185,129,0.3)] hover:shadow-[0_6px_30px_rgba(16,185,129,0.55)] cursor-pointer flex items-center gap-1.5 hover:scale-[1.01]">
+                👉 Start Your Journey 🔥
               </button>
-              <button className="py-3 px-6 rounded-lg bg-[#111111] hover:bg-[#171717] border border-white/[0.08] text-white font-semibold text-xs uppercase tracking-wider transition-all">
-                🌟 Join the Community
+              <button className="py-3.5 px-6 rounded-lg bg-[#111] hover:bg-[#151515] border border-white/[0.08] hover:border-cyan-500/30 text-cyan-400 hover:text-cyan-300 font-black text-xs uppercase tracking-wider transition-all duration-200 cursor-pointer flex items-center gap-1.5">
+                🌟 Join the Discord Hub 💬
               </button>
             </div>
           </div>
 
-          {/* Right Column: Premium Video Container */}
+          {/* Right Column: Premium Neon Video Player Container */}
           <div className="lg:col-span-7">
-            <div className="relative bg-[#111111] border border-white/[0.08] rounded-2xl p-2 shadow-2xl overflow-hidden aspect-video group">
-              {/* Decorative HUD corners */}
-              <div className="absolute top-4 left-4 w-3 h-3 border-t-2 border-l-2 border-emerald-500/30 pointer-events-none z-10" />
-              <div className="absolute top-4 right-4 w-3 h-3 border-t-2 border-r-2 border-emerald-500/30 pointer-events-none z-10" />
-              <div className="absolute bottom-4 left-4 w-3 h-3 border-b-2 border-l-2 border-emerald-500/30 pointer-events-none z-10" />
-              <div className="absolute bottom-4 right-4 w-3 h-3 border-b-2 border-r-2 border-emerald-500/30 pointer-events-none z-10" />
+            {/* Visual glow frame wrapping the player border */}
+            <div className="relative bg-gradient-to-br from-emerald-500/20 via-neutral-900 to-cyan-500/20 p-[1.5px] rounded-2xl shadow-[0_24px_60px_rgba(0,0,0,0.85)]">
               
-              {/* Video Element (Replace 'src' with your actual video or YouTube embed link) */}
-              <div className="w-full h-full rounded-xl overflow-hidden bg-black relative">
-                <iframe
-                  className="w-full h-full object-cover"
-                  src="https://www.youtube.com/embed/dQw4w9WgXcQ" // Place actual video embed URL here
-                  title="Leon Games Promotional Ad"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                ></iframe>
+              <div className="relative bg-[#111111] rounded-2xl p-2 md:p-3 overflow-hidden aspect-video group">
+                
+                {/* Active HUD Corner Indicators */}
+                <div className="absolute top-5 left-5 w-4 h-4 border-t-2 border-l-2 border-emerald-400 pointer-events-none z-10" />
+                <div className="absolute top-5 right-5 w-4 h-4 border-t-2 border-r-2 border-cyan-400 pointer-events-none z-10" />
+                <div className="absolute bottom-5 left-5 w-4 h-4 border-b-2 border-l-2 border-cyan-400 pointer-events-none z-10" />
+                <div className="absolute bottom-5 right-5 w-4 h-4 border-b-2 border-r-2 border-emerald-400 pointer-events-none z-10" />
+                
+                {/* Premium Animated HUD Status Overlay (Centered) */}
+                <div className="absolute top-4 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2 px-3 py-1.5 rounded bg-black/90 border border-white/[0.08] backdrop-blur-md text-[9px] font-mono">
+                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                  <span className="text-neutral-400">FEED:</span>
+                  <span className="text-emerald-400 font-black">ONLINE</span>
+                  <span className="text-neutral-600">|</span>
+                  <span className="text-neutral-400">NODE:</span>
+                  <span className="text-cyan-400 font-black">AMS-EDGE-9</span>
+                  <span className="text-neutral-600">|</span>
+                  <span className="text-yellow-400 font-bold">1080P @ 60FPS 📡</span>
+                </div>
+
+                {/* Video Elements Container */}
+                <div className="w-full h-full rounded-xl overflow-hidden bg-black relative border border-white/[0.04]">
+                  <iframe
+                    className="w-full h-full object-cover"
+                    src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+                    title="Leon Games Competitive Arena Presentation Video"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  ></iframe>
+                </div>
+
               </div>
             </div>
             
-            <p className="text-[10px] text-neutral-500 text-center font-mono mt-4 uppercase tracking-widest">
-              🎥 VIDEO PLAYBACK COMPILER ACTIVE // ARENA PROTOCOL SECURED
+            <p className="text-[10px] text-neutral-500 text-center font-mono mt-4 uppercase tracking-widest flex items-center justify-center gap-2">
+              <span className="inline-block w-1.5 h-1.5 rounded-full bg-cyan-400 animate-ping" />
+              🎥 REAL-TIME VIDEO PLAYER FEED SECURED // CRYPTO-HASH PROTOCOL ACTIVE 📡🟢
             </p>
           </div>
 
