@@ -1710,68 +1710,104 @@ function VideoAdSection() {
   );
 }
 
-// --- RICH ARCHITECTURAL STEPS FOR THE FLOW ENGINE ---
+// --- RICH ARCHITECTURAL STEPS FOR THE FLOW ENGINE (VISUALLY ENHANCED) ---
 const HOW_IT_WORKS_STEPS = [
   {
     num: "01",
-    title: "Secure Liquidity Ingestion",
-    tagline: "GATEWAY INTEGRATION // ASSET DEPOSIT",
-    desc: "Connect traditional fiat card networks or decentralized Web3 wallets to load your gaming balance. Funds are routed instantly through encrypted security pipelines into isolated, audited multi-signature vaults.",
+    shortTitle: "Liquidity",
+    title: (
+      <span>
+        Secure <span className="text-emerald-400">Liquidity Ingestion</span> 📥
+      </span>
+    ),
+    tagline: "⚙️ GATEWAY INTEGRATION // SECURE DEPOSIT 💳",
+    desc: (
+      <span>
+        Connect traditional <strong className="text-emerald-300">fiat card networks</strong> or decentralized <strong className="text-cyan-400 font-semibold">Web3 wallets</strong> to load your gaming balance instantly ⚡. Funds are routed securely through encrypted pipelines directly into isolated, audited <strong className="text-amber-400 font-semibold">multi-signature vaults</strong>. No platform-side custody risks! 🛡️
+      </span>
+    ),
     bullets: [
-      "Zero-friction processing using bank-grade transit standards",
-      "Automated conversion to unified, stable USD valuation units",
-      "Cold-vault containment protocols to mitigate system vulnerability"
+      <span>Zero-friction processing using <strong className="text-emerald-400">bank-grade transit standards</strong> 🏦</span>,
+      <span>Automated conversion to unified, stable <strong className="text-cyan-400">USD valuation units</strong> 🪙</span>,
+      <span>Cold-vault containment protocols to <strong className="text-amber-400">mitigate platform exploits</strong> 🔒</span>
     ],
-    stat: "99.99%",
-    statLabel: "Ingestion Success",
+    stat: "99.99% 📈",
+    statLabel: "🟢 Ingestion Success",
     color: "from-emerald-500/20 to-emerald-500/0",
     borderAccent: "border-emerald-500/30",
     textAccent: "text-emerald-400"
   },
   {
     num: "02",
-    title: "Deterministic Match Selection",
-    tagline: "ENGINE INDEXING // MODE RESOLUTION",
-    desc: "Identify your battlefield. Filter through active skill catalogs based on your mechanical competency, preferred stakes, and structural mechanics where outputs rely entirely on user calculation.",
+    shortTitle: "Selection",
+    title: (
+      <span>
+        Deterministic <span className="text-cyan-400">Match Selection</span> 🎯
+      </span>
+    ),
+    tagline: "⚔️ ENGINE INDEXING // ARENA LOBBY RESOLUTION 🗺️",
+    desc: (
+      <span>
+        Identify your target battlefield 🎮. Filter through our live catalog using <strong className="text-cyan-300 font-semibold">precise skill parameters</strong>, custom staking limits, and transparent mechanics where final match results rely strictly on <strong className="text-emerald-400 font-semibold">user inputs and tactical reaction times</strong>. No house algorithms! 🧠
+      </span>
+    ),
     bullets: [
-      "Strictly non-random system architectures across all modes",
-      "Dynamic lobby parameter validation before capital commitment",
-      "Direct low-latency peer-to-peer node connection routes"
+      <span>Strictly <strong className="text-cyan-400">non-random system architectures</strong> across all modes 📐</span>,
+      <span>Dynamic lobby validation before any <strong className="text-amber-400">capital commitment</strong> 💎</span>,
+      <span>Direct, ultra-low-latency routing connections to <strong className="text-emerald-400">peer-to-peer nodes</strong> ⚡</span>
     ],
-    stat: "0.0%",
-    statLabel: "Randomness Variance",
+    stat: "0.0% 🛑",
+    statLabel: "⚡ Randomness Variance",
     color: "from-cyan-500/20 to-cyan-500/0",
     borderAccent: "border-cyan-500/30",
     textAccent: "text-cyan-400"
   },
   {
     num: "03",
-    title: "Isolated Escrow Matching",
-    tagline: "MATCHMAKING PROTOCOL // LEDGER HOLD",
-    desc: "Lock your selected stake into a cryptographically verified escrow pipeline. The global coordination engine matches you synchronously against an active competitor with an identical stake.",
+    shortTitle: "Escrow",
+    title: (
+      <span>
+        Isolated <span className="text-amber-400">Escrow Matching</span> 🔒
+      </span>
+    ),
+    tagline: "🔮 MATCHMAKING PROTOCOL // LEDGER HOLD 🤝",
+    desc: (
+      <span>
+        Commit your selected stakes directly into a secure, <strong className="text-amber-400 font-semibold">cryptographically isolated escrow contract</strong>. Our matchmaking engine coordinates instantly, pairing you synchronously against a verified live opponent locking the <strong className="text-emerald-400 font-semibold">exact same stake value</strong>. Safe, fair, and seamless. 🤝
+      </span>
+    ),
     bullets: [
-      "Secured balance holds managed with programmatic transparency",
-      "Continuous system checks to identify connection anomalies",
-      "Automated queue prioritization to prevent prolonged idle states"
+      <span>Secured balance holds managed with <strong className="text-amber-400">complete public transparency</strong> 📝</span>,
+      <span>Continuous connection status checks to <strong className="text-rose-400">prevent manual tampering</strong> 🚫</span>,
+      <span>Automated priority queues to <strong className="text-cyan-400">eliminate unnecessary wait times</strong> ⏳</span>
     ],
-    stat: "< 3.2s",
-    statLabel: "Lobby Match Delta",
+    stat: "< 3.2s ⚡",
+    statLabel: "🎯 Lobby Match Delta",
     color: "from-amber-500/20 to-amber-500/0",
     borderAccent: "border-amber-500/30",
     textAccent: "text-amber-400"
   },
   {
     num: "04",
-    title: "Automated Instant Payouts",
-    tagline: "LEDGER AUDIT // OUTFLOW SETTLEMENT",
-    desc: "Execute best-of-three gaming rounds. Upon systematic validation of victorious metrics, the locked escrow balance transfers to the winner's account without platform-side hold times.",
+    shortTitle: "Payouts",
+    title: (
+      <span>
+        Automated <span className="text-purple-400">Instant Payouts</span> 🏆
+      </span>
+    ),
+    tagline: "💎 LEDGER AUDIT // OUTFLOW SETTLEMENT 💸",
+    desc: (
+      <span>
+        Clash in head-to-head rounds 🥊. Once the match engine calculates the final winner, the <strong className="text-purple-400 font-semibold">automated audited balance payouts</strong> execute instantly. The entire prize pool transitions directly to your profile wallet balance without platform-side delays or holds! 💸
+      </span>
+    ),
     bullets: [
-      "Real-time settlement directly accessible via wallet interfaces",
-      "Immutable public record logging of each deterministic outcome",
-      "Instant, unhindered 24/7/365 balance liquidity drawdowns"
+      <span>Direct, real-time settlement accessible through <strong className="text-purple-400">your profile wallet</strong> 🪙</span>,
+      <span>Immutable <strong className="text-emerald-400">public transaction logging</strong> for every match outcome 📊</span>,
+      <span>Instant, unhindered cashout pipelines active <strong className="text-cyan-400">24/7/365 globally</strong> 🌍</span>
     ],
-    stat: "< 1.5s",
-    statLabel: "Ledger Settlement",
+    stat: "< 1.5s 🚀",
+    statLabel: "✨ Ledger Settlement",
     color: "from-purple-500/20 to-purple-500/0",
     borderAccent: "border-purple-500/30",
     textAccent: "text-purple-400"
@@ -1894,7 +1930,7 @@ export function HowItWorksSection() {
 
   return (
     <section
-      ref={sectionRef} // <--- ADD THIS LINE
+      ref={sectionRef}
       id="how-it-works"
       className="py-24 bg-[#0A0A0A] relative overflow-hidden border-y border-white/[0.04] z-10"
     >
@@ -1905,7 +1941,6 @@ export function HowItWorksSection() {
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         
         {/* Section Header */}
-       {/* Architectural Asymmetrical Section Header */}
         <div className="flex flex-col lg:flex-row items-start lg:items-end justify-between mb-20 gap-8">
           <motion.div 
             style={{ x: headerTitleX, opacity: headerTitleOpacity }} 
@@ -1959,11 +1994,11 @@ export function HowItWorksSection() {
                     onClick={() => handleStepChange(idx)}
                     className="flex items-center gap-4 text-left group focus:outline-none cursor-pointer"
                   >
-                    {/* Architectural Bullet Circle */}
+                    {/* Architectural Bullet Circle with Dynamic Accent Colors */}
                     <div
                       className={`relative w-8.5 h-8.5 rounded-full flex items-center justify-center border font-mono text-[10px] font-black tracking-tighter transition-all duration-350 z-10 ${
                         isActive
-                          ? "bg-neutral-900 border-emerald-500/40 text-emerald-400 shadow-[0_0_15px_rgba(16,185,129,0.15)]"
+                          ? `bg-neutral-900 ${step.borderAccent} ${step.textAccent} shadow-[0_0_15px_rgba(16,185,129,0.15)]`
                           : "bg-black border-white/[0.04] text-neutral-600 group-hover:border-white/[0.15] group-hover:text-neutral-400"
                       }`}
                     >
@@ -1983,7 +2018,7 @@ export function HowItWorksSection() {
                           isActive ? "text-white" : "text-neutral-500 group-hover:text-neutral-300"
                         }`}
                       >
-                        {step.title.split(" ")[0]} ...
+                        {step.shortTitle} ...
                       </span>
                     </div>
                   </button>
@@ -2028,7 +2063,7 @@ export function HowItWorksSection() {
                     <span className={`text-[10px] font-mono tracking-[0.25em] font-black uppercase ${activeStep.textAccent}`}>
                       {activeStep.tagline}
                     </span>
-                    <h3 className="text-xl md:text-3xl font-black tracking-tight text-white mt-1">
+                    <h3 className="text-xl md:text-3xl font-black tracking-tight text-white mt-1 leading-tight">
                       {activeStep.title}
                     </h3>
                   </motion.div>
@@ -2062,7 +2097,7 @@ export function HowItWorksSection() {
                     ))}
                   </motion.div>
 
-                  {/* Micro Visual Stat Block */}
+                  {/* Micro Visual Stat Block with Dynamic Color Treatment */}
                   <motion.div
                     variants={childVariants}
                     className={`md:col-span-4 p-4 rounded-xl bg-white/[0.01] border ${activeStep.borderAccent} flex flex-col items-center md:items-start text-center md:text-left justify-center`}
