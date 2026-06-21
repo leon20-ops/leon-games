@@ -1819,13 +1819,17 @@ export function HowItWorksSection() {
   const [activeIdx, setActiveIdx] = useState(0);
   const [direction, setDirection] = useState(1);
   const [isMobile, setIsMobile] = useState(false);
+  const [isTouchDevice, setIsTouchDevice] = useState(() => {
+    if (typeof window === "undefined") return false;
+    return window.matchMedia("(hover: none) and (pointer: coarse)").matches;
+  });
   const [isDragging, setIsDragging] = useState(false);
   const dragY = useMotionValue(0);
 
   // 2. Declare refs next
   const sectionRef = useRef(null);
 
-  // 3. Declare scroll hooks and motion calculations (which now safely use isMobile)
+  // 3. Declare scroll hooks and motion calculations
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start end", "end start"]
@@ -1837,18 +1841,41 @@ export function HowItWorksSection() {
     restDelta: 0.001
   });
 
+  // Header Animations
   const headerTitleX = useTransform(smoothProgress, [0, 0.4, 0.8, 1], [isMobile ? -20 : -60, 0, 0, isMobile ? -15 : -40]);
   const headerTitleOpacity = useTransform(smoothProgress, [0, 0.32, 0.85, 1], [0, 1, 1, 0]);
 
   const headerDescX = useTransform(smoothProgress, [0, 0.4, 0.8, 1], [isMobile ? 20 : 60, 0, 0, isMobile ? 15 : 40]);
   const headerDescOpacity = useTransform(smoothProgress, [0, 0.32, 0.85, 1], [0, 1, 1, 0]);
 
+  // Center Column (Slider Card) Progress Mapping
+  const sliderY = useTransform(smoothProgress, [0, 0.35, 0.75, 1], [isMobile ? 0 : 80, 0, 0, isMobile ? 0 : -50]);
+  const sliderX = useTransform(smoothProgress, [0, 0.35, 0.75, 1], [isMobile ? 40 : 0, 0, 0, isMobile ? -30 : 0]);
+  const sliderOpacity = useTransform(smoothProgress, [0, 0.25, 0.85, 1], [0, 1, 1, 0]);
+
+  // Left Column (Phase Selectors) Progress Mapping
+  const phasesX = useTransform(smoothProgress, [0, 0.35, 0.75, 1], [-80, 0, 0, -50]);
+  const phasesOpacity = useTransform(smoothProgress, [0, 0.25, 0.85, 1], [0, 1, 1, 0]);
+
+  // Right Column (Step Counter & Pagination Controls) Progress Mapping
+  const controlsX = useTransform(smoothProgress, [0, 0.35, 0.75, 1], [isMobile ? 0 : 80, 0, 0, isMobile ? 0 : 50]);
+  const controlsY = useTransform(smoothProgress, [0, 0.35, 0.75, 1], [isMobile ? 40 : 0, 0, 0, isMobile ? -30 : 0]);
+  const controlsOpacity = useTransform(smoothProgress, [0, 0.25, 0.85, 1], [0, 1, 1, 0]);
+
   // 4. Use effects
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 1024);
     handleResize();
     window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+
+    const touchMedia = window.matchMedia("(hover: none) and (pointer: coarse)");
+    const handleTouchMedia = (event) => setIsTouchDevice(event.matches);
+    touchMedia.addEventListener("change", handleTouchMedia);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      touchMedia.removeEventListener("change", handleTouchMedia);
+    };
   }, []);
 
   const handleStepChange = (targetIdx) => {
@@ -1972,8 +1999,11 @@ export function HowItWorksSection() {
         {/* Core Showcase Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch max-w-5xl mx-auto">
           
-          {/* COLUMN 1: VERTICAL PAGINATION LADDER (Desktop / Left Side) */}
-          <div className="hidden lg:flex lg:col-span-3 flex-col justify-center pr-4 border-r border-white/[0.03]">
+          {/* COLUMN 1: VERTICAL PAGINATION LADDER (Desktop / Left Side with Scroll Reveal) */}
+          <motion.div 
+            style={{ x: phasesX, opacity: phasesOpacity }}
+            className="hidden lg:flex lg:col-span-3 flex-col justify-center pr-4 border-r border-white/[0.03]"
+          >
             <div className="relative flex flex-col gap-6">
               {/* Dynamic Connecting Under-line */}
               <div className="absolute left-4 top-4 bottom-4 w-[1px] bg-white/[0.04]">
@@ -2025,10 +2055,13 @@ export function HowItWorksSection() {
                 );
               })}
             </div>
-          </div>
+          </motion.div>
 
-          {/* COLUMN 2: THE CENTRAL STORYTELLING FOCUS CARD */}
-          <div className="lg:col-span-7 flex items-center min-h-[460px] relative">
+          {/* COLUMN 2: THE CENTRAL STORYTELLING FOCUS CARD (With Adaptive Scroll Reveal) */}
+          <motion.div 
+            style={{ x: sliderX, y: sliderY, opacity: sliderOpacity }}
+            className="lg:col-span-7 flex items-center min-h-[460px] relative"
+          >
             <AnimatePresence mode="wait" custom={direction}>
               <motion.div
                 key={activeIdx}
@@ -2037,20 +2070,24 @@ export function HowItWorksSection() {
                 initial="initial"
                 animate="animate"
                 exit="exit"
-                drag="y"
-                dragConstraints={{ top: -120, bottom: 120 }}
-                dragElastic={0.18}
+                drag={isTouchDevice ? false : "y"}
+                dragConstraints={isTouchDevice ? undefined : { top: -120, bottom: 120 }}
+                dragElastic={isTouchDevice ? 0 : 0.18}
                 dragMomentum={false}
-                dragTransition={{ bounceStiffness: 550, bounceDamping: 30 }}
-                style={{ y: dragY, cursor: isDragging ? "grabbing" : "grab" }}
-                onDragStart={() => setIsDragging(true)}
+                dragTransition={isTouchDevice ? undefined : { bounceStiffness: 550, bounceDamping: 30 }}
+                style={{ y: dragY, cursor: isTouchDevice ? "default" : isDragging ? "grabbing" : "grab" }}
+                onDragStart={() => {
+                  if (!isTouchDevice) setIsDragging(true);
+                }}
                 onDragEnd={(_, info) => {
-                  setIsDragging(false);
-                  dragY.set(0);
-                  updateStepFromDrag(info.offset.y);
+                  if (!isTouchDevice) {
+                    setIsDragging(false);
+                    dragY.set(0);
+                    updateStepFromDrag(info.offset.y);
+                  }
                 }}
                 onDrag={() => {
-                  if (!isDragging) setIsDragging(true);
+                  if (!isTouchDevice && !isDragging) setIsDragging(true);
                 }}
                 className={`w-full bg-[#111111]/90 border border-white/[0.08] rounded-2xl p-6 md:p-10 shadow-[0_20px_50px_rgba(0,0,0,0.8)] backdrop-blur-md relative overflow-hidden flex flex-col justify-between`}
               >
@@ -2099,10 +2136,13 @@ export function HowItWorksSection() {
                 </div>
               </motion.div>
             </AnimatePresence>
-          </div>
+          </motion.div>
 
-          {/* COLUMN 3: ALIGNED SLIDE CONTROL HUB (Desktop / Right Side) */}
-          <div className="lg:col-span-2 flex flex-row lg:flex-col justify-between lg:justify-center items-center gap-6 mt-6 lg:mt-0 px-2">
+          {/* COLUMN 3: ALIGNED SLIDE CONTROL HUB (Desktop / Right Side with Adaptive Scroll Reveal) */}
+          <motion.div 
+            style={{ x: controlsX, y: controlsY, opacity: controlsOpacity }}
+            className="lg:col-span-2 flex flex-row lg:flex-col justify-between lg:justify-center items-center gap-6 mt-6 lg:mt-0 px-2"
+          >
             
             {/* Interactive Progress Tracking Pill */}
             <div className="flex flex-col items-start lg:items-center text-left lg:text-center">
@@ -2145,7 +2185,7 @@ export function HowItWorksSection() {
               ))}
             </div>
 
-          </div>
+          </motion.div>
 
         </div>
 
@@ -2164,7 +2204,7 @@ const LIVE_WINS = [
   { player: "Cipher_9", game: "Penalty Shootout", amount: 300, time: "10m ago" }
 ];
 
-function LiveActivitySection() {
+export function LiveActivitySection() {
   return (
     <section className="py-12 bg-[#050505] overflow-hidden border-b border-white/[0.04]">
       <div className="w-full flex flex-col gap-4">
