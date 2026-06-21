@@ -1499,10 +1499,59 @@ const STEPS = [
   }
 ];
 
-// --- VIDEO ADVERTISEMENT SECTION (VIBRANT REDESIGN) ---
+// --- VIDEO ADVERTISEMENT SECTION (VIBRANT REDESIGN + SCROLL ANIMATED) ---
 function VideoAdSection() {
+  const [isMobile, setIsMobile] = useState(false);
+  const sectionRef = useRef(null);
+
+  // Detect viewport size dynamically to scale transformation bounds safely
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 1024);
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  // 1. Establish Container Scroll Timeline
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"]
+  });
+
+  // 2. Pass progress through a spring to eliminate touch micro-stutters and add inertia
+  const smoothProgress = useSpring(scrollYProgress, {
+    stiffness: 75,
+    damping: 22,
+    restDelta: 0.001
+  });
+
+  // 3. Map Progressive Assembly Transforms (Safe, UX-Friendly limits)
+  // Left Column Layout Assembly (Slide in from Left)
+  const leftColX = useTransform(smoothProgress, [0, 0.35, 0.75, 1], [isMobile ? -15 : -60, 0, 0, isMobile ? -15 : -40]);
+  const leftColOpacity = useTransform(smoothProgress, [0, 0.28, 0.85, 1], [0, 1, 1, 0]);
+
+  // Nested Text Content Assembly (Slide Up)
+  const textY = useTransform(smoothProgress, [0, 0.35, 0.78, 1], [isMobile ? 10 : 30, 0, 0, isMobile ? -10 : -20]);
+  const textOpacity = useTransform(smoothProgress, [0, 0.3, 0.85, 1], [0, 1, 1, 0]);
+
+  // Nested Feature List Assembly (Staggered Slide Up)
+  const featuresY = useTransform(smoothProgress, [0, 0.4, 0.82, 1], [isMobile ? 15 : 45, 0, 0, isMobile ? -10 : -20]);
+  const featuresOpacity = useTransform(smoothProgress, [0, 0.34, 0.88, 1], [0, 1, 1, 0]);
+
+  // Call-To-Action Row Assembly (Staggered Slide Up)
+  const ctaY = useTransform(smoothProgress, [0, 0.45, 0.85, 1], [isMobile ? 20 : 60, 0, 0, isMobile ? -10 : -20]);
+  const ctaOpacity = useTransform(smoothProgress, [0, 0.38, 0.9, 1], [0, 1, 1, 0]);
+
+  // Right Column Video Frame Assembly (Slide in from Right + Scale Align)
+  const videoX = useTransform(smoothProgress, [0, 0.35, 0.75, 1], [isMobile ? 15 : 80, 0, 0, isMobile ? 15 : 40]);
+  const videoScale = useTransform(smoothProgress, [0, 0.35, 0.75, 1], [0.97, 1, 1, 0.97]);
+  const videoOpacity = useTransform(smoothProgress, [0, 0.28, 0.85, 1], [0, 1, 1, 0]);
+
   return (
-    <section className="py-24 bg-[#050505] relative overflow-hidden border-t border-white/[0.04]">
+    <section 
+      ref={sectionRef}
+      className="py-24 bg-[#050505] relative overflow-hidden border-t border-white/[0.04]"
+    >
       {/* High-Impact Multi-Color Radial Backdrops */}
       <div className="absolute top-1/4 left-1/4 w-[500px] h-[300px] rounded-full bg-emerald-500/[0.03] blur-[120px] pointer-events-none" />
       <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[300px] rounded-full bg-cyan-500/[0.03] blur-[120px] pointer-events-none" />
@@ -1511,8 +1560,11 @@ function VideoAdSection() {
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           
-          {/* Left Column: High-Velocity Multicolored Typography & Bullet Points */}
-          <div className="lg:col-span-5 flex flex-col justify-center">
+          {/* Left Column: Progressive Text Assembly */}
+          <motion.div 
+            style={{ x: leftColX, opacity: leftColOpacity }}
+            className="lg:col-span-5 flex flex-col justify-center"
+          >
             
             {/* Colorful Multi-Segment Status Tag */}
             <div className="inline-flex items-center gap-2 self-start px-3.5 py-1.5 rounded-full bg-gradient-to-r from-red-500/10 via-amber-500/10 to-emerald-500/10 border border-emerald-500/30 text-[10px] font-mono tracking-wider mb-6">
@@ -1525,20 +1577,23 @@ function VideoAdSection() {
             
             {/* Dynamic Multi-Color Gradient Headline */}
             <h2 className="text-3xl md:text-5xl font-black tracking-tight mb-6 leading-tight select-none">
-              <span className="block bg-gradient-to-r from-yellow-300 via-amber-400 to-orange-500 bg-clip-text text-transparent">
-                Discover the Adventure! 🎮✨
-              </span>
               <span className="block bg-gradient-to-r from-cyan-400 via-emerald-400 to-green-500 bg-clip-text text-transparent mt-1">
                 See the Ultimate Action! ⚔️🔥
               </span>
             </h2>
             
-            <p className="text-neutral-400 text-sm md:text-base mb-6 leading-relaxed font-light">
+            <motion.p 
+              style={{ y: textY, opacity: textOpacity }}
+              className="text-neutral-400 text-sm md:text-base mb-6 leading-relaxed font-light"
+            >
               Step into an outstanding competitive universe mapped around raw coordination, processing velocity, and structural tactics. Look at our platform demonstration showcase to see how matchmaking networks, security layers, and real-time settlement assets align. <strong className="text-white font-medium">No algorithmic delays. No system overrides. ⚡🏆🛡️</strong>
-            </p>
+            </motion.p>
 
             {/* Strategic Highlight Callout Box */}
-            <div className="bg-amber-500/[0.03] border border-amber-500/20 rounded-xl p-4 mb-6 flex items-start gap-3.5 shadow-[inset_0_1px_12px_rgba(245,158,11,0.02)]">
+            <motion.div 
+              style={{ y: textY, opacity: textOpacity }}
+              className="bg-amber-500/[0.03] border border-amber-500/20 rounded-xl p-4 mb-6 flex items-start gap-3.5 shadow-[inset_0_1px_12px_rgba(245,158,11,0.02)]"
+            >
               <span className="text-xl">⚠️</span>
               <div>
                 <h5 className="text-xs font-mono font-black text-amber-400 uppercase tracking-widest mb-1">
@@ -1548,10 +1603,13 @@ function VideoAdSection() {
                   Platform protocols guarantee <strong className="text-white font-semibold">zero random variables</strong> or house advantages. Success relies exclusively on your inputs, tactical calculation, and mechanical speed! 🥊💎
                 </p>
               </div>
-            </div>
+            </motion.div>
 
             {/* Colorful & Descriptive Feature List with Custom Icons */}
-            <div className="space-y-4 mb-8 border-l-2 border-dashed border-neutral-800 pl-4">
+            <motion.div 
+              style={{ y: featuresY, opacity: featuresOpacity }}
+              className="space-y-4 mb-8 border-l-2 border-dashed border-neutral-800 pl-4"
+            >
               
               {/* Feature Item 1: RED Accent */}
               <div className="flex items-start gap-3">
@@ -1592,21 +1650,27 @@ function VideoAdSection() {
                 </div>
               </div>
 
-            </div>
+            </motion.div>
 
             {/* Strategic Call to Action Buttons */}
-            <div className="flex flex-wrap gap-4">
+            <motion.div 
+              style={{ y: ctaY, opacity: ctaOpacity }}
+              className="flex flex-wrap gap-4"
+            >
               <button className="py-3.5 px-6 rounded-lg bg-gradient-to-r from-emerald-500 to-green-600 text-[#050505] font-black text-xs uppercase tracking-wider transition-all duration-300 shadow-[0_4px_25px_rgba(16,185,129,0.3)] hover:shadow-[0_6px_30px_rgba(16,185,129,0.55)] cursor-pointer flex items-center gap-1.5 hover:scale-[1.01]">
                 👉 Start Your Journey 🔥
               </button>
               <button className="py-3.5 px-6 rounded-lg bg-[#111] hover:bg-[#151515] border border-white/[0.08] hover:border-cyan-500/30 text-cyan-400 hover:text-cyan-300 font-black text-xs uppercase tracking-wider transition-all duration-200 cursor-pointer flex items-center gap-1.5">
                 🌟 Join the Discord Hub 💬
               </button>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
 
           {/* Right Column: Premium Neon Video Player Container */}
-          <div className="lg:col-span-7">
+          <motion.div 
+            style={{ x: videoX, scale: videoScale, opacity: videoOpacity }}
+            className="lg:col-span-7"
+          >
             {/* Visual glow frame wrapping the player border */}
             <div className="relative bg-gradient-to-br from-emerald-500/20 via-neutral-900 to-cyan-500/20 p-[1.5px] rounded-2xl shadow-[0_24px_60px_rgba(0,0,0,0.85)]">
               
@@ -1619,16 +1683,6 @@ function VideoAdSection() {
                 <div className="absolute bottom-5 right-5 w-4 h-4 border-b-2 border-r-2 border-emerald-400 pointer-events-none z-10" />
                 
                 {/* Premium Animated HUD Status Overlay (Centered) */}
-                <div className="absolute top-4 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2 px-3 py-1.5 rounded bg-black/90 border border-white/[0.08] backdrop-blur-md text-[9px] font-mono">
-                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                  <span className="text-neutral-400">FEED:</span>
-                  <span className="text-emerald-400 font-black">ONLINE</span>
-                  <span className="text-neutral-600">|</span>
-                  <span className="text-neutral-400">NODE:</span>
-                  <span className="text-cyan-400 font-black">AMS-EDGE-9</span>
-                  <span className="text-neutral-600">|</span>
-                  <span className="text-yellow-400 font-bold">1080P @ 60FPS 📡</span>
-                </div>
 
                 {/* Video Elements Container */}
                 <div className="w-full h-full rounded-xl overflow-hidden bg-black relative border border-white/[0.04]">
@@ -1648,7 +1702,7 @@ function VideoAdSection() {
               <span className="inline-block w-1.5 h-1.5 rounded-full bg-cyan-400 animate-ping" />
               🎥 REAL-TIME VIDEO PLAYER FEED SECURED // CRYPTO-HASH PROTOCOL ACTIVE 📡🟢
             </p>
-          </div>
+          </motion.div>
 
         </div>
       </div>
@@ -1656,40 +1710,398 @@ function VideoAdSection() {
   );
 }
 
-function HowItWorksSection() {
+// --- RICH ARCHITECTURAL STEPS FOR THE FLOW ENGINE ---
+const HOW_IT_WORKS_STEPS = [
+  {
+    num: "01",
+    title: "Secure Liquidity Ingestion",
+    tagline: "GATEWAY INTEGRATION // ASSET DEPOSIT",
+    desc: "Connect traditional fiat card networks or decentralized Web3 wallets to load your gaming balance. Funds are routed instantly through encrypted security pipelines into isolated, audited multi-signature vaults.",
+    bullets: [
+      "Zero-friction processing using bank-grade transit standards",
+      "Automated conversion to unified, stable USD valuation units",
+      "Cold-vault containment protocols to mitigate system vulnerability"
+    ],
+    stat: "99.99%",
+    statLabel: "Ingestion Success",
+    color: "from-emerald-500/20 to-emerald-500/0",
+    borderAccent: "border-emerald-500/30",
+    textAccent: "text-emerald-400"
+  },
+  {
+    num: "02",
+    title: "Deterministic Match Selection",
+    tagline: "ENGINE INDEXING // MODE RESOLUTION",
+    desc: "Identify your battlefield. Filter through active skill catalogs based on your mechanical competency, preferred stakes, and structural mechanics where outputs rely entirely on user calculation.",
+    bullets: [
+      "Strictly non-random system architectures across all modes",
+      "Dynamic lobby parameter validation before capital commitment",
+      "Direct low-latency peer-to-peer node connection routes"
+    ],
+    stat: "0.0%",
+    statLabel: "Randomness Variance",
+    color: "from-cyan-500/20 to-cyan-500/0",
+    borderAccent: "border-cyan-500/30",
+    textAccent: "text-cyan-400"
+  },
+  {
+    num: "03",
+    title: "Isolated Escrow Matching",
+    tagline: "MATCHMAKING PROTOCOL // LEDGER HOLD",
+    desc: "Lock your selected stake into a cryptographically verified escrow pipeline. The global coordination engine matches you synchronously against an active competitor with an identical stake.",
+    bullets: [
+      "Secured balance holds managed with programmatic transparency",
+      "Continuous system checks to identify connection anomalies",
+      "Automated queue prioritization to prevent prolonged idle states"
+    ],
+    stat: "< 3.2s",
+    statLabel: "Lobby Match Delta",
+    color: "from-amber-500/20 to-amber-500/0",
+    borderAccent: "border-amber-500/30",
+    textAccent: "text-amber-400"
+  },
+  {
+    num: "04",
+    title: "Automated Instant Payouts",
+    tagline: "LEDGER AUDIT // OUTFLOW SETTLEMENT",
+    desc: "Execute best-of-three gaming rounds. Upon systematic validation of victorious metrics, the locked escrow balance transfers to the winner's account without platform-side hold times.",
+    bullets: [
+      "Real-time settlement directly accessible via wallet interfaces",
+      "Immutable public record logging of each deterministic outcome",
+      "Instant, unhindered 24/7/365 balance liquidity drawdowns"
+    ],
+    stat: "< 1.5s",
+    statLabel: "Ledger Settlement",
+    color: "from-purple-500/20 to-purple-500/0",
+    borderAccent: "border-purple-500/30",
+    textAccent: "text-purple-400"
+  }
+];
+
+export function HowItWorksSection() {
+   // 1. Declare all states first at the very top
+  const [activeIdx, setActiveIdx] = useState(0);
+  const [direction, setDirection] = useState(1);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // 2. Declare refs next
+  const sectionRef = useRef(null);
+
+  // 3. Declare scroll hooks and motion calculations (which now safely use isMobile)
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"]
+  });
+
+  const smoothProgress = useSpring(scrollYProgress, {
+    stiffness: 75,
+    damping: 22,
+    restDelta: 0.001
+  });
+
+  const headerTitleX = useTransform(smoothProgress, [0, 0.4, 0.8, 1], [isMobile ? -20 : -60, 0, 0, isMobile ? -15 : -40]);
+  const headerTitleOpacity = useTransform(smoothProgress, [0, 0.32, 0.85, 1], [0, 1, 1, 0]);
+
+  const headerDescX = useTransform(smoothProgress, [0, 0.4, 0.8, 1], [isMobile ? 20 : 60, 0, 0, isMobile ? 15 : 40]);
+  const headerDescOpacity = useTransform(smoothProgress, [0, 0.32, 0.85, 1], [0, 1, 1, 0]);
+
+  // 4. Use effects
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 1024);
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const handleStepChange = (targetIdx) => {
+    if (targetIdx === activeIdx) return;
+    setDirection(targetIdx > activeIdx ? 1 : -1);
+    setActiveIdx(targetIdx);
+  };
+
+  const handleNext = () => {
+    if (activeIdx < HOW_IT_WORKS_STEPS.length - 1) {
+      setDirection(1);
+      setActiveIdx((prev) => prev + 1);
+    } else {
+      // Loop back with transition downward
+      setDirection(1);
+      setActiveIdx(0);
+    }
+  };
+
+  const handlePrev = () => {
+    if (activeIdx > 0) {
+      setDirection(-1);
+      setActiveIdx((prev) => prev - 1);
+    } else {
+      // Loop to end with transition upward
+      setDirection(-1);
+      setActiveIdx(HOW_IT_WORKS_STEPS.length - 1);
+    }
+  };
+
+  const activeStep = HOW_IT_WORKS_STEPS[activeIdx];
+
+  // Motion Configuration for Premium Vertical Slides
+  const slideVariants = {
+    initial: (dir) => ({
+      y: dir > 0 ? 100 : -100,
+      opacity: 0,
+      scale: 0.98,
+    }),
+    animate: {
+      y: 0,
+      opacity: 1,
+      scale: 1,
+      transition: {
+        type: "spring",
+        stiffness: 110,
+        damping: 18,
+        mass: 0.8,
+        staggerChildren: 0.05,
+        delayChildren: 0.05,
+      },
+    },
+    exit: (dir) => ({
+      y: dir > 0 ? -100 : 100,
+      opacity: 0,
+      scale: 0.98,
+      transition: { duration: 0.35, ease: "easeIn" },
+    }),
+  };
+
+  // Content children staggered transitions
+  const childVariants = {
+    initial: { opacity: 0, y: 15 },
+    animate: {
+      opacity: 1,
+      y: 0,
+      transition: { type: "spring", stiffness: 120, damping: 16 },
+    },
+  };
+
   return (
-    <section id="how-it-works" className="py-24 bg-[#0A0A0A] border-y border-white/[0.04]">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="max-w-3xl mx-auto text-center mb-16">
-          <div className="inline-block px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-semibold uppercase tracking-widest mb-4">
-            Flow Engine
-          </div>
-          <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-4">
-            How It Works
-          </h2>
-          <p className="text-neutral-400">
-            Four streamlined stages built to maximize velocity and guarantees of safe funds transfer.
-          </p>
+    <section
+      ref={sectionRef} // <--- ADD THIS LINE
+      id="how-it-works"
+      className="py-24 bg-[#0A0A0A] relative overflow-hidden border-y border-white/[0.04] z-10"
+    >
+      {/* Background Architectural Grid and Spotlights */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#161616_1px,transparent_1px),linear-gradient(to_bottom,#161616_1px,transparent_1px)] bg-[size:6rem_6rem] pointer-events-none opacity-20" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full bg-emerald-500/[0.01] blur-[150px] pointer-events-none" />
+
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
+        
+        {/* Section Header */}
+       {/* Architectural Asymmetrical Section Header */}
+        <div className="flex flex-col lg:flex-row items-start lg:items-end justify-between mb-20 gap-8">
+          <motion.div 
+            style={{ x: headerTitleX, opacity: headerTitleOpacity }} 
+            className="flex flex-col"
+          >
+            {/* Dynamic Segment Status Tag */}
+            <div className="inline-flex items-center gap-2 self-start px-3.5 py-1.5 rounded-full bg-gradient-to-r from-emerald-500/10 via-cyan-500/10 to-blue-500/10 border border-emerald-500/30 text-[10px] font-mono tracking-wider mb-4">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+              <span className="text-emerald-400 font-bold">PLATFORM ENGINE PROTOCOLS</span>
+            </div>
+            
+            {/* High-Impact Gradient Title */}
+            <h2 className="text-3xl md:text-5xl font-black tracking-tight leading-tight select-none">
+              <span className="bg-gradient-to-r from-emerald-400 via-teal-400 to-cyan-500 bg-clip-text text-transparent">
+                Architectural Flow System
+              </span>
+            </h2>
+          </motion.div>
+
+          {/* Side-aligned Narrative Block */}
+          <motion.p
+            style={{ x: headerDescX, opacity: headerDescOpacity }}
+            className="text-neutral-300 max-w-lg text-sm md:text-base leading-relaxed font-light"
+          >
+            Four streamlined execution layers built to guarantee speed, secure capital matching, and immediate ledger settlements.
+          </motion.p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {STEPS.map((step, idx) => (
-            <div key={idx} className="relative group">
-              <div className="bg-[#111111] border border-white/[0.08] rounded-xl p-6 h-full relative z-10 hover:border-emerald-500/20 transition-all duration-300">
-                <span className="block font-mono font-bold text-emerald-500 text-sm mb-4">
-                  STEP {step.num}
-                </span>
-                <h3 className="text-lg font-bold text-white mb-2">{step.title}</h3>
-                <p className="text-xs text-neutral-400 leading-relaxed">{step.desc}</p>
+        {/* Core Showcase Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch max-w-5xl mx-auto">
+          
+          {/* COLUMN 1: VERTICAL PAGINATION LADDER (Desktop / Left Side) */}
+          <div className="hidden lg:flex lg:col-span-3 flex-col justify-center pr-4 border-r border-white/[0.03]">
+            <div className="relative flex flex-col gap-6">
+              {/* Dynamic Connecting Under-line */}
+              <div className="absolute left-4 top-4 bottom-4 w-[1px] bg-white/[0.04]">
+                <motion.div
+                  className="absolute top-0 w-full bg-gradient-to-b from-emerald-500 to-cyan-400"
+                  style={{
+                    height: `${((activeIdx) / (HOW_IT_WORKS_STEPS.length - 1)) * 100}%`,
+                  }}
+                  transition={{ type: "spring", stiffness: 80, damping: 20 }}
+                />
               </div>
 
-              {/* Connector lines visual (Desktop) */}
-              {idx < 3 && (
-                <div className="hidden lg:block absolute top-1/2 right-[-16px] w-[32px] h-[1px] bg-gradient-to-r from-emerald-500/40 to-transparent z-0 pointer-events-none" />
-              )}
+              {HOW_IT_WORKS_STEPS.map((step, idx) => {
+                const isActive = idx === activeIdx;
+                return (
+                  <button
+                    key={step.num}
+                    onClick={() => handleStepChange(idx)}
+                    className="flex items-center gap-4 text-left group focus:outline-none cursor-pointer"
+                  >
+                    {/* Architectural Bullet Circle */}
+                    <div
+                      className={`relative w-8.5 h-8.5 rounded-full flex items-center justify-center border font-mono text-[10px] font-black tracking-tighter transition-all duration-350 z-10 ${
+                        isActive
+                          ? "bg-neutral-900 border-emerald-500/40 text-emerald-400 shadow-[0_0_15px_rgba(16,185,129,0.15)]"
+                          : "bg-black border-white/[0.04] text-neutral-600 group-hover:border-white/[0.15] group-hover:text-neutral-400"
+                      }`}
+                    >
+                      {step.num}
+                    </div>
+
+                    <div className="flex flex-col">
+                      <span
+                        className={`text-[9px] font-mono tracking-widest leading-none mb-1 ${
+                          isActive ? "text-neutral-500" : "text-neutral-600"
+                        }`}
+                      >
+                        PHASE 0{idx + 1}
+                      </span>
+                      <span
+                        className={`text-xs font-bold tracking-tight transition-colors duration-300 ${
+                          isActive ? "text-white" : "text-neutral-500 group-hover:text-neutral-300"
+                        }`}
+                      >
+                        {step.title.split(" ")[0]} ...
+                      </span>
+                    </div>
+                  </button>
+                );
+              })}
             </div>
-          ))}
+          </div>
+
+          {/* COLUMN 2: THE CENTRAL STORYTELLING FOCUS CARD */}
+          <div className="lg:col-span-7 flex items-center min-h-[460px] relative">
+            <AnimatePresence mode="wait" custom={direction}>
+              <motion.div
+                key={activeIdx}
+                custom={direction}
+                variants={slideVariants}
+                initial="initial"
+                animate="animate"
+                exit="exit"
+                className={`w-full bg-[#111111]/90 border border-white/[0.08] rounded-2xl p-6 md:p-10 shadow-[0_20px_50px_rgba(0,0,0,0.8)] backdrop-blur-md relative overflow-hidden flex flex-col justify-between`}
+              >
+                {/* Visual Glow Gradient Accent */}
+                <div className={`absolute top-0 right-0 w-64 h-64 bg-gradient-to-bl ${activeStep.color} rounded-full blur-[70px] pointer-events-none opacity-40`} />
+
+                {/* Card Top: Large Architectural Watermark & Phase Subhead */}
+                <div className="flex items-start justify-between mb-8 relative z-10">
+                  <motion.div variants={childVariants} className="flex flex-col">
+                    <span className={`text-[10px] font-mono tracking-[0.25em] font-black uppercase ${activeStep.textAccent}`}>
+                      {activeStep.tagline}
+                    </span>
+                    <h3 className="text-xl md:text-3xl font-black tracking-tight text-white mt-1">
+                      {activeStep.title}
+                    </h3>
+                  </motion.div>
+                  
+                  {/* Subtle Big Stamp Number */}
+                  <div className="text-6xl md:text-8xl font-black font-mono tracking-tighter text-white/[0.02] select-none leading-none">
+                    {activeStep.num}
+                  </div>
+                </div>
+
+                {/* Card Middle: Primary Explanatory Text */}
+                <motion.p
+                  variants={childVariants}
+                  className="text-neutral-400 text-xs md:text-sm leading-relaxed mb-8 relative z-10 font-light"
+                >
+                  {activeStep.desc}
+                </motion.p>
+
+                {/* Card Bottom: Features & Stat Multi-Grid */}
+                <div className="grid grid-cols-1 md:grid-cols-12 gap-6 pt-6 border-t border-white/[0.04] relative z-10 items-center">
+                  
+                  {/* Feature Bullets Column */}
+                  <motion.div variants={childVariants} className="md:col-span-8 space-y-3.5">
+                    {activeStep.bullets.map((bullet, i) => (
+                      <div key={i} className="flex items-start gap-3">
+                        <span className={`text-xs mt-0.5 ${activeStep.textAccent}`}>⚡</span>
+                        <span className="text-neutral-300 text-[11px] leading-relaxed font-light">
+                          {bullet}
+                        </span>
+                      </div>
+                    ))}
+                  </motion.div>
+
+                  {/* Micro Visual Stat Block */}
+                  <motion.div
+                    variants={childVariants}
+                    className={`md:col-span-4 p-4 rounded-xl bg-white/[0.01] border ${activeStep.borderAccent} flex flex-col items-center md:items-start text-center md:text-left justify-center`}
+                  >
+                    <span className="text-xs font-mono text-neutral-500 uppercase tracking-wider mb-1 leading-none">
+                      {activeStep.statLabel}
+                    </span>
+                    <span className="text-xl md:text-2xl font-black font-mono text-white leading-none">
+                      {activeStep.stat}
+                    </span>
+                  </motion.div>
+
+                </div>
+              </motion.div>
+            </AnimatePresence>
+          </div>
+
+          {/* COLUMN 3: ALIGNED SLIDE CONTROL HUB (Desktop / Right Side) */}
+          <div className="lg:col-span-2 flex flex-row lg:flex-col justify-between lg:justify-center items-center gap-6 mt-6 lg:mt-0 px-2">
+            
+            {/* Interactive Progress Tracking Pill */}
+            <div className="flex flex-col items-start lg:items-center text-left lg:text-center">
+              <span className="text-[9px] font-mono text-neutral-500 uppercase tracking-widest block mb-1">SYSTEM STEP</span>
+              <div className="text-sm font-black font-mono text-white">
+                0{activeIdx + 1} <span className="text-neutral-600">/</span> 0{HOW_IT_WORKS_STEPS.length}
+              </div>
+            </div>
+
+            {/* Tactile Control Buttons Stack */}
+            <div className="flex flex-row lg:flex-col gap-3">
+              {/* UP/PREV */}
+              <button
+                onClick={handlePrev}
+                className="w-12 h-12 rounded-full bg-[#111111] hover:bg-[#151515] border border-white/[0.06] hover:border-emerald-500/20 text-neutral-400 hover:text-emerald-400 flex items-center justify-center transition-all cursor-pointer group shadow-lg"
+                aria-label="Previous step"
+              >
+                <span className="text-xs transition-transform group-hover:-translate-y-0.5 duration-200">↑ PREV</span>
+              </button>
+
+              {/* DOWN/NEXT */}
+              <button
+                onClick={handleNext}
+                className="w-12 h-12 rounded-full bg-[#111111] hover:bg-[#151515] border border-white/[0.06] hover:border-emerald-500/20 text-neutral-400 hover:text-emerald-400 flex items-center justify-center transition-all cursor-pointer group shadow-lg"
+                aria-label="Next step"
+              >
+                <span className="text-xs transition-transform group-hover:translate-y-0.5 duration-200">NEXT ↓</span>
+              </button>
+            </div>
+
+            {/* Mobile Visual Dot Line Tracker */}
+            <div className="flex lg:hidden gap-1.5">
+              {HOW_IT_WORKS_STEPS.map((_, idx) => (
+                <div
+                  key={idx}
+                  className={`h-1 rounded-full transition-all duration-300 ${
+                    idx === activeIdx ? "bg-emerald-400 w-4" : "bg-neutral-800 w-1.5"
+                  }`}
+                />
+              ))}
+            </div>
+
+          </div>
+
         </div>
+
       </div>
     </section>
   );
