@@ -1955,7 +1955,7 @@ export function HowItWorksSection() {
             {/* High-Impact Gradient Title */}
             <h2 className="text-3xl md:text-5xl font-black tracking-tight leading-tight select-none">
               <span className="bg-gradient-to-r from-emerald-400 via-teal-400 to-cyan-500 bg-clip-text text-transparent">
-                Architectural Flow System
+                How It Works ⚙️🔥
               </span>
             </h2>
           </motion.div>
@@ -1965,7 +1965,7 @@ export function HowItWorksSection() {
             style={{ x: headerDescX, opacity: headerDescOpacity }}
             className="text-neutral-300 max-w-lg text-sm md:text-base leading-relaxed font-light"
           >
-            Four streamlined execution layers built to guarantee speed, secure capital matching, and immediate ledger settlements.
+            Four streamlined <strong className="text-cyan-400 font-normal">execution layers</strong> ⚙️ built to guarantee <span className="text-yellow-400 font-medium">lightning speed</span> ⚡, secure <span className="text-emerald-400 font-medium">capital matching</span> 💎, and immediate <span className="text-purple-400 font-medium">ledger settlements</span> 💸. Zero system delays! 🚀🔒
           </motion.p>
         </div>
 
@@ -2096,20 +2096,6 @@ export function HowItWorksSection() {
                       </div>
                     ))}
                   </motion.div>
-
-                  {/* Micro Visual Stat Block with Dynamic Color Treatment */}
-                  <motion.div
-                    variants={childVariants}
-                    className={`md:col-span-4 p-4 rounded-xl bg-white/[0.01] border ${activeStep.borderAccent} flex flex-col items-center md:items-start text-center md:text-left justify-center`}
-                  >
-                    <span className="text-xs font-mono text-neutral-500 uppercase tracking-wider mb-1 leading-none">
-                      {activeStep.statLabel}
-                    </span>
-                    <span className="text-xl md:text-2xl font-black font-mono text-white leading-none">
-                      {activeStep.stat}
-                    </span>
-                  </motion.div>
-
                 </div>
               </motion.div>
             </AnimatePresence>
