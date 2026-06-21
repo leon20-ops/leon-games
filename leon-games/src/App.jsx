@@ -1783,6 +1783,8 @@ export function HowItWorksSection() {
   const [activeIdx, setActiveIdx] = useState(0);
   const [direction, setDirection] = useState(1);
   const [isMobile, setIsMobile] = useState(false);
+  const [isDragging, setIsDragging] = useState(false);
+  const dragY = useMotionValue(0);
 
   // 2. Declare refs next
   const sectionRef = useRef(null);
@@ -1842,6 +1844,15 @@ export function HowItWorksSection() {
   };
 
   const activeStep = HOW_IT_WORKS_STEPS[activeIdx];
+
+  const dragThreshold = 70;
+  const updateStepFromDrag = (offsetY) => {
+    if (offsetY < -dragThreshold) {
+      handleNext();
+    } else if (offsetY > dragThreshold) {
+      handlePrev();
+    }
+  };
 
   // Motion Configuration for Premium Vertical Slides
   const slideVariants = {
@@ -1991,6 +2002,21 @@ export function HowItWorksSection() {
                 initial="initial"
                 animate="animate"
                 exit="exit"
+                drag="y"
+                dragConstraints={{ top: -120, bottom: 120 }}
+                dragElastic={0.18}
+                dragMomentum={false}
+                dragTransition={{ bounceStiffness: 550, bounceDamping: 30 }}
+                style={{ y: dragY, cursor: isDragging ? "grabbing" : "grab" }}
+                onDragStart={() => setIsDragging(true)}
+                onDragEnd={(_, info) => {
+                  setIsDragging(false);
+                  dragY.set(0);
+                  updateStepFromDrag(info.offset.y);
+                }}
+                onDrag={() => {
+                  if (!isDragging) setIsDragging(true);
+                }}
                 className={`w-full bg-[#111111]/90 border border-white/[0.08] rounded-2xl p-6 md:p-10 shadow-[0_20px_50px_rgba(0,0,0,0.8)] backdrop-blur-md relative overflow-hidden flex flex-col justify-between`}
               >
                 {/* Visual Glow Gradient Accent */}
