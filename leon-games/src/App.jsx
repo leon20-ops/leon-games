@@ -3077,6 +3077,24 @@ export function TrustSection() {
   const headerDescX = useTransform(smoothProgress, [0, 0.4, 0.8, 1], [50, 0, 0, 30]);
   const headerDescOpacity = useTransform(smoothProgress, [0, 0.32, 0.85, 1], [0, 1, 1, 0]);
 
+  // --- NEW: INDEPENDENT SCROLL TRANSFORMS FOR EACH QUADRANT ---
+  
+  // Quadrant 1 (Top Left): Slide in from Left, Fade In
+  const topLeftX = useTransform(smoothProgress, [0.1, 0.45, 0.85, 1], [-30, 0, 0, -15]);
+  const topLeftOpacity = useTransform(smoothProgress, [0.1, 0.38, 0.85, 1], [0, 1, 1, 0]);
+
+  // Quadrant 2 (Top Right): Slide in from Right, Fade In
+  const topRightX = useTransform(smoothProgress, [0.1, 0.45, 0.85, 1], [30, 0, 0, 15]);
+  const topRightOpacity = useTransform(smoothProgress, [0.1, 0.38, 0.85, 1], [0, 1, 1, 0]);
+
+  // Quadrant 3 (Bottom Left): Slide in from Left, Fade In (Slightly Staggered)
+  const bottomLeftX = useTransform(smoothProgress, [0.15, 0.52, 0.85, 1], [-30, 0, 0, -15]);
+  const bottomLeftOpacity = useTransform(smoothProgress, [0.15, 0.45, 0.85, 1], [0, 1, 1, 0]);
+
+  // Quadrant 4 (Bottom Right): Slide in from Right, Fade In (Slightly Staggered)
+  const bottomRightX = useTransform(smoothProgress, [0.15, 0.52, 0.85, 1], [30, 0, 0, 15]);
+  const bottomRightOpacity = useTransform(smoothProgress, [0.15, 0.45, 0.85, 1], [0, 1, 1, 0]);
+  
   return (
     <section
       ref={sectionRef}
@@ -3143,7 +3161,10 @@ export function TrustSection() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-y-16 md:gap-y-0 gap-x-0 relative z-10">
             
             {/* Quadrant 1: Top Left - Bank-Level Security */}
-            <div className="md:pr-16 md:pb-16 flex flex-col items-center text-center justify-between min-h-[160px]">
+            <motion.div 
+              style={{ x: topLeftX, opacity: topLeftOpacity }}
+              className="md:pr-16 md:pb-16 flex flex-col items-center text-center justify-between min-h-[160px]"
+            >
               <div className="mb-5 p-3 rounded-xl bg-white/[0.01] border border-white/[0.04] shadow-[inset_0_1px_12px_rgba(255,255,255,0.01)] flex items-center justify-center">
                 <TrustIcons.Security />
               </div>
@@ -3155,10 +3176,13 @@ export function TrustSection() {
                   Your <span className="text-emerald-400">deposits</span> and <span className="text-cyan-400">withdrawals</span> are protected with <strong className="text-white">advanced encryption protocols 🛡️💎</strong>.
                 </p>
               </div>
-            </div>
+            </motion.div>
 
             {/* Quadrant 2: Top Right - Fast Withdrawals */}
-            <div className="md:pl-16 md:pb-16 flex flex-col items-center text-center justify-between min-h-[160px]">
+            <motion.div 
+              style={{ x: topRightX, opacity: topRightOpacity }}
+              className="md:pl-16 md:pb-16 flex flex-col items-center text-center justify-between min-h-[160px]"
+            >
               <div className="mb-5 p-3 rounded-xl bg-white/[0.01] border border-white/[0.04] shadow-[inset_0_1px_12px_rgba(255,255,255,0.01)] flex items-center justify-center">
                 <TrustIcons.Withdrawal />
               </div>
@@ -3170,10 +3194,13 @@ export function TrustSection() {
                   Most payouts are <span className="text-cyan-400 font-medium">validated and processed</span> in minutes directly to your destination account <strong className="text-white">without friction ⏱️💸</strong>.
                 </p>
               </div>
-            </div>
+            </motion.div>
 
             {/* Quadrant 3: Bottom Left - Fair & Transparent */}
-            <div className="md:pr-16 md:pt-16 flex flex-col items-center text-center justify-between min-h-[160px] md:border-t-0">
+            <motion.div 
+              style={{ x: bottomLeftX, opacity: bottomLeftOpacity }}
+              className="md:pr-16 md:pt-16 flex flex-col items-center text-center justify-between min-h-[160px] md:border-t-0"
+            >
               <div className="mb-5 p-3 rounded-xl bg-white/[0.01] border border-white/[0.04] shadow-[inset_0_1px_12px_rgba(255,255,255,0.01)] flex items-center justify-center">
                 <TrustIcons.Fairness />
               </div>
@@ -3185,10 +3212,13 @@ export function TrustSection() {
                   Match resolution pipelines are powered by <span className="text-teal-400 font-medium">fully certified</span> and audit-tested RNG architectures <strong className="text-white">with zero bias 🎲📐</strong>.
                 </p>
               </div>
-            </div>
+            </motion.div>
 
             {/* Quadrant 4: Bottom Right - 24/7 Support */}
-            <div className="md:pl-16 md:pt-16 flex flex-col items-center text-center justify-between min-h-[160px] md:border-t-0">
+            <motion.div 
+              style={{ x: bottomRightX, opacity: bottomRightOpacity }}
+              className="md:pl-16 md:pt-16 flex flex-col items-center text-center justify-between min-h-[160px] md:border-t-0"
+            >
               <div className="mb-5 p-3 rounded-xl bg-white/[0.01] border border-white/[0.04] shadow-[inset_0_1px_12px_rgba(255,255,255,0.01)] flex items-center justify-center">
                 <TrustIcons.Support />
               </div>
@@ -3200,7 +3230,7 @@ export function TrustSection() {
                   Real platform operators are <span className="text-emerald-400 font-medium">available round-the-clock</span> to coordinate, advise, and support <strong className="text-white">your lobby queries 🤝📞</strong>.
                 </p>
               </div>
-            </div>
+            </motion.div>
 
           </div>
 
