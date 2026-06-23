@@ -1120,6 +1120,8 @@ export function FeaturedGamesSection() {
   const headerDescX = useTransform(smoothProgress, [0, 0.4, 0.8, 1], [isMobile ? 20 : 60, 0, 0, isMobile ? 15 : 40]);
   const headerDescOpacity = useTransform(smoothProgress, [0, 0.32, 0.85, 1], [0, 1, 1, 0]);
 
+  
+
   // 4. Map Left Column Slider Container
   const leftColX = useTransform(smoothProgress, [0, 0.38, 0.75, 1], [isMobile ? -40 : -140, 0, 0, isMobile ? -45 : -100]);
   const leftColOpacity = useTransform(smoothProgress, [0, 0.34, 0.85, 1], [0, 1, 1, 0]);
@@ -2590,6 +2592,35 @@ export function PaymentsSection() {
   const headerDescX = useTransform(smoothProgress, [0, 0.4, 0.8, 1], [isMobile ? 20 : 60, 0, 0, isMobile ? 15 : 40]);
   const headerDescOpacity = useTransform(smoothProgress, [0, 0.32, 0.85, 1], [0, 1, 1, 0]);
 
+  // --- SCROLL-TRIGGERED ANIMATIONS FOR PAYMENTS INFRASTRUCTURE ---
+  
+  // 1. Deposit Method Tag (Below Deposit Method Heading)
+  const depositHeaderTagY = useTransform(smoothProgress, [0, 0.35, 0.75, 1], [isMobile ? 15 : 30, 0, 0, isMobile ? -10 : -20]);
+  const depositHeaderTagOpacity = useTransform(smoothProgress, [0, 0.28, 0.8, 1], [0, 1, 1, 0]);
+
+  // 2. Deposit Columns / Mobile Slider
+  const depositSliderX = useTransform(smoothProgress, [0, 0.4, 0.8, 1], [isMobile ? -30 : -80, 0, 0, isMobile ? -15 : -40]);
+  const depositSliderOpacity = useTransform(smoothProgress, [0, 0.32, 0.85, 1], [0, 1, 1, 0]);
+
+  // 3. Deposit Details Container
+  const depositDetailsX = useTransform(smoothProgress, [0, 0.4, 0.8, 1], [isMobile ? 30 : 80, 0, 0, isMobile ? 15 : 40]);
+  const depositDetailsOpacity = useTransform(smoothProgress, [0, 0.32, 0.85, 1], [0, 1, 1, 0]);
+
+  // 4. Withdrawal Containers (Left and Right)
+  const withdrawalLeftX = useTransform(smoothProgress, [0, 0.4, 0.8, 1], [isMobile ? -30 : -80, 0, 0, isMobile ? -15 : -40]);
+  const withdrawalLeftOpacity = useTransform(smoothProgress, [0, 0.32, 0.85, 1], [0, 1, 1, 0]);
+
+  const withdrawalRightX = useTransform(smoothProgress, [0, 0.4, 0.8, 1], [isMobile ? 30 : 80, 0, 0, isMobile ? 15 : 40]);
+  const withdrawalRightOpacity = useTransform(smoothProgress, [0, 0.32, 0.85, 1], [0, 1, 1, 0]);
+
+  // 5. Shared Security & Trust Section
+  const securityY = useTransform(smoothProgress, [0, 0.45, 0.85, 1], [isMobile ? 25 : 50, 0, 0, isMobile ? -15 : -30]);
+  const securityOpacity = useTransform(smoothProgress, [0, 0.35, 0.9, 1], [0, 1, 1, 0]);
+
+  // 6. Action Button (Below Security & Trust)
+  const ctaButtonY = useTransform(smoothProgress, [0, 0.5, 0.9, 1], [isMobile ? 30 : 60, 0, 0, isMobile ? -15 : -30]);
+  const ctaButtonOpacity = useTransform(smoothProgress, [0, 0.4, 0.95, 1], [0, 1, 1, 0]);
+
   const activeMethod = DEPOSIT_METHODS.find((item) => item.id === selectedId) || DEPOSIT_METHODS[0];
 
   return (
@@ -2668,7 +2699,11 @@ export function PaymentsSection() {
             <div className="w-1/2 pr-0 lg:pr-2 shrink-0 grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
               
               {/* Left Side: Large Interactive Grid/Horizontal Slider of Deposit Options */}
-              <div ref={depositSliderRef} className="lg:col-span-7 flex overflow-x-auto snap-x snap-mandatory scrollbar-thin scrollbar-thumb-neutral-800 scrollbar-track-transparent pb-4 lg:pb-0 lg:overflow-visible lg:grid lg:grid-cols-2 gap-4 max-w-full">
+              <motion.div 
+                ref={depositSliderRef} 
+                style={{ x: depositSliderX, opacity: depositSliderOpacity }}
+                className="lg:col-span-7 flex overflow-x-auto snap-x snap-mandatory scrollbar-thin scrollbar-thumb-neutral-800 scrollbar-track-transparent pb-4 lg:pb-0 lg:overflow-visible lg:grid lg:grid-cols-2 gap-4 max-w-full"
+              >
                 {/* Left Spacer: Dynamically calculates margin needed to center the first card */}
                 <div className="shrink-0 w-[calc(50vw-140px-24px)] sm:w-[calc(50vw-160px-24px)] lg:hidden" />
 
@@ -2717,10 +2752,13 @@ export function PaymentsSection() {
 
                 {/* Right Spacer: Dynamically calculates margin needed to center the last card */}
                 <div className="shrink-0 w-[calc(50vw-140px-24px)] sm:w-[calc(50vw-160px-24px)] lg:hidden" />
-              </div>
+              </motion.div>
 
               {/* Right Side: Dynamic, Premium Details Panel */}
-              <div className="lg:col-span-5 flex">
+              <motion.div 
+                style={{ x: depositDetailsX, opacity: depositDetailsOpacity }}
+                className="lg:col-span-5 flex"
+              >
                 <div className="w-full bg-[#111111] border border-white/[0.08] rounded-xl p-6 md:p-8 flex flex-col justify-between shadow-2xl relative overflow-hidden">
                   <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-500/[0.015] rounded-full blur-[70px] pointer-events-none" />
 
@@ -2799,73 +2837,81 @@ export function PaymentsSection() {
                     <span className="text-emerald-500 animate-pulse">● ONLINE</span>
                   </div>
                 </div>
-              </div>
+              </motion.div>
 
             </div>
 
             {/* PANEL 2: WITHDRAWAL PORTAL (Right Half) */}
+            {/* PANEL 2: WITHDRAWAL PORTAL (Right Half) */}
             <div className="w-1/2 pl-0 lg:pl-2 shrink-0 flex items-center justify-center">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl w-full items-stretch">
-                {WITHDRAWAL_METHODS.map((method) => (
-                  <div
-                    key={method.id}
-                    className="bg-[#111111]/90 border border-white/[0.08] hover:border-emerald-500/30 rounded-xl p-6 md:p-8 flex flex-col justify-between shadow-2xl transition-all duration-300 relative overflow-hidden group"
-                  >
-                    <div className="absolute top-0 right-0 w-48 h-48 bg-emerald-500/[0.01] rounded-full blur-[50px] pointer-events-none" />
+                {WITHDRAWAL_METHODS.map((method, idx) => {
+                  const isFirst = idx === 0;
+                  return (
+                    <motion.div
+                      key={method.id}
+                      style={{
+                        x: isFirst ? withdrawalLeftX : withdrawalRightX,
+                        opacity: isFirst ? withdrawalLeftOpacity : withdrawalRightOpacity
+                      }}
+                      className="bg-[#111111]/90 border border-white/[0.08] hover:border-emerald-500/30 rounded-xl p-6 md:p-8 flex flex-col justify-between shadow-2xl transition-all duration-300 relative overflow-hidden group"
+                    >
+                      <div className="absolute top-0 right-0 w-48 h-48 bg-emerald-500/[0.01] rounded-full blur-[50px] pointer-events-none" />
 
-                    <div className="space-y-6 relative z-10">
-                      {/* Header with icon & labels */}
-                      <div className="flex items-center gap-4 pb-4 border-b border-white/[0.04]">
-                        <span className="text-4xl">{method.icon}</span>
-                        <div className="flex flex-col">
-                          <span className="text-[9px] font-mono text-emerald-400 uppercase tracking-widest leading-none mb-1.5">
-                            OUTFLOW GATEWAY
-                          </span>
-                          <h4 className="text-base md:text-lg font-black text-white leading-none">
-                            {method.name}
-                          </h4>
+                      <div className="space-y-6 relative z-10">
+                        {/* Header with icon & labels */}
+                        <div className="flex items-center gap-4 pb-4 border-b border-white/[0.04]">
+                          <span className="text-4xl">{method.icon}</span>
+                          <div className="flex flex-col">
+                            <span className="text-[9px] font-mono text-emerald-400 uppercase tracking-widest leading-none mb-1.5">
+                              OUTFLOW GATEWAY
+                            </span>
+                            <h4 className="text-base md:text-lg font-black text-white leading-none">
+                              {method.name}
+                            </h4>
+                          </div>
+                        </div>
+
+                        {/* Description */}
+                        <p className="text-xs text-neutral-400 leading-relaxed font-light">
+                          {method.desc}
+                        </p>
+
+                        {/* Bullet points benefits */}
+                        <div className="space-y-3">
+                          {method.bullets.map((bullet, idx) => (
+                            <div key={idx} className="flex items-start gap-2.5">
+                              <span className="text-emerald-400 text-xs mt-0.5">✓</span>
+                              <span className="text-neutral-300 text-[11px] font-light leading-relaxed">
+                                {bullet}
+                              </span>
+                            </div>
+                          ))}
                         </div>
                       </div>
 
-                      {/* Description */}
-                      <p className="text-xs text-neutral-400 leading-relaxed font-light">
-                        {method.desc}
-                      </p>
-
-                      {/* Bullet points benefits */}
-                      <div className="space-y-3">
-                        {method.bullets.map((bullet, idx) => (
-                          <div key={idx} className="flex items-start gap-2.5">
-                            <span className="text-emerald-400 text-xs mt-0.5">✓</span>
-                            <span className="text-neutral-300 text-[11px] font-light leading-relaxed">
-                              {bullet}
-                            </span>
-                          </div>
-                        ))}
+                      {/* Metadata indicators */}
+                      <div className="grid grid-cols-2 gap-3 pt-6 border-t border-white/[0.04] mt-8 relative z-10">
+                        <div className="bg-white/[0.01] border border-white/[0.04] p-3 rounded-lg flex flex-col justify-center">
+                          <span className="text-[9px] font-mono text-neutral-500 uppercase tracking-wider mb-1">
+                            AVG SPEED
+                          </span>
+                          <span className="text-xs font-bold text-white font-mono leading-none">
+                            {method.speed}
+                          </span>
+                        </div>
+                        <div className="bg-white/[0.01] border border-white/[0.04] p-3 rounded-lg flex flex-col justify-center">
+                          <span className="text-[9px] font-mono text-neutral-500 uppercase tracking-wider mb-1">
+                            AVAILABILITY
+                          </span>
+                          <span className="text-xs font-bold text-emerald-400 font-mono leading-none">
+                            {method.security}
+                          </span>
+                        </div>
                       </div>
-                    </div>
-
-                    {/* Metadata indicators */}
-                    <div className="grid grid-cols-2 gap-3 pt-6 border-t border-white/[0.04] mt-8 relative z-10">
-                      <div className="bg-white/[0.01] border border-white/[0.04] p-3 rounded-lg flex flex-col justify-center">
-                        <span className="text-[9px] font-mono text-neutral-500 uppercase tracking-wider mb-1">
-                          AVG SPEED
-                        </span>
-                        <span className="text-xs font-bold text-white font-mono leading-none">
-                          {method.speed}
-                        </span>
-                      </div>
-                      <div className="bg-white/[0.01] border border-white/[0.04] p-3 rounded-lg flex flex-col justify-center">
-                        <span className="text-[9px] font-mono text-neutral-500 uppercase tracking-wider mb-1">
-                          AVAILABILITY
-                        </span>
-                        <span className="text-xs font-bold text-emerald-400 font-mono leading-none">
-                          {method.security}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                ))}
+                    </motion.div>
+                  );
+                })}
               </div>
             </div>
 
@@ -2873,7 +2919,10 @@ export function PaymentsSection() {
         </div>
 
         {/* SECURITY & TRUST SECTION (Fintech Glassmorphism Panel - Static) */}
-        <div className="bg-gradient-to-r from-white/[0.01] via-white/[0.03] to-white/[0.01] border border-white/[0.06] rounded-2xl p-6 md:p-8 backdrop-blur shadow-xl relative overflow-hidden mb-12">
+         <motion.div 
+          style={{ y: securityY, opacity: securityOpacity }}
+          className="bg-gradient-to-r from-white/[0.01] via-white/[0.03] to-white/[0.01] border border-white/[0.06] rounded-2xl p-6 md:p-8 backdrop-blur shadow-xl relative overflow-hidden mb-12"
+        >
           <div className="absolute inset-0 bg-emerald-500/[0.01] rounded-full blur-[100px] pointer-events-none" />
           
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 items-center text-center">
@@ -2917,20 +2966,22 @@ export function PaymentsSection() {
               </p>
             </div>
           </div>
-        </div>
+        </motion.div>
 
         {/* PRIMARY CALL TO ACTION (Static) */}
         <div className="flex justify-center">
-          <motion.button
-            whileHover={{ scale: 1.03, y: -2 }}
-            whileTap={{ scale: 0.97 }}
-            className="relative group overflow-hidden rounded-xl bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 text-black font-black text-sm uppercase tracking-wider py-4 px-12 transition-all duration-300 shadow-[0_10px_30px_rgba(16,185,129,0.3)] hover:shadow-[0_15px_40px_rgba(16,185,129,0.45)] cursor-pointer"
-          >
-            <span className="absolute inset-0 w-full h-full bg-white opacity-0 group-hover:opacity-10 transition-opacity duration-300" />
-            <span className="relative z-10 flex items-center gap-2">
-              Start Betting Now 🔥
-            </span>
-          </motion.button>
+          <motion.div style={{ y: ctaButtonY, opacity: ctaButtonOpacity }}>
+            <motion.button
+              whileHover={{ scale: 1.03, y: -2 }}
+              whileTap={{ scale: 0.97 }}
+              className="relative group overflow-hidden rounded-xl bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 text-black font-black text-sm uppercase tracking-wider py-4 px-12 transition-all duration-300 shadow-[0_10px_30px_rgba(16,185,129,0.3)] hover:shadow-[0_15px_40px_rgba(16,185,129,0.45)] cursor-pointer"
+            >
+              <span className="absolute inset-0 w-full h-full bg-white opacity-0 group-hover:opacity-10 transition-opacity duration-300" />
+              <span className="relative z-10 flex items-center gap-2">
+                Start Betting Now 🔥
+              </span>
+            </motion.button>
+          </motion.div>
         </div>
 
       </div>
