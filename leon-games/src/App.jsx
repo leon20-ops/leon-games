@@ -2665,7 +2665,7 @@ export function PaymentsSection() {
         </div>
 
         {/* Premium Shared Layout Tab Switcher */}
-        <div className="flex justify-center mb-12">
+        <motion.div style={{ y: depositHeaderTagY, opacity: depositHeaderTagOpacity }} className="flex justify-center mb-12">
           <div className="bg-[#111111]/80 p-1 rounded-xl border border-white/[0.06] flex gap-2 relative">
             {["deposit", "withdrawal"].map((tab) => (
               <button
@@ -2686,17 +2686,20 @@ export function PaymentsSection() {
               </button>
             ))}
           </div>
-        </div>
+        </motion.div>
 
         {/* Horizontal Sliding Content Area Wrapper */}
-        <div className="relative overflow-hidden w-full mb-12">
+        <div className="relative w-full mb-12">
           <motion.div
             animate={{ x: activeTab === "deposit" ? "0%" : "-50%" }} // Adjusted to slide to 50% correctly
             transition={{ type: "spring", stiffness: 100, damping: 18 }}
             className="flex w-[200%] items-stretch"
           >
             {/* PANEL 1: DEPOSIT PORTAL (Left Half) */}
-            <div className="w-1/2 pr-0 lg:pr-2 shrink-0 grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+            <div 
+              className="w-1/2 pr-0 lg:pr-2 shrink-0 grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch transition-opacity duration-300"
+              style={{ opacity: activeTab === "deposit" ? 1 : 0 }}
+            >
               
               {/* Left Side: Large Interactive Grid/Horizontal Slider of Deposit Options */}
               <motion.div 
@@ -2842,8 +2845,11 @@ export function PaymentsSection() {
             </div>
 
             {/* PANEL 2: WITHDRAWAL PORTAL (Right Half) */}
-            {/* PANEL 2: WITHDRAWAL PORTAL (Right Half) */}
-            <div className="w-1/2 pl-0 lg:pl-2 shrink-0 flex items-center justify-center">
+           {/* PANEL 2: WITHDRAWAL PORTAL (Right Half) */}
+            <div 
+              className="w-1/2 pl-0 lg:pl-2 shrink-0 flex items-center justify-center transition-opacity duration-300"
+              style={{ opacity: activeTab === "withdrawal" ? 1 : 0 }}
+            >
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl w-full items-stretch">
                 {WITHDRAWAL_METHODS.map((method, idx) => {
                   const isFirst = idx === 0;
