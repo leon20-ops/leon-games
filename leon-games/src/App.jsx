@@ -2432,7 +2432,7 @@ const DEPOSIT_METHODS = [
       </span>
     ),
     icon: "🪙",
-    logoText: "BTC, ETH, USDT, USDC, LTC, BNB",
+    logoText: "BTC, ETH, USDT, USDC, LTC, BNB, etc. 🌐",
     shortDesc: (
       <span>
         Deposit securely using cryptocurrency with <strong className="text-purple-400 font-semibold">fast blockchain confirmations</strong> 🌐.
@@ -2604,15 +2604,15 @@ export function PaymentsSection() {
             {/* PANEL 1: DEPOSIT PORTAL (Left Half) */}
             <div className="w-1/2 pr-0 lg:pr-2 shrink-0 grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
               
-              {/* Left Side: Large Interactive Grid of Deposit Options */}
-              <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {/* Left Side: Large Interactive Grid/Horizontal Slider of Deposit Options */}
+              <div className="lg:col-span-7 flex overflow-x-auto snap-x snap-mandatory scrollbar-thin scrollbar-thumb-neutral-800 scrollbar-track-transparent pb-4 lg:pb-0 lg:overflow-visible lg:grid lg:grid-cols-2 gap-4 max-w-full">
                 {DEPOSIT_METHODS.map((method) => {
                   const isActive = method.id === selectedId;
                   return (
                     <button
                       key={method.id}
                       onClick={() => setSelectedId(method.id)}
-                      className={`flex flex-col justify-between text-left p-5 rounded-xl border transition-all duration-300 relative overflow-hidden group cursor-pointer ${
+                      className={`flex flex-col justify-between text-left p-5 rounded-xl border transition-all duration-300 relative overflow-hidden group cursor-pointer shrink-0 w-[280px] sm:w-[320px] snap-center lg:w-full lg:shrink ${
                         isActive
                           ? "bg-[#111111] border-emerald-500/40 shadow-[0_4px_25px_rgba(34,197,94,0.1)]"
                           : "bg-[#111111]/40 border-white/[0.04] hover:border-white/[0.1] hover:bg-[#111111]/60"
@@ -2692,7 +2692,7 @@ export function PaymentsSection() {
                         </div>
                       </div>
 
-                      <div className="grid grid-cols-3 gap-3 pt-6 border-t border-white/[0.04]">
+                      <div className="grid grid-cols-1 gap-3 pt-6 border-t border-white/[0.04] sm:grid-cols-3">
                         <div className="bg-white/[0.01] border border-white/[0.04] p-3 rounded-lg flex flex-col justify-center">
                           <span className="text-[9px] font-mono text-neutral-500 uppercase tracking-wider mb-1">
                             SPEED
@@ -2709,7 +2709,7 @@ export function PaymentsSection() {
                             {activeMethod.details.availability}
                           </span>
                         </div>
-                        <div className="bg-white/[0.01] border border-white/[0.04] p-3 rounded-lg flex flex-col justify-center col-span-1">
+                        <div className="bg-white/[0.01] border border-white/[0.04] p-3 rounded-lg flex flex-col justify-center">
                           <span className="text-[9px] font-mono text-neutral-500 uppercase tracking-wider mb-1">
                             PROTOCOL
                           </span>
