@@ -65,7 +65,7 @@ export default function LeonGamesLanding() {
       <LiveActivitySection />
       <PaymentsSection />
       <TrustSection />
-      <WorldwideSection />
+      <GrowthSection />
       <FinalCTASection />
       <Footer />
     </div>
@@ -3241,41 +3241,109 @@ export function TrustSection() {
   );
 }
 
-// --- WORLDWIDE SECTION (SVG MAP) ---
-function WorldwideSection() {
+// --- GROWTH ROADMAP SECTION (TRANSFORMED FROM WORLDWIDE) ---
+export function GrowthSection() {
   return (
     <section id="worldwide" className="py-24 bg-[#0A0A0A] relative overflow-hidden border-y border-white/[0.04]">
-      <div className="max-w-7xl mx-auto px-6">
+      {/* Dynamic Background Spotlights */}
+      <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-[500px] h-[500px] rounded-full bg-cyan-500/[0.015] blur-[120px] pointer-events-none" />
+      <div className="absolute top-1/2 right-1/4 -translate-y-1/2 w-[500px] h-[500px] rounded-full bg-emerald-500/[0.015] blur-[120px] pointer-events-none" />
+
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
 
-          <div className="lg:col-span-4">
-            <div className="inline-block px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-xs font-semibold uppercase tracking-widest mb-4">
-              Decentralized Nodes
+          {/* LEFT COLUMN: Premium Roadmap Side Panel */}
+          <div className="lg:col-span-4 flex flex-col justify-center">
+            
+            {/* Status Segment Indicator */}
+            <div className="inline-flex items-center gap-2 self-start px-3.5 py-1.5 rounded-full bg-gradient-to-r from-cyan-500/10 via-emerald-500/10 to-blue-500/10 border border-cyan-500/30 text-[10px] font-mono tracking-wider mb-5">
+              <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
+              <span className="text-cyan-400 font-bold">🚀 ROADMAP // THE FUTURE OF GLOBAL PLAY</span>
             </div>
-            <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-6">
-              Globally Scalable Infrastructure
+
+            {/* Premium Gradient Headline */}
+            <h2 className="text-3xl md:text-4xl font-black tracking-tight mb-4 leading-tight select-none">
+              <span className="bg-gradient-to-r from-cyan-400 via-teal-400 to-emerald-500 bg-clip-text text-transparent block">
+                 The Journey Has Just Begun 🚀
+              </span>
             </h2>
-            <p className="text-neutral-400 text-sm mb-6 leading-relaxed">
-              We leverage an optimized global routing network minimizing regional lag. Play high-stakes matches synchronously from 100+ countries with millisecond accuracy.
+
+            {/* Narrative Roadmap Copy */}
+            <p className="text-neutral-400 text-xs md:text-sm mb-8 leading-relaxed font-light">
+              We're building the next generation gaming platform, starting with Nigeria and expanding to players across Africa and beyond.
             </p>
-            <div className="border-t border-white/[0.06] pt-6 space-y-3">
-              <div className="flex justify-between text-xs">
-                <span className="text-neutral-500 font-medium">Average Match Latency:</span>
-                <span className="text-emerald-400 font-mono font-semibold">18ms</span>
+
+            {/* Vertical Flow Growth Cards Stack */}
+            <div className="flex flex-col w-full">
+              
+              {/* Card 1: Nigeria (Live Now) */}
+              <div className="bg-[#111111]/90 border border-emerald-500/20 rounded-xl p-4 flex items-center justify-between shadow-[0_4px_20px_rgba(16,185,129,0.03)] hover:border-emerald-500/40 transition-colors duration-300">
+                <div className="flex items-center gap-3">
+                  <span className="text-2xl" role="img" aria-label="Nigeria">🇳🇬</span>
+                  <div className="flex flex-col">
+                    <span className="text-sm font-bold text-white tracking-wide">Nigeria</span>
+                    <span className="text-[9px] font-mono text-neutral-500 tracking-wider">Primary Seed Node</span>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                  <span className="text-[9px] font-mono font-black text-emerald-400 uppercase tracking-widest leading-none">
+                    LIVE NOW
+                  </span>
+                </div>
               </div>
-              <div className="flex justify-between text-xs">
-                <span className="text-neutral-500 font-medium">Uptime Guarantee:</span>
-                <span className="text-emerald-400 font-mono font-semibold">99.99%</span>
+
+              {/* Connecting Down Arrow 1 */}
+              <div className="flex justify-center my-2.5">
+                <svg className="w-4 h-4 text-cyan-500 animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                </svg>
               </div>
-              <div className="flex justify-between text-xs">
-                <span className="text-neutral-500 font-medium">Matchmaking nodes:</span>
-                <span className="text-emerald-400 font-mono font-semibold">Edge Locations Global</span>
+
+              {/* Card 2: Africa (Coming Soon) */}
+              <div className="bg-[#111111]/60 border border-amber-500/10 rounded-xl p-4 flex items-center justify-between hover:border-amber-500/20 transition-colors duration-300">
+                <div className="flex items-center gap-3">
+                  <span className="text-2xl" role="img" aria-label="Africa">🟡</span>
+                  <div className="flex flex-col">
+                    <span className="text-sm font-bold text-neutral-300 tracking-wide">Africa</span>
+                    <span className="text-[9px] font-mono text-neutral-500 tracking-wider">Continental Scaling</span>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20">
+                  <span className="text-[9px] font-mono font-black text-amber-400 uppercase tracking-widest leading-none">
+                    COMING SOON
+                  </span>
+                </div>
               </div>
+
+              {/* Connecting Down Arrow 2 */}
+              <div className="flex justify-center my-2.5">
+                <svg className="w-4 h-4 text-neutral-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                </svg>
+              </div>
+
+              {/* Card 3: Global (In Progress) */}
+              <div className="bg-[#111111]/30 border border-white/[0.04] rounded-xl p-4 flex items-center justify-between hover:border-white/[0.08] transition-colors duration-300">
+                <div className="flex items-center gap-3">
+                  <span className="text-2xl" role="img" aria-label="Global">🌍</span>
+                  <div className="flex flex-col">
+                    <span className="text-sm font-bold text-neutral-400 tracking-wide">Global</span>
+                    <span className="text-[9px] font-mono text-neutral-500 tracking-wider">Decentralized Clusters</span>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/5 border border-cyan-500/10">
+                  <span className="text-[9px] font-mono font-black text-cyan-400 uppercase tracking-widest leading-none">
+                    IN PROGRESS
+                  </span>
+                </div>
+              </div>
+
             </div>
           </div>
 
+          {/* RIGHT COLUMN: The Dominant Vector Map Layout (Maintained exact positioning and animated paths) */}
           <div className="lg:col-span-8 relative">
-            {/* Animated SVG minimalist vector map */}
             <div className="bg-[#111111] border border-white/[0.08] rounded-2xl p-6 shadow-2xl overflow-hidden flex items-center justify-center">
               <svg
                 className="w-full h-auto max-h-[350px] text-neutral-800 opacity-90"
@@ -3283,12 +3351,12 @@ function WorldwideSection() {
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
               >
-                {/* Simplified Continent Paths for vector aesthetic */}
+                {/* Continent Paths */}
                 <path d="M150,150 L200,120 L250,150 L300,100 L350,160 L400,140 L380,250 L250,380 L200,320 Z" fill="#202020" />
                 <path d="M450,120 L550,80 L650,120 L750,90 L850,140 L900,220 L800,350 L750,450 L650,380 L550,350 Z" fill="#1A1A1A" />
                 <path d="M50,220 L100,200 L120,250 L80,300 Z" fill="#1E1E1E" />
 
-                {/* Dynamic connection lines (SVG paths with moving strokes) */}
+                {/* Dynamic connection lines */}
                 <motion.path
                   d="M 230 140 C 350 180, 500 200, 620 130"
                   stroke="url(#cyan-gradient)"
