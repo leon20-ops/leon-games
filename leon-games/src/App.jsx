@@ -2501,6 +2501,8 @@ export function PaymentsSection() {
   const [selectedId, setSelectedId] = useState("cards");
   const [isMobile, setIsMobile] = useState(false);
   const sectionRef = useRef(null);
+  const depositSliderRef = useRef(null);
+  const depositItemRefs = useRef({});
 
   // Monitor scroll dynamics to adjust compression and visibility
   useEffect(() => {
@@ -2509,6 +2511,67 @@ export function PaymentsSection() {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  useEffect(() => {
+    if (!isMobile || activeTab !== "deposit" || !depositSliderRef.current) return;
+
+    const slider = depositSliderRef.current;
+    const items = Object.values(depositItemRefs.current).filter(Boolean);
+
+    // Use IntersectionObserver to reliably detect which card is most visible
+    // (more resilient to fast flick/scroll gestures than scroll+rAF calculations)
+    let currentSelected = selectedId;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        // choose the entry with the largest intersectionRatio
+        let best = { ratio: 0, id: null };
+        entries.forEach((entry) => {
+          const id = entry.target.dataset.depositId;
+          if (!id) return;
+          if (entry.intersectionRatio > best.ratio) {
+            best = { ratio: entry.intersectionRatio, id };
+          }
+        });
+
+        if (best.id && best.id !== currentSelected) {
+          currentSelected = best.id;
+          window.requestAnimationFrame(() => setSelectedId(best.id));
+        }
+      },
+      {
+        root: slider,
+        threshold: [0, 0.25, 0.5, 0.75, 1]
+      }
+    );
+
+    items.forEach((el) => observer.observe(el));
+
+    // initial alignment fallback (center-distance) for older browsers or edge-cases
+    const chooseNearestCard = () => {
+      const sliderRect = slider.getBoundingClientRect();
+      const sliderCenter = sliderRect.left + sliderRect.width / 2;
+      let nearestId = selectedId;
+      let nearestDistance = Infinity;
+
+      items.forEach((item) => {
+        const rect = item.getBoundingClientRect();
+        const itemCenter = rect.left + rect.width / 2;
+        const distance = Math.abs(itemCenter - sliderCenter);
+        if (distance < nearestDistance) {
+          nearestDistance = distance;
+          nearestId = item.dataset.depositId;
+        }
+      });
+
+      if (nearestId && nearestId !== selectedId) setSelectedId(nearestId);
+    };
+
+    chooseNearestCard();
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [isMobile, activeTab, selectedId]);
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -2605,7 +2668,7 @@ export function PaymentsSection() {
             <div className="w-1/2 pr-0 lg:pr-2 shrink-0 grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
               
               {/* Left Side: Large Interactive Grid/Horizontal Slider of Deposit Options */}
-              <div className="lg:col-span-7 flex overflow-x-auto snap-x snap-mandatory scrollbar-thin scrollbar-thumb-neutral-800 scrollbar-track-transparent pb-4 lg:pb-0 lg:overflow-visible lg:grid lg:grid-cols-2 gap-4 max-w-full">
+              <div ref={depositSliderRef} className="lg:col-span-7 flex overflow-x-auto snap-x snap-mandatory scrollbar-thin scrollbar-thumb-neutral-800 scrollbar-track-transparent pb-4 lg:pb-0 lg:overflow-visible lg:grid lg:grid-cols-2 gap-4 max-w-full">
                 {/* Left Spacer: Dynamically calculates margin needed to center the first card */}
                 <div className="shrink-0 w-[calc(50vw-140px-24px)] sm:w-[calc(50vw-160px-24px)] lg:hidden" />
 
@@ -2614,6 +2677,10 @@ export function PaymentsSection() {
                   return (
                     <button
                       key={method.id}
+                      data-deposit-id={method.id}
+                      ref={(el) => {
+                        depositItemRefs.current[method.id] = el;
+                      }}
                       onClick={() => setSelectedId(method.id)}
                       className={`flex flex-col justify-between text-left p-5 rounded-xl border transition-all duration-300 relative overflow-hidden group cursor-pointer shrink-0 w-[280px] sm:w-[320px] snap-center lg:w-full lg:shrink ${
                         isActive
