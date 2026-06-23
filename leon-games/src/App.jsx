@@ -2606,6 +2606,9 @@ export function PaymentsSection() {
               
               {/* Left Side: Large Interactive Grid/Horizontal Slider of Deposit Options */}
               <div className="lg:col-span-7 flex overflow-x-auto snap-x snap-mandatory scrollbar-thin scrollbar-thumb-neutral-800 scrollbar-track-transparent pb-4 lg:pb-0 lg:overflow-visible lg:grid lg:grid-cols-2 gap-4 max-w-full">
+                {/* Left Spacer: Dynamically calculates margin needed to center the first card */}
+                <div className="shrink-0 w-[calc(50vw-140px-24px)] sm:w-[calc(50vw-160px-24px)] lg:hidden" />
+
                 {DEPOSIT_METHODS.map((method) => {
                   const isActive = method.id === selectedId;
                   return (
@@ -2644,6 +2647,9 @@ export function PaymentsSection() {
                     </button>
                   );
                 })}
+
+                {/* Right Spacer: Dynamically calculates margin needed to center the last card */}
+                <div className="shrink-0 w-[calc(50vw-140px-24px)] sm:w-[calc(50vw-160px-24px)] lg:hidden" />
               </div>
 
               {/* Right Side: Dynamic, Premium Details Panel */}
