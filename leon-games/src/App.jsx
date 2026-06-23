@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import { faker } from "@faker-js/faker";
 import { motion, AnimatePresence, useScroll, useTransform, useSpring, useMotionValue } from "framer-motion";
 import predictionDuel from "./assets/images/prediction-duel.png";
 import reactionSignal from "./assets/images/reaction-signal.png";
@@ -2194,33 +2195,66 @@ export function HowItWorksSection() {
   );
 }
 
-// --- LIVE ACTIVITY FEED ---
-const LIVE_WINS = [
-  { player: "Valkyrie_44", game: "Rock Paper Scissors", amount: 120, time: "Just now" },
-  { player: "MagePro", game: "Penalty Shootout", amount: 240, time: "2m ago" },
-  { player: "Zero_Cool", game: "Reaction Challenge", amount: 45, time: "4m ago" },
-  { player: "Shadow_Step", game: "Connect Four", amount: 90, time: "5m ago" },
-  { player: "GridLord", game: "Tic Tac Toe", amount: 110, time: "8m ago" },
-  { player: "Cipher_9", game: "Penalty Shootout", amount: 300, time: "10m ago" }
+// --- DYNAMIC ACTIVITY FEED GENERATOR ---
+const GAMES_AND_ACTIONS = [
+  { name: "Rock Paper Scissors ✊", actions: ["Flawless Bluff 🧠", "Match Winner 🏆", "Double Stake Win 💎", "Daily Streak 🔥"] },
+  { name: "Penalty Shootout ⚽", actions: ["Golden Boot 🥇", "Perfect Goalkeeper 🧤", "Decisive Penalty 🎯", "High-Roller Win 💰"] },
+  { name: "Reaction Challenge ⏱️", actions: ["Reflex God ⭐", "Latency Defier ⚡", "0.12s Response 🟢", "Streak Maintained 🔥"] },
+  { name: "Tic Tac Toe ❌", actions: ["Grandmaster Play 🧩", "Matrix Solved 📐", "Victory Royal 🏆", "Escrow Win 🔒"] },
+  { name: "Number Prediction 🔢", actions: ["Perfect Proximity 🔮", "Data Analyst 📊", "Close-Range Win 🎯", "Lobby Sweeper 🚀"] }
 ];
 
+const createFakeActivity = () => {
+  const selectedGame = faker.helpers.arrayElement(GAMES_AND_ACTIONS);
+  const action = faker.helpers.arrayElement(selectedGame.actions);
+  const baseAmount = faker.number.int({ min: 10, max: 480 });
+  
+  // Format username with letters, underscores, and numbers
+  const rawUser = faker.internet.username();
+  const cleanUser = rawUser.replace(/[^a-zA-Z0-9]/g, "_").toLowerCase();
+  const numSuffix = faker.number.int({ min: 11, max: 999 });
+  const player = `${cleanUser}_${numSuffix}`;
+
+  return {
+    id: faker.string.uuid(),
+    player,
+    game: `${selectedGame.name} // ${action}`,
+    amount: baseAmount,
+    time: faker.helpers.arrayElement(["Just now", "1m ago", "2m ago", "3m ago", "4m ago"])
+  };
+};
+
 export function LiveActivitySection() {
+  // Initialize with 30 unique dynamic items
+  const [feed, setFeed] = useState(() => 
+    Array.from({ length: 30 }, () => createFakeActivity())
+  );
+
+  const handleLoopReset = () => {
+    // Regenerate a completely fresh set of 30 unique items at the exact frame the loop resets
+    setFeed(Array.from({ length: 30 }, () => createFakeActivity()));
+  };
+
   return (
-    <section className="py-12 bg-[#050505] overflow-hidden border-b border-white/[0.04]">
+    <section className="py-12 bg-[#050505] overflow-hidden border-b border-white/[0.04] z-10">
       <div className="w-full flex flex-col gap-4">
         <div className="text-center mb-2">
-          <span className="text-[10px] tracking-widest text-neutral-500 uppercase font-black">
+          <span className="text-[10px] tracking-widest text-neutral-500 uppercase font-black flex items-center justify-center gap-1.5">
+            <span className="inline-block w-1.5 h-1.5 rounded-full bg-red-500 animate-ping" />
             🔴 Live Arena Action
           </span>
         </div>
 
         {/* Infinite Marquee Feed Container */}
         <div className="relative flex overflow-x-hidden w-full group mask-gradient">
-          <div className="animate-marquee flex whitespace-nowrap gap-6 py-2">
-            {LIVE_WINS.concat(LIVE_WINS).map((item, idx) => (
+          <div 
+            onAnimationIteration={handleLoopReset} // Intercepts the loop reset frame to swap data seamlessly
+            className="animate-marquee flex whitespace-nowrap gap-6 py-2"
+          >
+            {feed.concat(feed).map((item, idx) => (
               <div
-                key={idx}
-                className="inline-flex items-center gap-3 bg-[#111111] border border-white/[0.06] rounded-full py-2.5 px-6 shadow-md"
+                key={`${item.id}-${idx}`}
+                className="inline-flex items-center gap-3 bg-[#111111] border border-white/[0.06] rounded-full py-2.5 px-6 shadow-md transition-all duration-300"
               >
                 <span className="w-2 h-2 rounded-full bg-emerald-500" />
                 <span className="text-xs font-bold text-white">{item.player}</span>
@@ -2238,98 +2272,390 @@ export function LiveActivitySection() {
   );
 }
 
-// --- PAYMENTS SECTION ---
-const PAYMENT_METHODS = [
-  { name: "Visa / Mastercard", logo: "💳" },
-  { name: "PayPal", logo: "🅿️" },
-  { name: "Bitcoin", logo: "₿" },
-  { name: "Ethereum", logo: "Ξ" },
-  { name: "USDT", logo: "₮" }
+// --- SPORTSBOOK-STYLE DEPOSIT INFRASTRUCTURE DATA ---
+const DEPOSIT_METHODS = [
+  {
+    id: "cards",
+    name: "Cards",
+    icon: "💳",
+    logoText: "Visa, Mastercard, Verve",
+    shortDesc: "Use your debit or credit card for instant deposits.",
+    details: {
+      desc: "Fund your account immediately using your local or international bank card. This payment gateway handles end-to-end authentication securely.",
+      benefits: [
+        "Encrypted card storage for fast recurring loads",
+        "3D-Secure multi-factor authentication (verified by Visa/Mastercard ID Check)",
+        "Zero manual processing delay, immediate balance sync"
+      ],
+      speed: "Instantaneous ⚡",
+      availability: "24/7/365 🟢",
+      security: "PCI-DSS Level-1 Compliant Pipeline"
+    }
+  },
+  {
+    id: "bank_transfer",
+    name: "Bank Transfer",
+    icon: "🏦",
+    logoText: "Automated Ledger Sync",
+    shortDesc: "Transfer directly from your bank account with automatic payment confirmation.",
+    details: {
+      desc: "Generate a custom, single-use dynamic virtual account number to transfer funds from any online banking app or ATM portal.",
+      benefits: [
+        "Instant automated validation of inbound transfer volume",
+        "Zero card disclosure, direct banking-rail security",
+        "No browser redirects or external gateway links required"
+      ],
+      speed: "Under 60 seconds ⏱️",
+      availability: "24/7/365 🟢",
+      security: "Audited Ledger Escrow"
+    }
+  },
+  {
+    id: "bank_payment",
+    name: "Direct Bank Payment",
+    icon: "🏛️",
+    logoText: "Nigerian Bank Rails",
+    shortDesc: "Pay securely through your preferred Nigerian bank.",
+    details: {
+      desc: "Log directly into your personal bank's secure customer portal to authorize deposits. This bypasses cards entirely.",
+      benefits: [
+        "Direct processing with Access Bank, GTBank, Zenith, UBA, and others",
+        "Native biometrics or OTP confirmation directly inside bank app",
+        "Exceptional transfer reliability and high success rates"
+      ],
+      speed: "Instant ⚡",
+      availability: "24/7/365 🟢",
+      security: "Direct Core Banking Integration"
+    }
+  },
+  {
+    id: "ussd",
+    name: "USSD Codes",
+    icon: "📱",
+    logoText: "Offline Friendly Code System",
+    shortDesc: "Complete deposits without internet banking using your bank's USSD code.",
+    details: {
+      desc: "Bypass internet connections entirely. Simply dial your bank's designated USSD code on your registered mobile number to confirm.",
+      benefits: [
+        "Zero cellular data required to execute balance loads",
+        "Ideal for spot funding during unstable network outages",
+        "Instant SMS receipt alerts sent automatically"
+      ],
+      speed: "Instant ⚡",
+      availability: "24/7/365 🟢",
+      security: "SIM-Card Bind Security Protocol"
+    }
+  },
+  {
+    id: "zap",
+    name: "Zap by Paystack",
+    icon: "⚡",
+    logoText: "Paystack Network Speed",
+    shortDesc: "Enjoy faster checkout with one-tap payments through Zap.",
+    details: {
+      desc: "Leverage Paystack's state-of-the-art Zap channel to authorize payments in a single tap using securely stored credentials.",
+      benefits: [
+        "Industry-leading authorization speeds",
+        "Saves credentials using top-tier encryption",
+        "Native, frictionless mobile layout"
+      ],
+      speed: "Instantaneous ⚡",
+      availability: "24/7/365 🟢",
+      security: "Paystack Shield Level-1 Protection"
+    }
+  },
+  {
+    id: "crypto",
+    name: "Cryptocurrency",
+    icon: "🪙",
+    logoText: "BTC, ETH, USDT, USDC, LTC, BNB",
+    shortDesc: "Deposit securely using cryptocurrency with fast blockchain confirmations.",
+    details: {
+      desc: "Access borderless global payment paths. Securely route blockchain assets directly into our system. Supports BTC, ETH, USDT, USDC, LTC, and BNB.",
+      benefits: [
+        "Direct decentralized processing, fully censorship-resistant",
+        "Zero card numbers or banking credentials disclosed",
+        "Automatic USD conversion at active spot exchange rates"
+      ],
+      speed: "1 Blockchain Confirmation 🌐",
+      availability: "24/7/365 🟢",
+      security: "Cryptographically Secured Ledger"
+    }
+  }
 ];
 
 function PaymentsSection() {
+  const [selectedId, setSelectedId] = useState("cards");
+  const [isMobile, setIsMobile] = useState(false);
+  const sectionRef = useRef(null);
+
+  // Monitor scroll dynamics to adjust compression and visibility
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 1024);
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"]
+  });
+
+  const smoothProgress = useSpring(scrollYProgress, {
+    stiffness: 75,
+    damping: 22,
+    restDelta: 0.001
+  });
+
+  const headerTitleX = useTransform(smoothProgress, [0, 0.4, 0.8, 1], [isMobile ? -20 : -60, 0, 0, isMobile ? -15 : -40]);
+  const headerTitleOpacity = useTransform(smoothProgress, [0, 0.32, 0.85, 1], [0, 1, 1, 0]);
+
+  const headerDescX = useTransform(smoothProgress, [0, 0.4, 0.8, 1], [isMobile ? 20 : 60, 0, 0, isMobile ? 15 : 40]);
+  const headerDescOpacity = useTransform(smoothProgress, [0, 0.32, 0.85, 1], [0, 1, 1, 0]);
+
+  const activeMethod = DEPOSIT_METHODS.find((item) => item.id === selectedId) || DEPOSIT_METHODS[0];
+
   return (
-    <section className="py-24 bg-[#0A0A0A] relative overflow-hidden">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+    <section 
+      ref={sectionRef}
+      className="py-24 bg-[#0A0A0A] relative overflow-hidden border-y border-white/[0.04] z-10"
+    >
+      {/* Visual Ambience Backgrounds */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#161616_1px,transparent_1px),linear-gradient(to_bottom,#161616_1px,transparent_1px)] bg-[size:6rem_6rem] pointer-events-none opacity-20" />
+      <div className="absolute top-1/2 left-1/4 w-[500px] h-[500px] rounded-full bg-emerald-500/[0.015] blur-[140px] pointer-events-none" />
+      <div className="absolute top-1/2 right-1/4 w-[500px] h-[500px] rounded-full bg-cyan-500/[0.015] blur-[140px] pointer-events-none" />
 
-          <div>
-            <div className="inline-block px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-xs font-semibold uppercase tracking-widest mb-4">
-              Lightning Settlement
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
+
+        {/* Dynamic Section Header */}
+        <div className="flex flex-col lg:flex-row items-start lg:items-end justify-between mb-20 gap-8">
+          <motion.div 
+            style={{ x: headerTitleX, opacity: headerTitleOpacity }} 
+            className="flex flex-col"
+          >
+            {/* Dynamic Segment Status Tag */}
+            <div className="inline-flex items-center gap-2 self-start px-3.5 py-1.5 rounded-full bg-gradient-to-r from-emerald-500/10 via-cyan-500/10 to-blue-500/10 border border-emerald-500/30 text-[10px] font-mono tracking-wider mb-4">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+              <span className="text-emerald-400 font-bold">PAYMENT INFRASTRUCTURE PROTOCOL</span>
             </div>
-            <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-6">
-              Deposit in Seconds.<br />Withdraw Globally.
+
+            {/* High-Impact Gradient Title */}
+            <h2 className="text-3xl md:text-5xl font-black tracking-tight leading-tight select-none">
+              <span className="bg-gradient-to-r from-emerald-400 via-teal-400 to-cyan-500 bg-clip-text text-transparent">
+                Deposit Methods 💳⚡
+              </span>
             </h2>
-            <p className="text-neutral-400 mb-8 leading-relaxed">
-              We settle accounts in real-time. Whether utilizing traditional banking infrastructure or secure layer-2 blockchain assets, balances remain constantly visible and stable in USD equivalent valuations.
-            </p>
+          </motion.div>
 
-            <div className="flex flex-wrap gap-3">
-              {PAYMENT_METHODS.map((method, idx) => (
-                <div
-                  key={idx}
-                  className="flex items-center gap-2 bg-[#111111] border border-white/[0.06] rounded-lg py-2 px-4 text-xs font-semibold text-neutral-300"
+          {/* Side-aligned Narrative Block */}
+          <motion.p
+            style={{ x: headerDescX, opacity: headerDescOpacity }}
+            className="text-neutral-300 max-w-lg text-sm md:text-base leading-relaxed font-light"
+          >
+            Experience lightning-fast transactions powered by secure banking rails, digital wallets, cryptocurrency networks, and automated settlement systems. Every payment channel is optimized for speed, reliability, and maximum account security.
+          </motion.p>
+        </div>
+
+        {/* 2-Column Sportsbook Layout */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch mb-12">
+          
+          {/* LEFT SIDE: Large Interactive Grid of Payment Options */}
+          <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {DEPOSIT_METHODS.map((method) => {
+              const isActive = method.id === selectedId;
+              return (
+                <button
+                  key={method.id}
+                  onClick={() => setSelectedId(method.id)}
+                  className={`flex flex-col justify-between text-left p-5 rounded-xl border transition-all duration-300 relative overflow-hidden group cursor-pointer ${
+                    isActive
+                      ? "bg-[#111111] border-emerald-500/40 shadow-[0_4px_25px_rgba(34,197,94,0.1)]"
+                      : "bg-[#111111]/40 border-white/[0.04] hover:border-white/[0.1] hover:bg-[#111111]/60"
+                  }`}
                 >
-                  <span className="text-sm">{method.logo}</span>
-                  {method.name}
-                </div>
-              ))}
-            </div>
+                  {/* Active glow gradient block */}
+                  {isActive && (
+                    <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-500/[0.02] rounded-full blur-2xl pointer-events-none" />
+                  )}
+
+                  {/* Header containing Icon & Name */}
+                  <div className="flex items-center gap-3.5 mb-3.5 relative z-10">
+                    <span className="text-2xl">{method.icon}</span>
+                    <div className="flex flex-col">
+                      <span className="text-sm font-bold text-white group-hover:text-emerald-400 transition-colors">
+                        {method.name}
+                      </span>
+                      <span className="text-[10px] font-mono text-neutral-500 tracking-wider">
+                        {method.logoText}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Short Description */}
+                  <p className="text-xs text-neutral-400 leading-relaxed font-light relative z-10">
+                    {method.shortDesc}
+                  </p>
+
+                  {/* Active bottom marker strip */}
+                  <div className={`absolute bottom-0 left-0 right-0 h-[2px] transition-all duration-300 ${
+                    isActive ? "bg-emerald-500" : "bg-transparent"
+                  }`} />
+                </button>
+              );
+            })}
           </div>
 
-          {/* Secure Deposit Panel Visual */}
-          <div className="bg-[#111111] border border-white/[0.08] rounded-xl p-8 relative overflow-hidden shadow-2xl">
-            <div className="flex items-center justify-between border-b border-white/[0.06] pb-6 mb-6">
-              <span className="text-xs font-bold text-neutral-400 uppercase tracking-wider">
-                Instant Deposit Interface
-              </span>
-              <span className="text-[10px] font-mono text-emerald-500 bg-emerald-500/5 px-2 py-1 rounded">
-                SECURE ENDPOINT
-              </span>
-            </div>
+          {/* RIGHT SIDE: Dynamic, Premium Details Panel */}
+          <div className="lg:col-span-5 flex">
+            <div className="w-full bg-[#111111] border border-white/[0.08] rounded-xl p-6 md:p-8 flex flex-col justify-between shadow-2xl relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-500/[0.015] rounded-full blur-[70px] pointer-events-none" />
 
-            <div className="space-y-4">
-              <div>
-                <label className="block text-[10px] font-bold text-neutral-400 uppercase mb-2">Select Currency</label>
-                <div className="grid grid-cols-3 gap-2">
-                  <button className="bg-[#171717] hover:bg-neutral-800 border border-emerald-500/40 text-white rounded-lg py-3 text-xs font-bold transition-all">
-                    🇺🇸 USD
-                  </button>
-                  <button className="bg-[#171717] hover:bg-[#202020] border border-transparent text-neutral-400 rounded-lg py-3 text-xs font-bold transition-all">
-                    🪙 USDT
-                  </button>
-                  <button className="bg-[#171717] hover:bg-[#202020] border border-transparent text-neutral-400 rounded-lg py-3 text-xs font-bold transition-all">
-                    ⚡ BTC
-                  </button>
-                </div>
-              </div>
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={activeMethod.id}
+                  initial={{ opacity: 0, y: 15 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -15 }}
+                  transition={{ duration: 0.3 }}
+                  className="space-y-6 relative z-10"
+                >
+                  {/* Header Title with Large Icon */}
+                  <div className="flex items-center gap-4 pb-4 border-b border-white/[0.04]">
+                    <span className="text-4xl">{activeMethod.icon}</span>
+                    <div className="flex flex-col">
+                      <span className="text-xs font-mono text-emerald-400 uppercase tracking-widest leading-none mb-1.5">
+                        GATEWAY ACTIVE
+                      </span>
+                      <h4 className="text-lg md:text-xl font-black text-white leading-none">
+                        {activeMethod.name}
+                      </h4>
+                    </div>
+                  </div>
 
-              <div>
-                <label className="block text-[10px] font-bold text-neutral-400 uppercase mb-2">Amount (USD)</label>
-                <div className="relative">
-                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-neutral-500 font-bold">$</div>
-                  <input
-                    type="text"
-                    readOnly
-                    value="150.00"
-                    className="w-full bg-[#171717] border border-white/[0.06] rounded-lg py-3 pl-8 pr-4 text-sm font-bold font-mono focus:outline-none focus:border-emerald-500/40 text-white"
-                  />
-                </div>
-              </div>
+                  {/* Detailed Description */}
+                  <p className="text-xs md:text-sm text-neutral-400 leading-relaxed font-light">
+                    {activeMethod.details.desc}
+                  </p>
 
-              <div className="pt-4">
-                <button className="w-full py-4 bg-emerald-500 hover:bg-emerald-400 text-[#050505] font-black text-xs rounded-lg uppercase tracking-wider transition-colors duration-150">
-                  Execute Deposit
-                </button>
-              </div>
+                  {/* Key Benefits Bullet List */}
+                  <div className="space-y-3.5">
+                    <span className="text-[10px] font-mono tracking-widest text-neutral-500 uppercase block">
+                      KEY GATEWAY BENEFITS
+                    </span>
+                    <div className="space-y-2.5">
+                      {activeMethod.details.benefits.map((benefit, idx) => (
+                        <div key={idx} className="flex items-start gap-3">
+                          <span className="text-emerald-400 text-xs mt-0.5">✓</span>
+                          <span className="text-neutral-300 text-xs font-light leading-relaxed">
+                            {benefit}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
 
-              <div className="flex items-center justify-center gap-2 mt-4 text-[10px] text-neutral-500">
-                <Icons.Lock /> Protected by SSL AES-256 standard encryption.
+                  {/* Technical Metadata Indicators Grid */}
+                  <div className="grid grid-cols-3 gap-3 pt-6 border-t border-white/[0.04]">
+                    <div className="bg-white/[0.01] border border-white/[0.04] p-3 rounded-lg flex flex-col justify-center">
+                      <span className="text-[9px] font-mono text-neutral-500 uppercase tracking-wider mb-1">
+                        SPEED
+                      </span>
+                      <span className="text-xs font-bold text-white font-mono leading-none">
+                        {activeMethod.details.speed}
+                      </span>
+                    </div>
+                    <div className="bg-white/[0.01] border border-white/[0.04] p-3 rounded-lg flex flex-col justify-center">
+                      <span className="text-[9px] font-mono text-neutral-500 uppercase tracking-wider mb-1">
+                        AVAILABILITY
+                      </span>
+                      <span className="text-xs font-bold text-white font-mono leading-none">
+                        {activeMethod.details.availability}
+                      </span>
+                    </div>
+                    <div className="bg-white/[0.01] border border-white/[0.04] p-3 rounded-lg flex flex-col justify-center col-span-1">
+                      <span className="text-[9px] font-mono text-neutral-500 uppercase tracking-wider mb-1">
+                        PROTOCOL
+                      </span>
+                      <span className="text-[10px] font-black text-emerald-400 font-mono leading-none truncate">
+                        SECURE 🔒
+                      </span>
+                    </div>
+                  </div>
+                </motion.div>
+              </AnimatePresence>
+
+              {/* Bottom Security Info Card */}
+              <div className="mt-8 pt-4 border-t border-white/[0.04] flex items-center justify-between text-[10px] text-neutral-500 font-mono">
+                <span>GATEWAY IDENTIFIER // {activeMethod.id.toUpperCase()}</span>
+                <span className="text-emerald-500 animate-pulse">● ONLINE</span>
               </div>
             </div>
           </div>
 
         </div>
+
+        {/* SECURITY & TRUST SECTION (Fintech Glassmorphism Panel) */}
+        <div className="bg-gradient-to-r from-white/[0.01] via-white/[0.03] to-white/[0.01] border border-white/[0.06] rounded-2xl p-6 md:p-8 backdrop-blur shadow-xl relative overflow-hidden mb-12">
+          <div className="absolute inset-0 bg-emerald-500/[0.01] rounded-full blur-[100px] pointer-events-none" />
+          
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 items-center text-center">
+            <div className="flex flex-col items-center gap-2">
+              <span className="text-2xl">🛡️</span>
+              <h5 className="text-xs font-bold text-white font-mono uppercase tracking-wider">
+                Secure Transactions
+              </h5>
+              <p className="text-[10px] text-neutral-400 font-light">
+                Direct bank-grade processing
+              </p>
+            </div>
+            
+            <div className="flex flex-col items-center gap-2 border-t md:border-t-0 md:border-l border-white/[0.04] pt-4 md:pt-0">
+              <span className="text-2xl">🔒</span>
+              <h5 className="text-xs font-bold text-white font-mono uppercase tracking-wider">
+                SSL Encrypted
+              </h5>
+              <p className="text-[10px] text-neutral-400 font-light">
+                AES-256 military standard security
+              </p>
+            </div>
+            
+            <div className="flex flex-col items-center gap-2 border-t md:border-t-0 md:border-l border-white/[0.04] pt-4 md:pt-0">
+              <span className="text-2xl">⚡</span>
+              <h5 className="text-xs font-bold text-white font-mono uppercase tracking-wider">
+                Instant Deposits
+              </h5>
+              <p className="text-[10px] text-neutral-400 font-light">
+                Real-time account balance updates
+              </p>
+            </div>
+            
+            <div className="flex flex-col items-center gap-2 border-t md:border-t-0 md:border-l border-white/[0.04] pt-4 md:pt-0">
+              <span className="text-2xl">💸</span>
+              <h5 className="text-xs font-bold text-white font-mono uppercase tracking-wider">
+                Fast Withdrawals
+              </h5>
+              <p className="text-[10px] text-neutral-400 font-light">
+                Unmatched rapid payout rails
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* PRIMARY CALL TO ACTION */}
+        <div className="flex justify-center">
+          <motion.button
+            whileHover={{ scale: 1.03, y: -2 }}
+            whileTap={{ scale: 0.97 }}
+            className="relative group overflow-hidden rounded-xl bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 text-black font-black text-sm uppercase tracking-wider py-4 px-12 transition-all duration-300 shadow-[0_10px_30px_rgba(16,185,129,0.3)] hover:shadow-[0_15px_40px_rgba(16,185,129,0.45)] cursor-pointer"
+          >
+            <span className="absolute inset-0 w-full h-full bg-white opacity-0 group-hover:opacity-10 transition-opacity duration-300" />
+            <span className="relative z-10 flex items-center gap-2">
+              Start Betting Now 🔥
+            </span>
+          </motion.button>
+        </div>
+
       </div>
     </section>
   );
