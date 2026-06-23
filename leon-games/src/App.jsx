@@ -581,8 +581,7 @@ function HeroSection() {
       return {
         variants,
         initial: "hidden",
-        whileInView: "visible",
-        viewport: { once: false, amount: 0.1 }
+        animate: "visible"
       };
     }
     return { variants };
@@ -644,8 +643,9 @@ function HeroSection() {
 
       {/* 4. BALANCED SPLIT LAYOUT GRID */}
       <motion.div
-        variants={!isMobile ? containerVariants : undefined}
-        initial={!isMobile ? "hidden" : undefined}
+        variants={containerVariants}
+        initial="hidden"
+        animate={isMobile ? "visible" : undefined}
         whileInView={!isMobile ? "visible" : undefined}
         viewport={!isMobile ? { once: false, amount: 0.25 } : undefined}
         className="w-full max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-center relative z-20"
@@ -2682,7 +2682,7 @@ export function PaymentsSection() {
                         depositItemRefs.current[method.id] = el;
                       }}
                       onClick={() => setSelectedId(method.id)}
-                      className={`flex flex-col justify-between text-left p-5 rounded-xl border transition-all duration-300 relative overflow-hidden group cursor-pointer shrink-0 w-[280px] sm:w-[320px] snap-center lg:w-full lg:shrink ${
+                      className={`flex flex-col justify-between text-left p-5 rounded-xl border transition-colors duration-300 relative overflow-hidden group cursor-pointer shrink-0 w-[280px] sm:w-[320px] snap-center lg:w-full lg:shrink h-[180px] lg:h-auto min-h-[180px] ${
                         isActive
                           ? "bg-[#111111] border-emerald-500/40 shadow-[0_4px_25px_rgba(34,197,94,0.1)]"
                           : "bg-[#111111]/40 border-white/[0.04] hover:border-white/[0.1] hover:bg-[#111111]/60"
