@@ -2506,6 +2506,23 @@ export function PaymentsSection() {
   const depositSliderRef = useRef(null);
   const depositItemRefs = useRef({});
 
+  // Scroll the deposit slider by one card width (direction: -1 left, 1 right)
+  const scrollDeposit = (direction) => {
+    const slider = depositSliderRef.current;
+    if (!slider) return;
+    const keys = Object.keys(depositItemRefs.current || {});
+    let step = 320;
+    if (keys.length) {
+      const first = depositItemRefs.current[keys[0]];
+      if (first && first.offsetWidth) {
+        const style = window.getComputedStyle(first);
+        const marginRight = parseFloat(style.marginRight || 0);
+        step = first.offsetWidth + (isNaN(marginRight) ? 0 : marginRight);
+      }
+    }
+    slider.scrollBy({ left: direction * step, behavior: "smooth" });
+  };
+
   // Monitor scroll dynamics to adjust compression and visibility
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 1024);
@@ -2702,11 +2719,12 @@ export function PaymentsSection() {
             >
               
               {/* Left Side: Large Interactive Grid/Horizontal Slider of Deposit Options */}
-              <motion.div 
-                ref={depositSliderRef} 
-                style={{ x: depositSliderX, opacity: depositSliderOpacity }}
-                className="lg:col-span-7 flex overflow-x-auto snap-x snap-mandatory scrollbar-thin scrollbar-thumb-neutral-800 scrollbar-track-transparent pb-4 lg:pb-0 lg:overflow-visible lg:grid lg:grid-cols-2 gap-4 max-w-full"
-              >
+              <div className="lg:col-span-7 relative w-full">
+                <motion.div 
+                  ref={depositSliderRef} 
+                  style={{ x: depositSliderX, opacity: depositSliderOpacity }}
+                  className="flex overflow-x-auto snap-x snap-mandatory scrollbar-thin scrollbar-thumb-neutral-800 scrollbar-track-transparent pb-4 lg:pb-0 lg:overflow-visible lg:grid lg:grid-cols-2 gap-4 max-w-full"
+                >
                 {/* Left Spacer: Dynamically calculates margin needed to center the first card */}
                 <div className="shrink-0 w-[calc(50vw-140px-24px)] sm:w-[calc(50vw-160px-24px)] lg:hidden" />
 
@@ -2755,7 +2773,25 @@ export function PaymentsSection() {
 
                 {/* Right Spacer: Dynamically calculates margin needed to center the last card */}
                 <div className="shrink-0 w-[calc(50vw-140px-24px)] sm:w-[calc(50vw-160px-24px)] lg:hidden" />
-              </motion.div>
+                </motion.div>
+
+                {/* Emoji control buttons (left/right) positioned at the slider sides */}
+                <button
+                  onClick={() => scrollDeposit(-1)}
+                  aria-label="Previous deposit"
+                  className="absolute left-2 top-1/2 -translate-y-1/2 z-30 w-10 h-10 rounded-full bg-[#050505]/70 hover:bg-emerald-500 hover:text-black border border-white/[0.06] text-neutral-200 flex items-center justify-center transition-colors shadow-md"
+                >
+                  <span className="text-lg select-none">◀️</span>
+                </button>
+
+                <button
+                  onClick={() => scrollDeposit(1)}
+                  aria-label="Next deposit"
+                  className="absolute right-2 top-1/2 -translate-y-1/2 z-30 w-10 h-10 rounded-full bg-[#050505]/70 hover:bg-emerald-500 hover:text-black border border-white/[0.06] text-neutral-200 flex items-center justify-center transition-colors shadow-md"
+                >
+                  <span className="text-lg select-none">▶️</span>
+                </button>
+              </div>
 
               {/* Right Side: Dynamic, Premium Details Panel */}
               <motion.div 
