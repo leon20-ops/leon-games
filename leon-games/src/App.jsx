@@ -3107,7 +3107,7 @@ export function TrustSection() {
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         
         {/* Replacement Header Structure */}
-        <div className="flex flex-col lg:flex-row items-start lg:items-end justify-between mb-24 gap-8">
+        <div className="flex flex-col lg:flex-row items-start lg:items-end justify-between mb-10 lg:mb-24 gap-8">
           <motion.div
             style={{ x: headerTitleX, opacity: headerTitleOpacity }}
             className="flex flex-col"
