@@ -6,6 +6,7 @@ import reactionSignal from "./assets/images/reaction-signal.png";
 import penaltyShootout from "./assets/images/penalty-shootout.png";
 import rockPaperScissors from "./assets/images/rock-paper-scissors.png";
 import ticTacToe from "./assets/images/tic-tac-toe.png";
+import nigeriaVideo from "./assets/videos/nigeria-zoom-out-to-world.mp4";
 
 // --- CUSTOM HIGH-QUALITY SVG ICONS (Inline to avoid dependency issues) ---
 const Icons = {
@@ -3243,6 +3244,30 @@ export function TrustSection() {
 
 // --- GROWTH ROADMAP SECTION (TRANSFORMED FROM WORLDWIDE) ---
 export function GrowthSection() {
+  const videoRef = useRef(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          const promise = video.play();
+          if (promise !== undefined) {
+            promise.catch(() => {});
+          }
+        } else {
+          video.pause();
+        }
+      },
+      { threshold: 0.25 }
+    );
+
+    observer.observe(video);
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <section id="worldwide" className="py-24 bg-[#0A0A0A] relative overflow-hidden border-y border-white/[0.04]">
       {/* Dynamic Background Spotlights */}
@@ -3345,70 +3370,16 @@ export function GrowthSection() {
           {/* RIGHT COLUMN: The Dominant Vector Map Layout (Maintained exact positioning and animated paths) */}
           <div className="lg:col-span-8 relative">
             <div className="bg-[#111111] border border-white/[0.08] rounded-2xl p-6 shadow-2xl overflow-hidden flex items-center justify-center">
-              <svg
-                className="w-full h-auto max-h-[350px] text-neutral-800 opacity-90"
-                viewBox="0 0 1000 500"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                {/* Continent Paths */}
-                <path d="M150,150 L200,120 L250,150 L300,100 L350,160 L400,140 L380,250 L250,380 L200,320 Z" fill="#202020" />
-                <path d="M450,120 L550,80 L650,120 L750,90 L850,140 L900,220 L800,350 L750,450 L650,380 L550,350 Z" fill="#1A1A1A" />
-                <path d="M50,220 L100,200 L120,250 L80,300 Z" fill="#1E1E1E" />
-
-                {/* Dynamic connection lines */}
-                <motion.path
-                  d="M 230 140 C 350 180, 500 200, 620 130"
-                  stroke="url(#cyan-gradient)"
-                  strokeWidth="2"
-                  strokeDasharray="6 6"
-                  initial={{ strokeDashoffset: 100 }}
-                  animate={{ strokeDashoffset: 0 }}
-                  transition={{ repeat: Infinity, duration: 4, ease: "linear" }}
-                />
-
-                <motion.path
-                  d="M 620 130 C 650 250, 750 300, 770 330"
-                  stroke="url(#emerald-gradient)"
-                  strokeWidth="1.5"
-                  strokeDasharray="8 8"
-                  initial={{ strokeDashoffset: -100 }}
-                  animate={{ strokeDashoffset: 0 }}
-                  transition={{ repeat: Infinity, duration: 5, ease: "linear" }}
-                />
-
-                <motion.path
-                  d="M 230 140 C 250 250, 200 320, 250 380"
-                  stroke="url(#cyan-gradient)"
-                  strokeWidth="1"
-                  strokeDasharray="5 5"
-                  initial={{ strokeDashoffset: 100 }}
-                  animate={{ strokeDashoffset: 0 }}
-                  transition={{ repeat: Infinity, duration: 3, ease: "linear" }}
-                />
-
-                {/* Pulsing City node markers */}
-                <circle cx="230" cy="140" r="4" fill="#00E5FF" />
-                <circle cx="230" cy="140" r="10" stroke="#00E5FF" strokeWidth="1.5" fill="none" className="animate-ping" style={{ transformOrigin: '230px 140px', animationDuration: '3s' }} />
-
-                <circle cx="620" cy="130" r="4" fill="#22C55E" />
-                <circle cx="620" cy="130" r="10" stroke="#22C55E" strokeWidth="1.5" fill="none" className="animate-ping" style={{ transformOrigin: '620px 130px', animationDuration: '2.5s' }} />
-
-                <circle cx="770" cy="330" r="4" fill="#00E5FF" />
-                <circle cx="250" cy="380" r="4" fill="#22C55E" />
-
-                {/* Definitions for Gradients */}
-                <defs>
-                  <linearGradient id="cyan-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stopColor="#00E5FF" stopOpacity="0.8" />
-                    <stop offset="100%" stopColor="#00E5FF" stopOpacity="0.1" />
-                  </linearGradient>
-                  <linearGradient id="emerald-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stopColor="#22C55E" stopOpacity="0.8" />
-                    <stop offset="100%" stopColor="#22C55E" stopOpacity="0.1" />
-                  </linearGradient>
-                </defs>
-              </svg>
+              <video
+                ref={videoRef}
+                className="w-full h-full object-cover max-h-[350px] rounded-xl"
+                src={nigeriaVideo}
+                loop
+                muted
+                playsInline
+                preload="metadata"
+                loading="lazy"
+              />
             </div>
           </div>
 
