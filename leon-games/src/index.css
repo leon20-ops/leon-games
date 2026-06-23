@@ -66,3 +66,23 @@ html {
     background-color: rgba(16, 185, 129, 0.3);
   }
 }
+
+/* Make common interactive/clickable elements use the pointer (hand) cursor */
+a,
+button,
+input[type="button"],
+input[type="submit"],
+input[type="reset"],
+input[type="image"],
+label[role="button"],
+[role="button"],
+[onclick],
+.clickable {
+  cursor: pointer;
+}
+
+/* Respect disabled state for buttons and inputs */
+button:disabled,
+input:disabled {
+  cursor: default;
+}
