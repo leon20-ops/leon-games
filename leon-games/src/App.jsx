@@ -1969,7 +1969,7 @@ export function HowItWorksSection() {
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         
         {/* Section Header */}
-        <div className="flex flex-col lg:flex-row items-start lg:items-end justify-between mb-20 gap-8">
+        <div className="flex flex-col lg:flex-row items-start lg:items-end justify-between mb-10 gap-8">
           <motion.div 
             style={{ x: headerTitleX, opacity: headerTitleOpacity }} 
             className="flex flex-col"
@@ -2058,10 +2058,59 @@ export function HowItWorksSection() {
             </div>
           </motion.div>
 
+          {/* COLUMN 3: ALIGNED SLIDE CONTROL HUB (Mobile first above slider, Desktop right side) */}
+          <motion.div 
+            style={{ x: controlsX, y: controlsY, opacity: controlsOpacity }}
+            className="lg:col-span-2 flex flex-row lg:flex-col justify-between lg:justify-center items-center gap-6 mb-6 lg:mb-0 order-1 lg:order-3 px-2"
+          >
+            
+            {/* Interactive Progress Tracking Pill */}
+            <div className="flex flex-col items-start lg:items-center text-left lg:text-center">
+              <span className="text-[9px] font-mono text-neutral-500 uppercase tracking-widest block mb-1">SYSTEM STEP</span>
+              <div className="text-sm font-black font-mono text-white">
+                0{activeIdx + 1} <span className="text-neutral-600">/</span> 0{HOW_IT_WORKS_STEPS.length}
+              </div>
+            </div>
+
+            {/* Tactile Control Buttons Stack */}
+            <div className="flex flex-row lg:flex-col gap-3">
+              {/* UP/PREV */}
+              <button
+                onClick={handlePrev}
+                className="w-12 h-12 rounded-full bg-[#111111] hover:bg-[#151515] border border-white/[0.06] hover:border-emerald-500/20 text-neutral-400 hover:text-emerald-400 flex items-center justify-center transition-all cursor-pointer group shadow-lg"
+                aria-label="Previous step"
+              >
+                <span className="text-xs transition-transform group-hover:-translate-y-0.5 duration-200">↑ PREV</span>
+              </button>
+
+              {/* DOWN/NEXT */}
+              <button
+                onClick={handleNext}
+                className="w-12 h-12 rounded-full bg-[#111111] hover:bg-[#151515] border border-white/[0.06] hover:border-emerald-500/20 text-neutral-400 hover:text-emerald-400 flex items-center justify-center transition-all cursor-pointer group shadow-lg"
+                aria-label="Next step"
+              >
+                <span className="text-xs transition-transform group-hover:translate-y-0.5 duration-200">NEXT ↓</span>
+              </button>
+            </div>
+
+            {/* Mobile Visual Dot Line Tracker */}
+            <div className="flex lg:hidden gap-1.5">
+              {HOW_IT_WORKS_STEPS.map((_, idx) => (
+                <div
+                  key={idx}
+                  className={`h-1 rounded-full transition-all duration-300 ${
+                    idx === activeIdx ? "bg-emerald-400 w-4" : "bg-neutral-800 w-1.5"
+                  }`}
+                />
+              ))}
+            </div>
+
+          </motion.div>
+
           {/* COLUMN 2: THE CENTRAL STORYTELLING FOCUS CARD (With Adaptive Scroll Reveal) */}
           <motion.div 
             style={{ x: sliderX, y: sliderY, opacity: sliderOpacity }}
-            className="lg:col-span-7 flex items-center min-h-[460px] relative"
+            className="lg:col-span-7 flex items-center min-h-[460px] relative order-2 lg:order-2"
           >
             <AnimatePresence mode="wait" custom={direction}>
               <motion.div
@@ -2137,55 +2186,6 @@ export function HowItWorksSection() {
                 </div>
               </motion.div>
             </AnimatePresence>
-          </motion.div>
-
-          {/* COLUMN 3: ALIGNED SLIDE CONTROL HUB (Desktop / Right Side with Adaptive Scroll Reveal) */}
-          <motion.div 
-            style={{ x: controlsX, y: controlsY, opacity: controlsOpacity }}
-            className="lg:col-span-2 flex flex-row lg:flex-col justify-between lg:justify-center items-center gap-6 mt-6 lg:mt-0 px-2"
-          >
-            
-            {/* Interactive Progress Tracking Pill */}
-            <div className="flex flex-col items-start lg:items-center text-left lg:text-center">
-              <span className="text-[9px] font-mono text-neutral-500 uppercase tracking-widest block mb-1">SYSTEM STEP</span>
-              <div className="text-sm font-black font-mono text-white">
-                0{activeIdx + 1} <span className="text-neutral-600">/</span> 0{HOW_IT_WORKS_STEPS.length}
-              </div>
-            </div>
-
-            {/* Tactile Control Buttons Stack */}
-            <div className="flex flex-row lg:flex-col gap-3">
-              {/* UP/PREV */}
-              <button
-                onClick={handlePrev}
-                className="w-12 h-12 rounded-full bg-[#111111] hover:bg-[#151515] border border-white/[0.06] hover:border-emerald-500/20 text-neutral-400 hover:text-emerald-400 flex items-center justify-center transition-all cursor-pointer group shadow-lg"
-                aria-label="Previous step"
-              >
-                <span className="text-xs transition-transform group-hover:-translate-y-0.5 duration-200">↑ PREV</span>
-              </button>
-
-              {/* DOWN/NEXT */}
-              <button
-                onClick={handleNext}
-                className="w-12 h-12 rounded-full bg-[#111111] hover:bg-[#151515] border border-white/[0.06] hover:border-emerald-500/20 text-neutral-400 hover:text-emerald-400 flex items-center justify-center transition-all cursor-pointer group shadow-lg"
-                aria-label="Next step"
-              >
-                <span className="text-xs transition-transform group-hover:translate-y-0.5 duration-200">NEXT ↓</span>
-              </button>
-            </div>
-
-            {/* Mobile Visual Dot Line Tracker */}
-            <div className="flex lg:hidden gap-1.5">
-              {HOW_IT_WORKS_STEPS.map((_, idx) => (
-                <div
-                  key={idx}
-                  className={`h-1 rounded-full transition-all duration-300 ${
-                    idx === activeIdx ? "bg-emerald-400 w-4" : "bg-neutral-800 w-1.5"
-                  }`}
-                />
-              ))}
-            </div>
-
           </motion.div>
 
         </div>
@@ -2272,147 +2272,227 @@ export function LiveActivitySection() {
   );
 }
 
-// --- SPORTSBOOK-STYLE DEPOSIT INFRASTRUCTURE DATA ---
+// --- SPORTSBOOK-STYLE DEPOSIT INFRASTRUCTURE DATA (RAINBOW ACCENTS & EMOJIS) ---
 const DEPOSIT_METHODS = [
   {
     id: "cards",
-    name: "Cards",
+    name: (
+      <span>
+        💳 Secure <span className="text-emerald-400">Debit</span> & <span className="text-cyan-400">Credit Cards</span>
+      </span>
+    ),
     icon: "💳",
-    logoText: "Visa, Mastercard, Verve",
-    shortDesc: "Use your debit or credit card for instant deposits.",
+    logoText: "Visa 🔴 // Mastercard 🟡 // Verve 🔵",
+    shortDesc: (
+      <span>
+        Use your debit or credit card for <strong className="text-yellow-400 font-semibold">instant deposits</strong> ⚡.
+      </span>
+    ),
     details: {
-      desc: "Fund your account immediately using your local or international bank card. This payment gateway handles end-to-end authentication securely.",
+      desc: (
+        <span>
+          Fund your account immediately using your local or international bank card. This payment gateway handles <strong className="text-emerald-400">end-to-end authentication</strong> securely with zero manual delays. 🔒
+        </span>
+      ),
       benefits: [
-        "Encrypted card storage for fast recurring loads",
-        "3D-Secure multi-factor authentication (verified by Visa/Mastercard ID Check)",
-        "Zero manual processing delay, immediate balance sync"
+        "Encrypted card storage for fast recurring loads 🔒",
+        "3D-Secure multi-factor authentication (verified by Visa/Mastercard ID Check) 🛡️",
+        "Zero manual processing delay, immediate balance sync ⚡"
       ],
       speed: "Instantaneous ⚡",
       availability: "24/7/365 🟢",
-      security: "PCI-DSS Level-1 Compliant Pipeline"
+      security: "PCI-DSS Level-1 Compliant Pipeline 💎"
     }
   },
   {
     id: "bank_transfer",
-    name: "Bank Transfer",
+    name: (
+      <span>
+        🏦 Automated <span className="text-yellow-400">Direct Transfer</span>
+      </span>
+    ),
     icon: "🏦",
-    logoText: "Automated Ledger Sync",
-    shortDesc: "Transfer directly from your bank account with automatic payment confirmation.",
+    logoText: "Ledger Auto-Route 🔄",
+    shortDesc: (
+      <span>
+        Transfer directly from your bank account with <strong className="text-emerald-400 font-semibold">automatic confirmation</strong> 🔄.
+      </span>
+    ),
     details: {
-      desc: "Generate a custom, single-use dynamic virtual account number to transfer funds from any online banking app or ATM portal.",
+      desc: (
+        <span>
+          Generate a custom, single-use <strong className="text-cyan-400">dynamic virtual account number</strong> to transfer funds from any online banking app or ATM portal.
+        </span>
+      ),
       benefits: [
-        "Instant automated validation of inbound transfer volume",
-        "Zero card disclosure, direct banking-rail security",
-        "No browser redirects or external gateway links required"
+        "Instant automated validation of inbound transfer volume 🤖",
+        "Zero card disclosure, direct banking-rail security 🔒",
+        "No browser redirects or external gateway links required 📈"
       ],
       speed: "Under 60 seconds ⏱️",
       availability: "24/7/365 🟢",
-      security: "Audited Ledger Escrow"
+      security: "Audited Ledger Escrow 💎"
     }
   },
   {
     id: "bank_payment",
-    name: "Direct Bank Payment",
+    name: (
+      <span>
+        🏛️ Direct <span className="text-teal-400">Core Bank</span> Payment
+      </span>
+    ),
     icon: "🏛️",
-    logoText: "Nigerian Bank Rails",
-    shortDesc: "Pay securely through your preferred Nigerian bank.",
+    logoText: "Secure Bank App Rails 🔗",
+    shortDesc: (
+      <span>
+        Pay securely through your preferred <strong className="text-teal-400 font-semibold">Nigerian bank</strong>.
+      </span>
+    ),
     details: {
-      desc: "Log directly into your personal bank's secure customer portal to authorize deposits. This bypasses cards entirely.",
+      desc: (
+        <span>
+          Log directly into your personal bank's secure customer portal to authorize deposits. This bypasses cards entirely. 📲
+        </span>
+      ),
       benefits: [
-        "Direct processing with Access Bank, GTBank, Zenith, UBA, and others",
-        "Native biometrics or OTP confirmation directly inside bank app",
-        "Exceptional transfer reliability and high success rates"
+        "Direct processing with Access Bank, GTBank, Zenith, UBA, and others 🏛️",
+        "Native biometrics or OTP confirmation directly inside bank app 🔑",
+        "Exceptional transfer reliability and high success rates 📈"
       ],
       speed: "Instant ⚡",
       availability: "24/7/365 🟢",
-      security: "Direct Core Banking Integration"
+      security: "Direct Core Banking Integration 💎"
     }
   },
   {
     id: "ussd",
-    name: "USSD Codes",
+    name: (
+      <span>
+        📱 Offline <span className="text-orange-400">USSD Code</span> Billing
+      </span>
+    ),
     icon: "📱",
-    logoText: "Offline Friendly Code System",
-    shortDesc: "Complete deposits without internet banking using your bank's USSD code.",
+    logoText: "No Internet Required 📶",
+    shortDesc: (
+      <span>
+        Complete deposits without internet banking using your bank's <strong className="text-orange-400 font-semibold">USSD code</strong> 📶.
+      </span>
+    ),
     details: {
-      desc: "Bypass internet connections entirely. Simply dial your bank's designated USSD code on your registered mobile number to confirm.",
+      desc: (
+        <span>
+          Bypass internet connections entirely. Simply dial your bank's designated USSD code on your registered mobile number to confirm. 💬
+        </span>
+      ),
       benefits: [
-        "Zero cellular data required to execute balance loads",
-        "Ideal for spot funding during unstable network outages",
-        "Instant SMS receipt alerts sent automatically"
+        "Zero cellular data required to execute balance loads 📶",
+        "Ideal for spot funding during unstable network outages ⚡",
+        "Instant SMS receipt alerts sent automatically 💬"
       ],
       speed: "Instant ⚡",
       availability: "24/7/365 🟢",
-      security: "SIM-Card Bind Security Protocol"
+      security: "SIM-Card Bind Security Protocol 💎"
     }
   },
   {
     id: "zap",
-    name: "Zap by Paystack",
+    name: (
+      <span>
+        ⚡ Lightning <span className="text-pink-500">Zap by Paystack</span>
+      </span>
+    ),
     icon: "⚡",
-    logoText: "Paystack Network Speed",
-    shortDesc: "Enjoy faster checkout with one-tap payments through Zap.",
+    logoText: "One-Tap Rapid Checkout 🚀",
+    shortDesc: (
+      <span>
+        Enjoy faster checkout with <strong className="text-pink-400 font-semibold">one-tap payments</strong> through Zap 🚀.
+      </span>
+    ),
     details: {
-      desc: "Leverage Paystack's state-of-the-art Zap channel to authorize payments in a single tap using securely stored credentials.",
+      desc: (
+        <span>
+          Leverage Paystack's state-of-the-art Zap channel to authorize payments in a single tap using securely stored credentials. 🔑
+        </span>
+      ),
       benefits: [
-        "Industry-leading authorization speeds",
-        "Saves credentials using top-tier encryption",
-        "Native, frictionless mobile layout"
+        "Industry-leading authorization speeds 🚀",
+        "Saves credentials using top-tier encryption 🔒",
+        "Native, frictionless mobile layout 📱"
       ],
       speed: "Instantaneous ⚡",
       availability: "24/7/365 🟢",
-      security: "Paystack Shield Level-1 Protection"
+      security: "Paystack Shield Level-1 Protection 💎"
     }
   },
   {
     id: "crypto",
-    name: "Cryptocurrency",
+    name: (
+      <span>
+        🪙 Global <span className="text-purple-400">Cryptocurrency</span> Gateway
+      </span>
+    ),
     icon: "🪙",
     logoText: "BTC, ETH, USDT, USDC, LTC, BNB",
-    shortDesc: "Deposit securely using cryptocurrency with fast blockchain confirmations.",
+    shortDesc: (
+      <span>
+        Deposit securely using cryptocurrency with <strong className="text-purple-400 font-semibold">fast blockchain confirmations</strong> 🌐.
+      </span>
+    ),
     details: {
-      desc: "Access borderless global payment paths. Securely route blockchain assets directly into our system. Supports BTC, ETH, USDT, USDC, LTC, and BNB.",
+      desc: (
+        <span>
+          Access borderless global payment paths. Securely route blockchain assets directly into our system. Supports BTC, ETH, USDT, USDC, LTC, and BNB. 🌍
+        </span>
+      ),
       benefits: [
-        "Direct decentralized processing, fully censorship-resistant",
-        "Zero card numbers or banking credentials disclosed",
-        "Automatic USD conversion at active spot exchange rates"
+        "Direct decentralized processing, fully censorship-resistant 🌍",
+        "Zero card numbers or banking credentials disclosed 🔒",
+        "Automatic USD conversion at active spot exchange rates 📊"
       ],
       speed: "1 Blockchain Confirmation 🌐",
       availability: "24/7/365 🟢",
-      security: "Cryptographically Secured Ledger"
+      security: "Cryptographically Secured Ledger 💎"
     }
   }
 ];
 
-// --- SPORTSBOOK-STYLE WITHDRAWAL METHOD DATA ---
+// --- SPORTSBOOK-STYLE WITHDRAWAL METHOD DATA (RAINBOW ACCENTS & EMOJIS) ---
 const WITHDRAWAL_METHODS = [
   {
     id: "bank_withdrawal",
-    name: "Bank Withdrawal",
+    name: (
+      <span>
+        🏦 Bank <span className="text-emerald-400">Direct Outflow</span>
+      </span>
+    ),
     icon: "🏦",
-    logoText: "Direct Bank Transfer",
+    logoText: "Direct Bank Transfer 🏛️",
     desc: "Withdraw funds directly to your personal bank account by entering your banking details and submitting a withdrawal request.",
     bullets: [
-      "Fast processing, secure verification, and direct settlement to supported banks.",
-      "Automatic bank code routing mapping all primary Nigerian financial institutions.",
-      "Direct settlement with minimal delay times."
+      "Fast processing, secure verification, and direct bank settlement 🏛️",
+      "Automatic routing mapping all primary financial systems 🤖",
+      "Directly integrated secure bank gateway payout tracks ⚡"
     ],
     speed: "Under 2 Hours ⏱️",
-    security: "Secured Direct Bank Rails"
+    security: "Secured Direct Bank Rails 💎"
   },
   {
     id: "crypto_withdrawal",
-    name: "Crypto Withdrawal",
+    name: (
+      <span>
+        🪙 Crypto <span className="text-cyan-400">Decentralized Payout</span>
+      </span>
+    ),
     icon: "🪙",
-    logoText: "Blockchain Transfers",
+    logoText: "Blockchain Transfers 🌐",
     desc: "Withdraw using cryptocurrency by entering your wallet address and selecting your preferred supported network.",
     bullets: [
-      "Secure blockchain payouts with transparent transaction tracking and confirmations.",
-      "Supports USDT (TRC20, ERC20), BTC, ETH, and other major chains.",
-      "Direct cryptographic payout automated validation."
+      "Secure blockchain payouts with transparent transaction ledger tracking 🔒",
+      "Supports USDT (TRC20, ERC20), BTC, ETH, and other major chains 🌐",
+      "Automated cryptographic validation for near-instant settlement ⚡"
     ],
     speed: "Instant Payout ⚡",
-    security: "Ledger-Signed Smart Contracts"
+    security: "Ledger-Signed Smart Contracts 💎"
   }
 ];
 
@@ -2470,7 +2550,7 @@ export function PaymentsSection() {
             {/* Dynamic Segment Status Tag */}
             <div className="inline-flex items-center gap-2 self-start px-3.5 py-1.5 rounded-full bg-gradient-to-r from-emerald-500/10 via-cyan-500/10 to-blue-500/10 border border-emerald-500/30 text-[10px] font-mono tracking-wider mb-4">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-              <span className="text-emerald-400 font-bold">PAYMENT INFRASTRUCTURE PROTOCOL</span>
+              <span className="text-emerald-400 font-bold">💳 PAYMENT INFRASTRUCTURE PROTOCOL // ⚡ LIVE CHANNELS</span>
             </div>
 
             {/* High-Impact Gradient Title */}
@@ -2486,7 +2566,7 @@ export function PaymentsSection() {
             style={{ x: headerDescX, opacity: headerDescOpacity }}
             className="text-neutral-300 max-w-lg text-sm md:text-base leading-relaxed font-light"
           >
-            Experience lightning-fast transactions powered by secure banking rails, digital wallets, cryptocurrency networks, and automated settlement systems. Every payment channel is optimized for speed, reliability, and maximum account security.
+            Experience <strong className="text-yellow-400">lightning-fast</strong> transactions powered by secure <strong className="text-emerald-400">banking rails</strong>, digital wallets, <strong className="text-purple-400">cryptocurrency networks</strong>, and automated <strong className="text-cyan-400">settlement systems</strong>. Every payment channel is optimized for <strong className="text-teal-300">speed</strong>, reliability, and maximum account <strong className="text-amber-400">security</strong>. 🔒💸🚀
           </motion.p>
         </div>
 
@@ -2517,7 +2597,7 @@ export function PaymentsSection() {
         {/* Horizontal Sliding Content Area Wrapper */}
         <div className="relative overflow-hidden w-full mb-12">
           <motion.div
-            animate={{ x: activeTab === "deposit" ? "0%" : "-50%" }}
+            animate={{ x: activeTab === "deposit" ? "0%" : "-50%" }} // Adjusted to slide to 50% correctly
             transition={{ type: "spring", stiffness: 100, damping: 18 }}
             className="flex w-[200%] items-stretch"
           >
@@ -2674,7 +2754,7 @@ export function PaymentsSection() {
                         </div>
                       </div>
 
-                      {/* Decription */}
+                      {/* Description */}
                       <p className="text-xs text-neutral-400 leading-relaxed font-light">
                         {method.desc}
                       </p>
@@ -2730,7 +2810,7 @@ export function PaymentsSection() {
                 Secure Transactions
               </h5>
               <p className="text-[10px] text-neutral-400 font-light">
-                Direct bank-grade processing
+                Direct bank-grade processing 🏦
               </p>
             </div>
             
@@ -2740,7 +2820,7 @@ export function PaymentsSection() {
                 SSL Encrypted
               </h5>
               <p className="text-[10px] text-neutral-400 font-light">
-                AES-256 military standard security
+                AES-256 military standard security 🖥️
               </p>
             </div>
             
@@ -2750,7 +2830,7 @@ export function PaymentsSection() {
                 Instant Deposits
               </h5>
               <p className="text-[10px] text-neutral-400 font-light">
-                Real-time account balance updates
+                Real-time account balance updates 📈
               </p>
             </div>
             
@@ -2760,7 +2840,7 @@ export function PaymentsSection() {
                 Fast Withdrawals
               </h5>
               <p className="text-[10px] text-neutral-400 font-light">
-                Unmatched rapid payout rails
+                Unmatched rapid payout rails 🚀
               </p>
             </div>
           </div>
