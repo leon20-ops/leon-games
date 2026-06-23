@@ -2618,7 +2618,7 @@ export function PaymentsSection() {
   const securityOpacity = useTransform(smoothProgress, [0, 0.35, 0.9, 1], [0, 1, 1, 0]);
 
   // 6. Action Button (Below Security & Trust)
-  const ctaButtonY = useTransform(smoothProgress, [0, 0.5, 0.9, 1], [isMobile ? 30 : 60, 0, 0, isMobile ? -15 : -30]);
+  const ctaButtonX = useTransform(smoothProgress, [0, 0.5, 0.9, 1], [isMobile ? 30 : 120, 0, 0, isMobile ? 15 : 60]);
   const ctaButtonOpacity = useTransform(smoothProgress, [0, 0.4, 0.95, 1], [0, 1, 1, 0]);
 
   const activeMethod = DEPOSIT_METHODS.find((item) => item.id === selectedId) || DEPOSIT_METHODS[0];
@@ -2976,7 +2976,7 @@ export function PaymentsSection() {
 
         {/* PRIMARY CALL TO ACTION (Static) */}
         <div className="flex justify-center">
-          <motion.div style={{ y: ctaButtonY, opacity: ctaButtonOpacity }}>
+          <motion.div style={{ x: ctaButtonX, opacity: ctaButtonOpacity }}>
             <motion.button
               whileHover={{ scale: 1.03, y: -2 }}
               whileTap={{ scale: 0.97 }}
