@@ -2384,7 +2384,40 @@ const DEPOSIT_METHODS = [
   }
 ];
 
-function PaymentsSection() {
+// --- SPORTSBOOK-STYLE WITHDRAWAL METHOD DATA ---
+const WITHDRAWAL_METHODS = [
+  {
+    id: "bank_withdrawal",
+    name: "Bank Withdrawal",
+    icon: "🏦",
+    logoText: "Direct Bank Transfer",
+    desc: "Withdraw funds directly to your personal bank account by entering your banking details and submitting a withdrawal request.",
+    bullets: [
+      "Fast processing, secure verification, and direct settlement to supported banks.",
+      "Automatic bank code routing mapping all primary Nigerian financial institutions.",
+      "Direct settlement with minimal delay times."
+    ],
+    speed: "Under 2 Hours ⏱️",
+    security: "Secured Direct Bank Rails"
+  },
+  {
+    id: "crypto_withdrawal",
+    name: "Crypto Withdrawal",
+    icon: "🪙",
+    logoText: "Blockchain Transfers",
+    desc: "Withdraw using cryptocurrency by entering your wallet address and selecting your preferred supported network.",
+    bullets: [
+      "Secure blockchain payouts with transparent transaction tracking and confirmations.",
+      "Supports USDT (TRC20, ERC20), BTC, ETH, and other major chains.",
+      "Direct cryptographic payout automated validation."
+    ],
+    speed: "Instant Payout ⚡",
+    security: "Ledger-Signed Smart Contracts"
+  }
+];
+
+export function PaymentsSection() {
+  const [activeTab, setActiveTab] = useState("deposit"); // "deposit" | "withdrawal"
   const [selectedId, setSelectedId] = useState("cards");
   const [isMobile, setIsMobile] = useState(false);
   const sectionRef = useRef(null);
@@ -2429,7 +2462,7 @@ function PaymentsSection() {
       <div className="max-w-7xl mx-auto px-6 relative z-10">
 
         {/* Dynamic Section Header */}
-        <div className="flex flex-col lg:flex-row items-start lg:items-end justify-between mb-20 gap-8">
+        <div className="flex flex-col lg:flex-row items-start lg:items-end justify-between mb-12 gap-8">
           <motion.div 
             style={{ x: headerTitleX, opacity: headerTitleOpacity }} 
             className="flex flex-col"
@@ -2457,145 +2490,236 @@ function PaymentsSection() {
           </motion.p>
         </div>
 
-        {/* 2-Column Sportsbook Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch mb-12">
-          
-          {/* LEFT SIDE: Large Interactive Grid of Payment Options */}
-          <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {DEPOSIT_METHODS.map((method) => {
-              const isActive = method.id === selectedId;
-              return (
-                <button
-                  key={method.id}
-                  onClick={() => setSelectedId(method.id)}
-                  className={`flex flex-col justify-between text-left p-5 rounded-xl border transition-all duration-300 relative overflow-hidden group cursor-pointer ${
-                    isActive
-                      ? "bg-[#111111] border-emerald-500/40 shadow-[0_4px_25px_rgba(34,197,94,0.1)]"
-                      : "bg-[#111111]/40 border-white/[0.04] hover:border-white/[0.1] hover:bg-[#111111]/60"
-                  }`}
-                >
-                  {/* Active glow gradient block */}
-                  {isActive && (
-                    <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-500/[0.02] rounded-full blur-2xl pointer-events-none" />
-                  )}
-
-                  {/* Header containing Icon & Name */}
-                  <div className="flex items-center gap-3.5 mb-3.5 relative z-10">
-                    <span className="text-2xl">{method.icon}</span>
-                    <div className="flex flex-col">
-                      <span className="text-sm font-bold text-white group-hover:text-emerald-400 transition-colors">
-                        {method.name}
-                      </span>
-                      <span className="text-[10px] font-mono text-neutral-500 tracking-wider">
-                        {method.logoText}
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Short Description */}
-                  <p className="text-xs text-neutral-400 leading-relaxed font-light relative z-10">
-                    {method.shortDesc}
-                  </p>
-
-                  {/* Active bottom marker strip */}
-                  <div className={`absolute bottom-0 left-0 right-0 h-[2px] transition-all duration-300 ${
-                    isActive ? "bg-emerald-500" : "bg-transparent"
-                  }`} />
-                </button>
-              );
-            })}
+        {/* Premium Shared Layout Tab Switcher */}
+        <div className="flex justify-center mb-12">
+          <div className="bg-[#111111]/80 p-1 rounded-xl border border-white/[0.06] flex gap-2 relative">
+            {["deposit", "withdrawal"].map((tab) => (
+              <button
+                key={tab}
+                onClick={() => setActiveTab(tab)}
+                className={`relative px-8 py-3 rounded-lg text-xs font-mono font-bold uppercase tracking-wider transition-colors cursor-pointer focus:outline-none ${
+                  activeTab === tab ? "text-[#050505]" : "text-neutral-400 hover:text-neutral-200"
+                }`}
+              >
+                <span className="relative z-10">{tab} methods</span>
+                {activeTab === tab && (
+                  <motion.div
+                    layoutId="active-pay-tab"
+                    className="absolute inset-0 bg-emerald-400 rounded-lg"
+                    transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                  />
+                )}
+              </button>
+            ))}
           </div>
-
-          {/* RIGHT SIDE: Dynamic, Premium Details Panel */}
-          <div className="lg:col-span-5 flex">
-            <div className="w-full bg-[#111111] border border-white/[0.08] rounded-xl p-6 md:p-8 flex flex-col justify-between shadow-2xl relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-500/[0.015] rounded-full blur-[70px] pointer-events-none" />
-
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={activeMethod.id}
-                  initial={{ opacity: 0, y: 15 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -15 }}
-                  transition={{ duration: 0.3 }}
-                  className="space-y-6 relative z-10"
-                >
-                  {/* Header Title with Large Icon */}
-                  <div className="flex items-center gap-4 pb-4 border-b border-white/[0.04]">
-                    <span className="text-4xl">{activeMethod.icon}</span>
-                    <div className="flex flex-col">
-                      <span className="text-xs font-mono text-emerald-400 uppercase tracking-widest leading-none mb-1.5">
-                        GATEWAY ACTIVE
-                      </span>
-                      <h4 className="text-lg md:text-xl font-black text-white leading-none">
-                        {activeMethod.name}
-                      </h4>
-                    </div>
-                  </div>
-
-                  {/* Detailed Description */}
-                  <p className="text-xs md:text-sm text-neutral-400 leading-relaxed font-light">
-                    {activeMethod.details.desc}
-                  </p>
-
-                  {/* Key Benefits Bullet List */}
-                  <div className="space-y-3.5">
-                    <span className="text-[10px] font-mono tracking-widest text-neutral-500 uppercase block">
-                      KEY GATEWAY BENEFITS
-                    </span>
-                    <div className="space-y-2.5">
-                      {activeMethod.details.benefits.map((benefit, idx) => (
-                        <div key={idx} className="flex items-start gap-3">
-                          <span className="text-emerald-400 text-xs mt-0.5">✓</span>
-                          <span className="text-neutral-300 text-xs font-light leading-relaxed">
-                            {benefit}
-                          </span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Technical Metadata Indicators Grid */}
-                  <div className="grid grid-cols-3 gap-3 pt-6 border-t border-white/[0.04]">
-                    <div className="bg-white/[0.01] border border-white/[0.04] p-3 rounded-lg flex flex-col justify-center">
-                      <span className="text-[9px] font-mono text-neutral-500 uppercase tracking-wider mb-1">
-                        SPEED
-                      </span>
-                      <span className="text-xs font-bold text-white font-mono leading-none">
-                        {activeMethod.details.speed}
-                      </span>
-                    </div>
-                    <div className="bg-white/[0.01] border border-white/[0.04] p-3 rounded-lg flex flex-col justify-center">
-                      <span className="text-[9px] font-mono text-neutral-500 uppercase tracking-wider mb-1">
-                        AVAILABILITY
-                      </span>
-                      <span className="text-xs font-bold text-white font-mono leading-none">
-                        {activeMethod.details.availability}
-                      </span>
-                    </div>
-                    <div className="bg-white/[0.01] border border-white/[0.04] p-3 rounded-lg flex flex-col justify-center col-span-1">
-                      <span className="text-[9px] font-mono text-neutral-500 uppercase tracking-wider mb-1">
-                        PROTOCOL
-                      </span>
-                      <span className="text-[10px] font-black text-emerald-400 font-mono leading-none truncate">
-                        SECURE 🔒
-                      </span>
-                    </div>
-                  </div>
-                </motion.div>
-              </AnimatePresence>
-
-              {/* Bottom Security Info Card */}
-              <div className="mt-8 pt-4 border-t border-white/[0.04] flex items-center justify-between text-[10px] text-neutral-500 font-mono">
-                <span>GATEWAY IDENTIFIER // {activeMethod.id.toUpperCase()}</span>
-                <span className="text-emerald-500 animate-pulse">● ONLINE</span>
-              </div>
-            </div>
-          </div>
-
         </div>
 
-        {/* SECURITY & TRUST SECTION (Fintech Glassmorphism Panel) */}
+        {/* Horizontal Sliding Content Area Wrapper */}
+        <div className="relative overflow-hidden w-full mb-12">
+          <motion.div
+            animate={{ x: activeTab === "deposit" ? "0%" : "-50%" }}
+            transition={{ type: "spring", stiffness: 100, damping: 18 }}
+            className="flex w-[200%] items-stretch"
+          >
+            {/* PANEL 1: DEPOSIT PORTAL (Left Half) */}
+            <div className="w-1/2 pr-0 lg:pr-2 shrink-0 grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+              
+              {/* Left Side: Large Interactive Grid of Deposit Options */}
+              <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {DEPOSIT_METHODS.map((method) => {
+                  const isActive = method.id === selectedId;
+                  return (
+                    <button
+                      key={method.id}
+                      onClick={() => setSelectedId(method.id)}
+                      className={`flex flex-col justify-between text-left p-5 rounded-xl border transition-all duration-300 relative overflow-hidden group cursor-pointer ${
+                        isActive
+                          ? "bg-[#111111] border-emerald-500/40 shadow-[0_4px_25px_rgba(34,197,94,0.1)]"
+                          : "bg-[#111111]/40 border-white/[0.04] hover:border-white/[0.1] hover:bg-[#111111]/60"
+                      }`}
+                    >
+                      {isActive && (
+                        <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-500/[0.02] rounded-full blur-2xl pointer-events-none" />
+                      )}
+
+                      <div className="flex items-center gap-3.5 mb-3.5 relative z-10">
+                        <span className="text-2xl">{method.icon}</span>
+                        <div className="flex flex-col">
+                          <span className="text-sm font-bold text-white group-hover:text-emerald-400 transition-colors">
+                            {method.name}
+                          </span>
+                          <span className="text-[10px] font-mono text-neutral-500 tracking-wider">
+                            {method.logoText}
+                          </span>
+                        </div>
+                      </div>
+
+                      <p className="text-xs text-neutral-400 leading-relaxed font-light relative z-10">
+                        {method.shortDesc}
+                      </p>
+
+                      <div className={`absolute bottom-0 left-0 right-0 h-[2px] transition-all duration-300 ${
+                        isActive ? "bg-emerald-500" : "bg-transparent"
+                      }`} />
+                    </button>
+                  );
+                })}
+              </div>
+
+              {/* Right Side: Dynamic, Premium Details Panel */}
+              <div className="lg:col-span-5 flex">
+                <div className="w-full bg-[#111111] border border-white/[0.08] rounded-xl p-6 md:p-8 flex flex-col justify-between shadow-2xl relative overflow-hidden">
+                  <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-500/[0.015] rounded-full blur-[70px] pointer-events-none" />
+
+                  <AnimatePresence mode="wait">
+                    <motion.div
+                      key={activeMethod.id}
+                      initial={{ opacity: 0, y: 15 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -15 }}
+                      transition={{ duration: 0.3 }}
+                      className="space-y-6 relative z-10"
+                    >
+                      <div className="flex items-center gap-4 pb-4 border-b border-white/[0.04]">
+                        <span className="text-4xl">{activeMethod.icon}</span>
+                        <div className="flex flex-col">
+                          <span className="text-xs font-mono text-emerald-400 uppercase tracking-widest leading-none mb-1.5">
+                            GATEWAY ACTIVE
+                          </span>
+                          <h4 className="text-lg md:text-xl font-black text-white leading-none">
+                            {activeMethod.name}
+                          </h4>
+                        </div>
+                      </div>
+
+                      <p className="text-xs md:text-sm text-neutral-400 leading-relaxed font-light">
+                        {activeMethod.details.desc}
+                      </p>
+
+                      <div className="space-y-3.5">
+                        <span className="text-[10px] font-mono tracking-widest text-neutral-500 uppercase block">
+                          KEY GATEWAY BENEFITS
+                        </span>
+                        <div className="space-y-2.5">
+                          {activeMethod.details.benefits.map((benefit, idx) => (
+                            <div key={idx} className="flex items-start gap-3">
+                              <span className="text-emerald-400 text-xs mt-0.5">✓</span>
+                              <span className="text-neutral-300 text-xs font-light leading-relaxed">
+                                {benefit}
+                              </span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+
+                      <div className="grid grid-cols-3 gap-3 pt-6 border-t border-white/[0.04]">
+                        <div className="bg-white/[0.01] border border-white/[0.04] p-3 rounded-lg flex flex-col justify-center">
+                          <span className="text-[9px] font-mono text-neutral-500 uppercase tracking-wider mb-1">
+                            SPEED
+                          </span>
+                          <span className="text-xs font-bold text-white font-mono leading-none">
+                            {activeMethod.details.speed}
+                          </span>
+                        </div>
+                        <div className="bg-white/[0.01] border border-white/[0.04] p-3 rounded-lg flex flex-col justify-center">
+                          <span className="text-[9px] font-mono text-neutral-500 uppercase tracking-wider mb-1">
+                            AVAILABILITY
+                          </span>
+                          <span className="text-xs font-bold text-white font-mono leading-none">
+                            {activeMethod.details.availability}
+                          </span>
+                        </div>
+                        <div className="bg-white/[0.01] border border-white/[0.04] p-3 rounded-lg flex flex-col justify-center col-span-1">
+                          <span className="text-[9px] font-mono text-neutral-500 uppercase tracking-wider mb-1">
+                            PROTOCOL
+                          </span>
+                          <span className="text-[10px] font-black text-emerald-400 font-mono leading-none truncate">
+                            SECURE 🔒
+                          </span>
+                        </div>
+                      </div>
+                    </motion.div>
+                  </AnimatePresence>
+
+                  <div className="mt-8 pt-4 border-t border-white/[0.04] flex items-center justify-between text-[10px] text-neutral-500 font-mono">
+                    <span>GATEWAY IDENTIFIER // {activeMethod.id.toUpperCase()}</span>
+                    <span className="text-emerald-500 animate-pulse">● ONLINE</span>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            {/* PANEL 2: WITHDRAWAL PORTAL (Right Half) */}
+            <div className="w-1/2 pl-0 lg:pl-2 shrink-0 flex items-center justify-center">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl w-full items-stretch">
+                {WITHDRAWAL_METHODS.map((method) => (
+                  <div
+                    key={method.id}
+                    className="bg-[#111111]/90 border border-white/[0.08] hover:border-emerald-500/30 rounded-xl p-6 md:p-8 flex flex-col justify-between shadow-2xl transition-all duration-300 relative overflow-hidden group"
+                  >
+                    <div className="absolute top-0 right-0 w-48 h-48 bg-emerald-500/[0.01] rounded-full blur-[50px] pointer-events-none" />
+
+                    <div className="space-y-6 relative z-10">
+                      {/* Header with icon & labels */}
+                      <div className="flex items-center gap-4 pb-4 border-b border-white/[0.04]">
+                        <span className="text-4xl">{method.icon}</span>
+                        <div className="flex flex-col">
+                          <span className="text-[9px] font-mono text-emerald-400 uppercase tracking-widest leading-none mb-1.5">
+                            OUTFLOW GATEWAY
+                          </span>
+                          <h4 className="text-base md:text-lg font-black text-white leading-none">
+                            {method.name}
+                          </h4>
+                        </div>
+                      </div>
+
+                      {/* Decription */}
+                      <p className="text-xs text-neutral-400 leading-relaxed font-light">
+                        {method.desc}
+                      </p>
+
+                      {/* Bullet points benefits */}
+                      <div className="space-y-3">
+                        {method.bullets.map((bullet, idx) => (
+                          <div key={idx} className="flex items-start gap-2.5">
+                            <span className="text-emerald-400 text-xs mt-0.5">✓</span>
+                            <span className="text-neutral-300 text-[11px] font-light leading-relaxed">
+                              {bullet}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Metadata indicators */}
+                    <div className="grid grid-cols-2 gap-3 pt-6 border-t border-white/[0.04] mt-8 relative z-10">
+                      <div className="bg-white/[0.01] border border-white/[0.04] p-3 rounded-lg flex flex-col justify-center">
+                        <span className="text-[9px] font-mono text-neutral-500 uppercase tracking-wider mb-1">
+                          AVG SPEED
+                        </span>
+                        <span className="text-xs font-bold text-white font-mono leading-none">
+                          {method.speed}
+                        </span>
+                      </div>
+                      <div className="bg-white/[0.01] border border-white/[0.04] p-3 rounded-lg flex flex-col justify-center">
+                        <span className="text-[9px] font-mono text-neutral-500 uppercase tracking-wider mb-1">
+                          AVAILABILITY
+                        </span>
+                        <span className="text-xs font-bold text-emerald-400 font-mono leading-none">
+                          {method.security}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+          </motion.div>
+        </div>
+
+        {/* SECURITY & TRUST SECTION (Fintech Glassmorphism Panel - Static) */}
         <div className="bg-gradient-to-r from-white/[0.01] via-white/[0.03] to-white/[0.01] border border-white/[0.06] rounded-2xl p-6 md:p-8 backdrop-blur shadow-xl relative overflow-hidden mb-12">
           <div className="absolute inset-0 bg-emerald-500/[0.01] rounded-full blur-[100px] pointer-events-none" />
           
@@ -2642,7 +2766,7 @@ function PaymentsSection() {
           </div>
         </div>
 
-        {/* PRIMARY CALL TO ACTION */}
+        {/* PRIMARY CALL TO ACTION (Static) */}
         <div className="flex justify-center">
           <motion.button
             whileHover={{ scale: 1.03, y: -2 }}
