@@ -3276,7 +3276,9 @@ export function GrowthSection() {
             {/* Status Segment Indicator */}
             <div className="inline-flex items-center gap-2 self-start px-3.5 py-1.5 rounded-full bg-gradient-to-r from-cyan-500/10 via-emerald-500/10 to-blue-500/10 border border-cyan-500/30 text-[10px] font-mono tracking-wider mb-5">
               <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
-              <span className="text-cyan-400 font-bold">🚀 ROADMAP // THE FUTURE OF GLOBAL PLAY</span>
+              <span className="bg-gradient-to-r from-cyan-400 via-emerald-400 to-indigo-400 bg-clip-text text-transparent font-bold">
+                🚀 ROADMAP // THE FUTURE OF GLOBAL PLAY 🌍🗺️📡
+              </span>
             </div>
 
             {/* Premium Gradient Headline */}
@@ -3288,7 +3290,7 @@ export function GrowthSection() {
 
             {/* Narrative Roadmap Copy */}
             <p className="text-neutral-400 text-xs md:text-sm mb-8 leading-relaxed font-light">
-              We're building the next generation gaming platform, starting with Nigeria and expanding to players across Africa and beyond.
+              We're building the <span className="text-cyan-400 font-medium">next generation gaming platform</span> 🎮, starting with <span className="text-emerald-400 font-medium">Nigeria 🇳🇬</span> and expanding to players across <span className="text-amber-400 font-medium">Africa 🌍</span> and <span className="text-indigo-400 font-medium">beyond 🛰️⚡</span>.
             </p>
 
             {/* Vertical Flow Growth Cards Stack */}
@@ -3303,14 +3305,14 @@ export function GrowthSection() {
                     className="w-8 h-auto"
                   /></span>
                   <div className="flex flex-col">
-                    <span className="text-sm font-bold text-white tracking-wide">Nigeria</span>
-                    <span className="text-[9px] font-mono text-neutral-500 tracking-wider">Primary Seed Node</span>
+                    <span className="text-sm font-bold text-white tracking-wide">Nigeria 🇳🇬 🔥</span>
+                    <span className="text-[9px] font-mono text-emerald-400 tracking-wider">Primary Seed Node 📡🌱</span>
                   </div>
                 </div>
                 <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20">
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
                   <span className="text-[9px] font-mono font-black text-emerald-400 uppercase tracking-widest leading-none">
-                    LIVE NOW
+                    LIVE NOW 🟢✨
                   </span>
                 </div>
               </div>
@@ -3327,20 +3329,20 @@ export function GrowthSection() {
                 <div className="flex items-center gap-3">
                   <span className="text-2xl" role="img" aria-label="Africa">🌍</span>
                   <div className="flex flex-col">
-                    <span className="text-sm font-bold text-neutral-300 tracking-wide">Africa</span>
-                    <span className="text-[9px] font-mono text-neutral-500 tracking-wider">Continental Scaling</span>
+                    <span className="text-sm font-bold text-amber-300 tracking-wide">Africa 🌍 ✨</span>
+                    <span className="text-[9px] font-mono text-amber-400 tracking-wider">Continental Scaling 📈🛰️</span>
                   </div>
                 </div>
                 <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20">
                   <span className="text-[9px] font-mono font-black text-amber-400 uppercase tracking-widest leading-none">
-                    COMING SOON
+                    COMING SOON ⏳💥
                   </span>
                 </div>
               </div>
 
               {/* Connecting Down Arrow 2 */}
               <div className="flex justify-center my-2.5">
-                <svg className="w-4 h-4 text-neutral-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                <svg className="w-4 h-4 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
                 </svg>
               </div>
@@ -3350,13 +3352,13 @@ export function GrowthSection() {
                 <div className="flex items-center gap-3">
                   <span className="text-2xl" role="img" aria-label="Global">🌐</span>
                   <div className="flex flex-col">
-                    <span className="text-sm font-bold text-neutral-400 tracking-wide">Global</span>
-                    <span className="text-[9px] font-mono text-neutral-500 tracking-wider">Decentralized Clusters</span>
+                    <span className="text-sm font-bold text-indigo-300 tracking-wide">Global 🌐 💫</span>
+                    <span className="text-[9px] font-mono text-indigo-400 tracking-wider">Decentralized Clusters 🖧💎</span>
                   </div>
                 </div>
                 <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/5 border border-cyan-500/10">
                   <span className="text-[9px] font-mono font-black text-cyan-400 uppercase tracking-widest leading-none">
-                    IN PROGRESS
+                    IN PROGRESS 🏗️🚀
                   </span>
                 </div>
               </div>
