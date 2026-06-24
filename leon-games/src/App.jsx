@@ -61,7 +61,7 @@ export default function LeonGamesLanding() {
       <Navigation />
       <HeroSection />
       <FeaturedGamesSection />
-       <VideoAdSection /> 
+      <VideoAdSection />
       <HowItWorksSection />
       <LiveActivitySection />
       <PaymentsSection />
@@ -1121,7 +1121,7 @@ export function FeaturedGamesSection() {
   const headerDescX = useTransform(smoothProgress, [0, 0.4, 0.8, 1], [isMobile ? 20 : 60, 0, 0, isMobile ? 15 : 40]);
   const headerDescOpacity = useTransform(smoothProgress, [0, 0.32, 0.85, 1], [0, 1, 1, 0]);
 
-  
+
 
   // 4. Map Left Column Slider Container
   const leftColX = useTransform(smoothProgress, [0, 0.38, 0.75, 1], [isMobile ? -40 : -140, 0, 0, isMobile ? -45 : -100]);
@@ -1174,7 +1174,7 @@ export function FeaturedGamesSection() {
               <span className="text-neutral-600">//</span>
               <span className="text-cyan-400 animate-pulse">5 DETERMINISTIC SKILL CHALLENGES 🏆</span>
             </div>
-            
+
             {/* High-Impact Gradient Title */}
             <h2 className="text-3xl md:text-5xl font-black tracking-tight leading-tight select-none">
               <span className="bg-gradient-to-r from-emerald-400 via-teal-400 to-cyan-500 bg-clip-text text-transparent">
@@ -1247,8 +1247,8 @@ export function FeaturedGamesSection() {
                       onClick={() => setActiveIdx(idx)}
                       style={{ y, opacity }}
                       className={`relative flex items-center gap-4 p-4 rounded-xl cursor-pointer border transition-all duration-300 origin-center ${isActive
-                          ? "bg-[#111111] border-emerald-500/40 shadow-[0_4px_25px_rgba(34,197,94,0.08)] scale-[1.01]"
-                          : "bg-transparent border-white/[0.04] hover:border-white/[0.1] opacity-65 hover:opacity-100"
+                        ? "bg-[#111111] border-emerald-500/40 shadow-[0_4px_25px_rgba(34,197,94,0.08)] scale-[1.01]"
+                        : "bg-transparent border-white/[0.04] hover:border-white/[0.1] opacity-65 hover:opacity-100"
                         }`}
                       whileTap={{ scale: 0.99 }}
                     >
@@ -1552,7 +1552,7 @@ function VideoAdSection() {
   const videoOpacity = useTransform(smoothProgress, [0, 0.28, 0.85, 1], [0, 1, 1, 0]);
 
   return (
-    <section 
+    <section
       ref={sectionRef}
       className="py-24 bg-[#050505] relative overflow-hidden border-t border-white/[0.04]"
     >
@@ -1563,13 +1563,13 @@ function VideoAdSection() {
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-          
+
           {/* Left Column: Progressive Text Assembly */}
-          <motion.div 
+          <motion.div
             style={{ x: leftColX, opacity: leftColOpacity }}
             className="lg:col-span-5 flex flex-col justify-center"
           >
-            
+
             {/* Colorful Multi-Segment Status Tag */}
             <div className="inline-flex items-center gap-2 self-start px-3.5 py-1.5 rounded-full bg-gradient-to-r from-red-500/10 via-amber-500/10 to-emerald-500/10 border border-emerald-500/30 text-[10px] font-mono tracking-wider mb-6">
               <span className="text-red-400">🎬 PLAY FEED</span>
@@ -1578,15 +1578,15 @@ function VideoAdSection() {
               <span className="text-neutral-600">//</span>
               <span className="text-emerald-400 animate-pulse">🟢 LIVE MATCHES ACTIVATED</span>
             </div>
-            
+
             {/* Dynamic Multi-Color Gradient Headline */}
             <h2 className="text-3xl md:text-5xl font-black tracking-tight mb-6 leading-tight select-none">
               <span className="block bg-gradient-to-r from-cyan-400 via-emerald-400 to-green-500 bg-clip-text text-transparent mt-1">
                 See the Ultimate Action! ⚔️🔥
               </span>
             </h2>
-            
-            <motion.p 
+
+            <motion.p
               style={{ y: textY, opacity: textOpacity }}
               className="text-neutral-400 text-sm md:text-base mb-6 leading-relaxed font-light"
             >
@@ -1594,7 +1594,7 @@ function VideoAdSection() {
             </motion.p>
 
             {/* Strategic Highlight Callout Box */}
-            <motion.div 
+            <motion.div
               style={{ y: textY, opacity: textOpacity }}
               className="bg-amber-500/[0.03] border border-amber-500/20 rounded-xl p-4 mb-6 flex items-start gap-3.5 shadow-[inset_0_1px_12px_rgba(245,158,11,0.02)]"
             >
@@ -1610,11 +1610,11 @@ function VideoAdSection() {
             </motion.div>
 
             {/* Colorful & Descriptive Feature List with Custom Icons */}
-            <motion.div 
+            <motion.div
               style={{ y: featuresY, opacity: featuresOpacity }}
               className="space-y-4 mb-8 border-l-2 border-dashed border-neutral-800 pl-4"
             >
-              
+
               {/* Feature Item 1: RED Accent */}
               <div className="flex items-start gap-3">
                 <span className="text-xl text-red-500">⚔️</span>
@@ -1657,7 +1657,7 @@ function VideoAdSection() {
             </motion.div>
 
             {/* Strategic Call to Action Buttons */}
-            <motion.div 
+            <motion.div
               style={{ y: ctaY, opacity: ctaOpacity }}
               className="flex flex-wrap gap-4"
             >
@@ -1671,21 +1671,21 @@ function VideoAdSection() {
           </motion.div>
 
           {/* Right Column: Premium Neon Video Player Container */}
-          <motion.div 
+          <motion.div
             style={{ x: videoX, scale: videoScale, opacity: videoOpacity }}
             className="lg:col-span-7"
           >
             {/* Visual glow frame wrapping the player border */}
             <div className="relative bg-gradient-to-br from-emerald-500/20 via-neutral-900 to-cyan-500/20 p-[1.5px] rounded-2xl shadow-[0_24px_60px_rgba(0,0,0,0.85)]">
-              
+
               <div className="relative bg-[#111111] rounded-2xl p-2 md:p-3 overflow-hidden aspect-video group">
-                
+
                 {/* Active HUD Corner Indicators */}
                 <div className="absolute top-5 left-5 w-4 h-4 border-t-2 border-l-2 border-emerald-400 pointer-events-none z-10" />
                 <div className="absolute top-5 right-5 w-4 h-4 border-t-2 border-r-2 border-cyan-400 pointer-events-none z-10" />
                 <div className="absolute bottom-5 left-5 w-4 h-4 border-b-2 border-l-2 border-cyan-400 pointer-events-none z-10" />
                 <div className="absolute bottom-5 right-5 w-4 h-4 border-b-2 border-r-2 border-emerald-400 pointer-events-none z-10" />
-                
+
                 {/* Premium Animated HUD Status Overlay (Centered) */}
 
                 {/* Video Elements Container */}
@@ -1701,7 +1701,7 @@ function VideoAdSection() {
 
               </div>
             </div>
-            
+
             <p className="text-[10px] text-neutral-500 text-center font-mono mt-4 uppercase tracking-widest flex items-center justify-center gap-2">
               <span className="inline-block w-1.5 h-1.5 rounded-full bg-cyan-400 animate-ping" />
               🎥 REAL-TIME VIDEO PLAYER FEED SECURED // CRYPTO-HASH PROTOCOL ACTIVE 📡🟢
@@ -1819,7 +1819,7 @@ const HOW_IT_WORKS_STEPS = [
 ];
 
 export function HowItWorksSection() {
-   // 1. Declare all states first at the very top
+  // 1. Declare all states first at the very top
   const [activeIdx, setActiveIdx] = useState(0);
   const [direction, setDirection] = useState(1);
   const [isMobile, setIsMobile] = useState(false);
@@ -1970,11 +1970,11 @@ export function HowItWorksSection() {
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full bg-emerald-500/[0.01] blur-[150px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">
-        
+
         {/* Section Header */}
         <div className="flex flex-col lg:flex-row items-start lg:items-end justify-between mb-10 gap-8">
-          <motion.div 
-            style={{ x: headerTitleX, opacity: headerTitleOpacity }} 
+          <motion.div
+            style={{ x: headerTitleX, opacity: headerTitleOpacity }}
             className="flex flex-col"
           >
             {/* Dynamic Segment Status Tag */}
@@ -1982,7 +1982,7 @@ export function HowItWorksSection() {
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
               <span className="text-emerald-400 font-bold">PLATFORM ENGINE PROTOCOLS</span>
             </div>
-            
+
             {/* High-Impact Gradient Title */}
             <h2 className="text-3xl md:text-5xl font-black tracking-tight leading-tight select-none">
               <span className="bg-gradient-to-r from-emerald-400 via-teal-400 to-cyan-500 bg-clip-text text-transparent">
@@ -2002,9 +2002,9 @@ export function HowItWorksSection() {
 
         {/* Core Showcase Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch max-w-5xl mx-auto">
-          
+
           {/* COLUMN 1: VERTICAL PAGINATION LADDER (Desktop / Left Side with Scroll Reveal) */}
-          <motion.div 
+          <motion.div
             style={{ x: phasesX, opacity: phasesOpacity }}
             className="hidden lg:flex lg:col-span-3 flex-col justify-center pr-4 border-r border-white/[0.03]"
           >
@@ -2030,27 +2030,24 @@ export function HowItWorksSection() {
                   >
                     {/* Architectural Bullet Circle with Dynamic Accent Colors */}
                     <div
-                      className={`relative w-8.5 h-8.5 rounded-full flex items-center justify-center border font-mono text-[10px] font-black tracking-tighter transition-all duration-350 z-10 ${
-                        isActive
+                      className={`relative w-8.5 h-8.5 rounded-full flex items-center justify-center border font-mono text-[10px] font-black tracking-tighter transition-all duration-350 z-10 ${isActive
                           ? `bg-neutral-900 ${step.borderAccent} ${step.textAccent} shadow-[0_0_15px_rgba(16,185,129,0.15)]`
                           : "bg-black border-white/[0.04] text-neutral-600 group-hover:border-white/[0.15] group-hover:text-neutral-400"
-                      }`}
+                        }`}
                     >
                       {step.num}
                     </div>
 
                     <div className="flex flex-col">
                       <span
-                        className={`text-[9px] font-mono tracking-widest leading-none mb-1 ${
-                          isActive ? "text-neutral-500" : "text-neutral-600"
-                        }`}
+                        className={`text-[9px] font-mono tracking-widest leading-none mb-1 ${isActive ? "text-neutral-500" : "text-neutral-600"
+                          }`}
                       >
                         PHASE 0{idx + 1}
                       </span>
                       <span
-                        className={`text-xs font-bold tracking-tight transition-colors duration-300 ${
-                          isActive ? "text-white" : "text-neutral-500 group-hover:text-neutral-300"
-                        }`}
+                        className={`text-xs font-bold tracking-tight transition-colors duration-300 ${isActive ? "text-white" : "text-neutral-500 group-hover:text-neutral-300"
+                          }`}
                       >
                         {step.shortTitle} ...
                       </span>
@@ -2062,11 +2059,11 @@ export function HowItWorksSection() {
           </motion.div>
 
           {/* COLUMN 3: ALIGNED SLIDE CONTROL HUB (Mobile first above slider, Desktop right side) */}
-          <motion.div 
+          <motion.div
             style={{ x: controlsX, y: controlsY, opacity: controlsOpacity }}
             className="lg:col-span-2 flex flex-row lg:flex-col justify-between lg:justify-center items-center gap-6 mb-6 lg:mb-0 order-1 lg:order-3 px-2"
           >
-            
+
             {/* Interactive Progress Tracking Pill */}
             <div className="flex flex-col items-start lg:items-center text-left lg:text-center">
               <span className="text-[9px] font-mono text-neutral-500 uppercase tracking-widest block mb-1">SYSTEM STEP</span>
@@ -2101,9 +2098,8 @@ export function HowItWorksSection() {
               {HOW_IT_WORKS_STEPS.map((_, idx) => (
                 <div
                   key={idx}
-                  className={`h-1 rounded-full transition-all duration-300 ${
-                    idx === activeIdx ? "bg-emerald-400 w-4" : "bg-neutral-800 w-1.5"
-                  }`}
+                  className={`h-1 rounded-full transition-all duration-300 ${idx === activeIdx ? "bg-emerald-400 w-4" : "bg-neutral-800 w-1.5"
+                    }`}
                 />
               ))}
             </div>
@@ -2111,7 +2107,7 @@ export function HowItWorksSection() {
           </motion.div>
 
           {/* COLUMN 2: THE CENTRAL STORYTELLING FOCUS CARD (With Adaptive Scroll Reveal) */}
-          <motion.div 
+          <motion.div
             style={{ x: sliderX, y: sliderY, opacity: sliderOpacity }}
             className="lg:col-span-7 flex items-center min-h-[460px] relative order-2 lg:order-2"
           >
@@ -2157,7 +2153,7 @@ export function HowItWorksSection() {
                       {activeStep.title}
                     </h3>
                   </motion.div>
-                  
+
                   {/* Subtle Big Stamp Number */}
                   <div className="text-6xl md:text-8xl font-black font-mono tracking-tighter text-white/[0.02] select-none leading-none">
                     {activeStep.num}
@@ -2174,7 +2170,7 @@ export function HowItWorksSection() {
 
                 {/* Card Bottom: Features & Stat Multi-Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-12 gap-6 pt-6 border-t border-white/[0.04] relative z-10 items-center">
-                  
+
                   {/* Feature Bullets Column */}
                   <motion.div variants={childVariants} className="md:col-span-8 space-y-3.5">
                     {activeStep.bullets.map((bullet, i) => (
@@ -2211,7 +2207,7 @@ const createFakeActivity = () => {
   const selectedGame = faker.helpers.arrayElement(GAMES_AND_ACTIONS);
   const action = faker.helpers.arrayElement(selectedGame.actions);
   const baseAmount = faker.number.int({ min: 10, max: 480 });
-  
+
   // Format username with letters, underscores, and numbers
   const rawUser = faker.internet.username();
   const cleanUser = rawUser.replace(/[^a-zA-Z0-9]/g, "_").toLowerCase();
@@ -2229,7 +2225,7 @@ const createFakeActivity = () => {
 
 export function LiveActivitySection() {
   // Initialize with 30 unique dynamic items
-  const [feed, setFeed] = useState(() => 
+  const [feed, setFeed] = useState(() =>
     Array.from({ length: 30 }, () => createFakeActivity())
   );
 
@@ -2250,7 +2246,7 @@ export function LiveActivitySection() {
 
         {/* Infinite Marquee Feed Container */}
         <div className="relative flex overflow-x-hidden w-full group mask-gradient">
-          <div 
+          <div
             onAnimationIteration={handleLoopReset} // Intercepts the loop reset frame to swap data seamlessly
             className="animate-marquee flex whitespace-nowrap gap-6 py-2"
           >
@@ -2611,7 +2607,7 @@ export function PaymentsSection() {
   const headerDescOpacity = useTransform(smoothProgress, [0, 0.32, 0.85, 1], [0, 1, 1, 0]);
 
   // --- SCROLL-TRIGGERED ANIMATIONS FOR PAYMENTS INFRASTRUCTURE ---
-  
+
   // 1. Deposit Method Tag (Below Deposit Method Heading)
   const depositHeaderTagY = useTransform(smoothProgress, [0, 0.35, 0.75, 1], [isMobile ? 15 : 30, 0, 0, isMobile ? -10 : -20]);
   const depositHeaderTagOpacity = useTransform(smoothProgress, [0, 0.28, 0.8, 1], [0, 1, 1, 0]);
@@ -2642,7 +2638,7 @@ export function PaymentsSection() {
   const activeMethod = DEPOSIT_METHODS.find((item) => item.id === selectedId) || DEPOSIT_METHODS[0];
 
   return (
-    <section 
+    <section
       ref={sectionRef}
       className="py-24 bg-[#0A0A0A] relative overflow-hidden border-y border-white/[0.04] z-10"
     >
@@ -2655,8 +2651,8 @@ export function PaymentsSection() {
 
         {/* Dynamic Section Header */}
         <div className="flex flex-col lg:flex-row items-start lg:items-end justify-between mb-12 gap-8">
-          <motion.div 
-            style={{ x: headerTitleX, opacity: headerTitleOpacity }} 
+          <motion.div
+            style={{ x: headerTitleX, opacity: headerTitleOpacity }}
             className="flex flex-col"
           >
             {/* Dynamic Segment Status Tag */}
@@ -2689,9 +2685,8 @@ export function PaymentsSection() {
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
-                className={`relative px-8 py-3 rounded-lg text-xs font-mono font-bold uppercase tracking-wider transition-colors cursor-pointer focus:outline-none ${
-                  activeTab === tab ? "text-[#050505]" : "text-neutral-400 hover:text-neutral-200"
-                }`}
+                className={`relative px-8 py-3 rounded-lg text-xs font-mono font-bold uppercase tracking-wider transition-colors cursor-pointer focus:outline-none ${activeTab === tab ? "text-[#050505]" : "text-neutral-400 hover:text-neutral-200"
+                  }`}
               >
                 <span className="relative z-10">{tab} methods</span>
                 {activeTab === tab && (
@@ -2714,66 +2709,64 @@ export function PaymentsSection() {
             className="flex w-[200%] items-stretch"
           >
             {/* PANEL 1: DEPOSIT PORTAL (Left Half) */}
-            <div 
+            <div
               className="w-1/2 pr-0 lg:pr-2 shrink-0 grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch transition-opacity duration-300"
               style={{ opacity: activeTab === "deposit" ? 1 : 0 }}
             >
-              
+
               {/* Left Side: Large Interactive Grid/Horizontal Slider of Deposit Options */}
               <div className="lg:col-span-7 relative w-full">
-                <motion.div 
-                  ref={depositSliderRef} 
+                <motion.div
+                  ref={depositSliderRef}
                   style={{ x: depositSliderX, opacity: depositSliderOpacity }}
                   className="flex overflow-x-auto snap-x snap-mandatory scrollbar-thin scrollbar-thumb-neutral-800 scrollbar-track-transparent pb-4 lg:pb-0 lg:overflow-visible lg:grid lg:grid-cols-2 gap-4 max-w-full"
                 >
-                {/* Left Spacer: Dynamically calculates margin needed to center the first card */}
-                <div className="shrink-0 w-[calc(50vw-140px-24px)] sm:w-[calc(50vw-160px-24px)] lg:hidden" />
+                  {/* Left Spacer: Dynamically calculates margin needed to center the first card */}
+                  <div className="shrink-0 w-[calc(50vw-140px-24px)] sm:w-[calc(50vw-160px-24px)] lg:hidden" />
 
-                {DEPOSIT_METHODS.map((method) => {
-                  const isActive = method.id === selectedId;
-                  return (
-                    <button
-                      key={method.id}
-                      data-deposit-id={method.id}
-                      ref={(el) => {
-                        depositItemRefs.current[method.id] = el;
-                      }}
-                      onClick={() => setSelectedId(method.id)}
-                      className={`flex flex-col justify-between text-left p-5 rounded-xl border transition-colors duration-300 relative overflow-hidden group cursor-pointer shrink-0 w-[280px] sm:w-[320px] snap-center lg:w-full lg:shrink h-[180px] lg:h-auto min-h-[180px] ${
-                        isActive
-                          ? "bg-[#111111] border-emerald-500/40 shadow-[0_4px_25px_rgba(34,197,94,0.1)]"
-                          : "bg-[#111111]/40 border-white/[0.04] hover:border-white/[0.1] hover:bg-[#111111]/60"
-                      }`}
-                    >
-                      {isActive && (
-                        <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-500/[0.02] rounded-full blur-2xl pointer-events-none" />
-                      )}
+                  {DEPOSIT_METHODS.map((method) => {
+                    const isActive = method.id === selectedId;
+                    return (
+                      <button
+                        key={method.id}
+                        data-deposit-id={method.id}
+                        ref={(el) => {
+                          depositItemRefs.current[method.id] = el;
+                        }}
+                        onClick={() => setSelectedId(method.id)}
+                        className={`flex flex-col justify-between text-left p-5 rounded-xl border transition-colors duration-300 relative overflow-hidden group cursor-pointer shrink-0 w-[280px] sm:w-[320px] snap-center lg:w-full lg:shrink h-[180px] lg:h-auto min-h-[180px] ${isActive
+                            ? "bg-[#111111] border-emerald-500/40 shadow-[0_4px_25px_rgba(34,197,94,0.1)]"
+                            : "bg-[#111111]/40 border-white/[0.04] hover:border-white/[0.1] hover:bg-[#111111]/60"
+                          }`}
+                      >
+                        {isActive && (
+                          <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-500/[0.02] rounded-full blur-2xl pointer-events-none" />
+                        )}
 
-                      <div className="flex items-center gap-3.5 mb-3.5 relative z-10">
-                        <span className="text-2xl">{method.icon}</span>
-                        <div className="flex flex-col">
-                          <span className="text-sm font-bold text-white group-hover:text-emerald-400 transition-colors">
-                            {method.name}
-                          </span>
-                          <span className="text-[10px] font-mono text-neutral-500 tracking-wider">
-                            {method.logoText}
-                          </span>
+                        <div className="flex items-center gap-3.5 mb-3.5 relative z-10">
+                          <span className="text-2xl">{method.icon}</span>
+                          <div className="flex flex-col">
+                            <span className="text-sm font-bold text-white group-hover:text-emerald-400 transition-colors">
+                              {method.name}
+                            </span>
+                            <span className="text-[10px] font-mono text-neutral-500 tracking-wider">
+                              {method.logoText}
+                            </span>
+                          </div>
                         </div>
-                      </div>
 
-                      <p className="text-xs text-neutral-400 leading-relaxed font-light relative z-10">
-                        {method.shortDesc}
-                      </p>
+                        <p className="text-xs text-neutral-400 leading-relaxed font-light relative z-10">
+                          {method.shortDesc}
+                        </p>
 
-                      <div className={`absolute bottom-0 left-0 right-0 h-[2px] transition-all duration-300 ${
-                        isActive ? "bg-emerald-500" : "bg-transparent"
-                      }`} />
-                    </button>
-                  );
-                })}
+                        <div className={`absolute bottom-0 left-0 right-0 h-[2px] transition-all duration-300 ${isActive ? "bg-emerald-500" : "bg-transparent"
+                          }`} />
+                      </button>
+                    );
+                  })}
 
-                {/* Right Spacer: Dynamically calculates margin needed to center the last card */}
-                <div className="shrink-0 w-[calc(50vw-140px-24px)] sm:w-[calc(50vw-160px-24px)] lg:hidden" />
+                  {/* Right Spacer: Dynamically calculates margin needed to center the last card */}
+                  <div className="shrink-0 w-[calc(50vw-140px-24px)] sm:w-[calc(50vw-160px-24px)] lg:hidden" />
                 </motion.div>
 
                 {/* Emoji control buttons (left/right) positioned at the slider sides */}
@@ -2795,7 +2788,7 @@ export function PaymentsSection() {
               </div>
 
               {/* Right Side: Dynamic, Premium Details Panel */}
-              <motion.div 
+              <motion.div
                 style={{ x: depositDetailsX, opacity: depositDetailsOpacity }}
                 className="lg:col-span-5 flex"
               >
@@ -2882,8 +2875,8 @@ export function PaymentsSection() {
             </div>
 
             {/* PANEL 2: WITHDRAWAL PORTAL (Right Half) */}
-           {/* PANEL 2: WITHDRAWAL PORTAL (Right Half) */}
-            <div 
+            {/* PANEL 2: WITHDRAWAL PORTAL (Right Half) */}
+            <div
               className="w-1/2 pl-0 lg:pl-2 shrink-0 flex items-center justify-center transition-opacity duration-300"
               style={{ opacity: activeTab === "withdrawal" ? 1 : 0 }}
             >
@@ -2962,12 +2955,12 @@ export function PaymentsSection() {
         </div>
 
         {/* SECURITY & TRUST SECTION (Fintech Glassmorphism Panel - Static) */}
-         <motion.div 
+        <motion.div
           style={{ y: securityY, opacity: securityOpacity }}
           className="bg-gradient-to-r from-white/[0.01] via-white/[0.03] to-white/[0.01] border border-white/[0.06] rounded-2xl p-6 md:p-8 backdrop-blur shadow-xl relative overflow-hidden mb-12"
         >
           <div className="absolute inset-0 bg-emerald-500/[0.01] rounded-full blur-[100px] pointer-events-none" />
-          
+
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 items-center text-center">
             <div className="flex flex-col items-center gap-2">
               <span className="text-2xl">🛡️</span>
@@ -2978,7 +2971,7 @@ export function PaymentsSection() {
                 Direct bank-grade processing 🏦
               </p>
             </div>
-            
+
             <div className="flex flex-col items-center gap-2 border-t md:border-t-0 md:border-l border-white/[0.04] pt-4 md:pt-0">
               <span className="text-2xl">🔒</span>
               <h5 className="text-xs font-bold text-white font-mono uppercase tracking-wider">
@@ -2988,7 +2981,7 @@ export function PaymentsSection() {
                 AES-256 military standard security 🖥️
               </p>
             </div>
-            
+
             <div className="flex flex-col items-center gap-2 border-t md:border-t-0 md:border-l border-white/[0.04] pt-4 md:pt-0">
               <span className="text-2xl">⚡</span>
               <h5 className="text-xs font-bold text-white font-mono uppercase tracking-wider">
@@ -2998,7 +2991,7 @@ export function PaymentsSection() {
                 Real-time account balance updates 📈
               </p>
             </div>
-            
+
             <div className="flex flex-col items-center gap-2 border-t md:border-t-0 md:border-l border-white/[0.04] pt-4 md:pt-0">
               <span className="text-2xl">💸</span>
               <h5 className="text-xs font-bold text-white font-mono uppercase tracking-wider">
@@ -3079,7 +3072,7 @@ export function TrustSection() {
   const headerDescOpacity = useTransform(smoothProgress, [0, 0.32, 0.85, 1], [0, 1, 1, 0]);
 
   // --- NEW: INDEPENDENT SCROLL TRANSFORMS FOR EACH QUADRANT ---
-  
+
   // Quadrant 1 (Top Left): Slide in from Left, Fade In
   const topLeftX = useTransform(smoothProgress, [0.1, 0.45, 0.85, 1], [-30, 0, 0, -15]);
   const topLeftOpacity = useTransform(smoothProgress, [0.1, 0.38, 0.85, 1], [0, 1, 1, 0]);
@@ -3095,7 +3088,7 @@ export function TrustSection() {
   // Quadrant 4 (Bottom Right): Slide in from Right, Fade In (Slightly Staggered)
   const bottomRightX = useTransform(smoothProgress, [0.15, 0.52, 0.85, 1], [30, 0, 0, 15]);
   const bottomRightOpacity = useTransform(smoothProgress, [0.15, 0.45, 0.85, 1], [0, 1, 1, 0]);
-  
+
   return (
     <section
       ref={sectionRef}
@@ -3106,7 +3099,7 @@ export function TrustSection() {
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full bg-emerald-500/[0.015] blur-[150px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">
-        
+
         {/* Replacement Header Structure */}
         <div className="flex flex-col lg:flex-row items-start lg:items-end justify-between mb-10 lg:mb-24 gap-8">
           <motion.div
@@ -3138,9 +3131,9 @@ export function TrustSection() {
 
         {/* 2x2 Connected Trust Grid Container */}
         <div className="relative max-w-5xl mx-auto py-8">
-          
+
           {/* DESKTOP SYSTEM: Symmetrical 2D Divider Lines (Extend beyond layout boundaries with fade-out gradients) */}
-          
+
           {/* Continuous Horizontal Grid Line (Left to Right, fades dynamically at limits) */}
           <div className="absolute left-[-160px] right-[-160px] top-1/2 h-[1px] bg-gradient-to-r from-transparent via-emerald-500/20 via-cyan-500/20 to-transparent hidden md:block pointer-events-none -translate-y-1/2" />
           <div className="absolute left-[-160px] right-[-160px] top-1/2 h-[3px] bg-gradient-to-r from-transparent via-emerald-500/10 via-cyan-500/10 to-transparent blur-[2px] hidden md:block pointer-events-none -translate-y-1/2" />
@@ -3160,9 +3153,9 @@ export function TrustSection() {
 
           {/* Core Quad Grid Panel */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-y-16 md:gap-y-0 gap-x-0 relative z-10">
-            
+
             {/* Quadrant 1: Top Left - Bank-Level Security */}
-            <motion.div 
+            <motion.div
               style={{ x: topLeftX, opacity: topLeftOpacity }}
               className="md:pr-16 md:pb-16 flex flex-col items-center text-center justify-between min-h-[160px]"
             >
@@ -3180,7 +3173,7 @@ export function TrustSection() {
             </motion.div>
 
             {/* Quadrant 2: Top Right - Fast Withdrawals */}
-            <motion.div 
+            <motion.div
               style={{ x: topRightX, opacity: topRightOpacity }}
               className="md:pl-16 md:pb-16 flex flex-col items-center text-center justify-between min-h-[160px]"
             >
@@ -3198,7 +3191,7 @@ export function TrustSection() {
             </motion.div>
 
             {/* Quadrant 3: Bottom Left - Fair & Transparent */}
-            <motion.div 
+            <motion.div
               style={{ x: bottomLeftX, opacity: bottomLeftOpacity }}
               className="md:pr-16 md:pt-16 flex flex-col items-center text-center justify-between min-h-[160px] md:border-t-0"
             >
@@ -3216,7 +3209,7 @@ export function TrustSection() {
             </motion.div>
 
             {/* Quadrant 4: Bottom Right - 24/7 Support */}
-            <motion.div 
+            <motion.div
               style={{ x: bottomRightX, opacity: bottomRightOpacity }}
               className="md:pl-16 md:pt-16 flex flex-col items-center text-center justify-between min-h-[160px] md:border-t-0"
             >
@@ -3255,7 +3248,7 @@ export function GrowthSection() {
         if (entry.isIntersecting) {
           const promise = video.play();
           if (promise !== undefined) {
-            promise.catch(() => {});
+            promise.catch(() => { });
           }
         } else {
           video.pause();
@@ -3279,7 +3272,7 @@ export function GrowthSection() {
 
           {/* LEFT COLUMN: Premium Roadmap Side Panel */}
           <div className="lg:col-span-4 flex flex-col justify-center">
-            
+
             {/* Status Segment Indicator */}
             <div className="inline-flex items-center gap-2 self-start px-3.5 py-1.5 rounded-full bg-gradient-to-r from-cyan-500/10 via-emerald-500/10 to-blue-500/10 border border-cyan-500/30 text-[10px] font-mono tracking-wider mb-5">
               <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
@@ -3289,7 +3282,7 @@ export function GrowthSection() {
             {/* Premium Gradient Headline */}
             <h2 className="text-3xl md:text-4xl font-black tracking-tight mb-4 leading-tight select-none">
               <span className="bg-gradient-to-r from-cyan-400 via-teal-400 to-emerald-500 bg-clip-text text-transparent block">
-                 The Journey Has Just Begun 🚀
+                The Journey Has Just Begun 🚀
               </span>
             </h2>
 
@@ -3300,11 +3293,15 @@ export function GrowthSection() {
 
             {/* Vertical Flow Growth Cards Stack */}
             <div className="flex flex-col w-full">
-              
+
               {/* Card 1: Nigeria (Live Now) */}
               <div className="bg-[#111111]/90 border border-emerald-500/20 rounded-xl p-4 flex items-center justify-between shadow-[0_4px_20px_rgba(16,185,129,0.03)] hover:border-emerald-500/40 transition-colors duration-300">
                 <div className="flex items-center gap-3">
-                  <span className="text-2xl" role="img" aria-label="Nigeria">🇳🇬</span>
+                  <span className="text-2xl" role="img" aria-label="Nigeria"><img
+                    src="https://flagcdn.com/w40/ng.png"
+                    alt="Nigeria"
+                    className="w-8 h-auto"
+                  /></span>
                   <div className="flex flex-col">
                     <span className="text-sm font-bold text-white tracking-wide">Nigeria</span>
                     <span className="text-[9px] font-mono text-neutral-500 tracking-wider">Primary Seed Node</span>
@@ -3328,7 +3325,7 @@ export function GrowthSection() {
               {/* Card 2: Africa (Coming Soon) */}
               <div className="bg-[#111111]/60 border border-amber-500/10 rounded-xl p-4 flex items-center justify-between hover:border-amber-500/20 transition-colors duration-300">
                 <div className="flex items-center gap-3">
-                  <span className="text-2xl" role="img" aria-label="Africa">🟡</span>
+                  <span className="text-2xl" role="img" aria-label="Africa">🌍</span>
                   <div className="flex flex-col">
                     <span className="text-sm font-bold text-neutral-300 tracking-wide">Africa</span>
                     <span className="text-[9px] font-mono text-neutral-500 tracking-wider">Continental Scaling</span>
@@ -3351,7 +3348,7 @@ export function GrowthSection() {
               {/* Card 3: Global (In Progress) */}
               <div className="bg-[#111111]/30 border border-white/[0.04] rounded-xl p-4 flex items-center justify-between hover:border-white/[0.08] transition-colors duration-300">
                 <div className="flex items-center gap-3">
-                  <span className="text-2xl" role="img" aria-label="Global">🌍</span>
+                  <span className="text-2xl" role="img" aria-label="Global">🌐</span>
                   <div className="flex flex-col">
                     <span className="text-sm font-bold text-neutral-400 tracking-wide">Global</span>
                     <span className="text-[9px] font-mono text-neutral-500 tracking-wider">Decentralized Clusters</span>
