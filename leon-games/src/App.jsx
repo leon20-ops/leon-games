@@ -3455,8 +3455,31 @@ export function GrowthSection() {
 
 // --- FINAL CTA SECTION ---
 function FinalCTASection() {
+  const sectionRef = useRef(null);
+
+  // Hook into scroll progress specifically for this section
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "center 40%"] // Slightly extended target window
+  });
+
+  // Extended transparency curve: stays highly faint (1% to 20%) for the first 75% of the scroll track,
+  // then resolves to full visibility as it approaches the final viewing position.
+  const opacity = useTransform(scrollYProgress, [0, 0.75, 1], [0.01, 0.2, 1]);
+
+  // Apply spring physics to ensure the transition is smooth across all devices
+  const smoothOpacity = useSpring(opacity, {
+    stiffness: 75,
+    damping: 22,
+    restDelta: 0.001
+  });
+
   return (
-    <section className="py-32 relative overflow-hidden bg-[#050505] flex items-center justify-center">
+    <motion.section
+      ref={sectionRef}
+      style={{ opacity: smoothOpacity }}
+      className="py-32 relative overflow-hidden bg-[#050505] flex items-center justify-center"
+    >
       {/* Background Radial Sweep */}
       <div className="absolute inset-0 pointer-events-none flex items-center justify-center">
         <div className="absolute w-[800px] h-[400px] rounded-full bg-emerald-500/10 blur-[130px]" />
@@ -3505,7 +3528,7 @@ function FinalCTASection() {
           </span>
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 }
 
