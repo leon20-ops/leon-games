@@ -192,9 +192,6 @@ export function Navigation() {
               <span className="font-bold text-sm tracking-widest text-white leading-none">
                 LEON <span className="text-emerald-400 font-light">GAMES</span>
               </span>
-              <span className="text-[9px] font-mono tracking-wider text-neutral-500 group-hover:text-neutral-400 transition-colors mt-0.5">
-                AMS-NODE // ONLINE
-              </span>
             </div>
           </motion.a>
 
@@ -3466,26 +3463,46 @@ function FinalCTASection() {
       </div>
 
       <div className="max-w-4xl mx-auto px-6 text-center relative z-10">
-        <h2 className="text-4xl md:text-7xl font-extrabold tracking-tight mb-6">
-          Your Next Opponent<br />Is Waiting.
+        {/* Symmetrical Rainbow Headline */}
+        <h2 className="relative text-center font-extrabold tracking-tight mb-6 select-none leading-[1.08] text-[3.2rem] sm:text-[4rem] min-[71.25rem]:text-[4rem]">
+          <span className="bg-gradient-to-r from-red-500 via-orange-400 via-yellow-400 via-emerald-400 to-cyan-500 bg-clip-text text-transparent">
+            Your Next Opponent ⚔️
+          </span>
+          <br />
+          <span className="bg-gradient-to-r from-cyan-400 via-blue-500 via-indigo-400 via-purple-400 to-pink-500 bg-clip-text text-transparent">
+            Is Waiting! 🏆
+          </span>
         </h2>
-        <p className="text-neutral-400 max-w-xl mx-auto mb-10 text-sm md:text-base leading-relaxed">
-          Matches deploy immediately. Claim absolute control of your wagering experience without the interference of arbitrary house odds.
+
+        {/* Narrative Callout with Embedded Color Accents */}
+        <p className="max-w-xl mx-auto mb-10 text-sm md:text-base leading-relaxed font-light text-neutral-400">
+          🎮 Matches deploy{" "}
+          <span className="bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent font-medium">
+            immediately ⚡
+          </span>
+          . Claim{" "}
+          <span className="bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent font-medium">
+            absolute control 🔒
+          </span>{" "}
+          of your wagering experience without the interference of arbitrary house odds! ⚖️💎📈
         </p>
 
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 max-w-sm mx-auto">
-          <button className="w-full relative group overflow-hidden rounded-lg bg-emerald-500 hover:bg-emerald-400 text-[#050505] font-black text-sm py-4 px-8 transition-all duration-300 shadow-[0_10px_30px_rgba(34,197,94,0.3)]">
-            Play Now
-          </button>
-          <button className="w-full rounded-lg bg-[#111111] hover:bg-[#171717] border border-white/[0.08] text-white font-semibold text-sm py-4 px-8 transition-all duration-200">
-            Learn More
+        {/* Action Trigger Button */}
+        <div className="max-w-sm mx-auto">
+          <button className="w-full relative group overflow-hidden rounded-lg bg-gradient-to-r from-emerald-500 via-teal-500 via-cyan-500 to-indigo-500 hover:from-emerald-400 hover:to-indigo-400 text-[#050505] font-black text-sm py-4 px-8 transition-all duration-300 shadow-[0_10px_30px_rgba(34,197,94,0.3)] uppercase tracking-wider cursor-pointer">
+            <span className="absolute inset-0 w-full h-full bg-white opacity-0 group-hover:opacity-10 transition-opacity duration-300" />
+            <span className="relative z-10 flex items-center justify-center gap-2 text-neutral-950 font-black">
+              🚀 Play Now & Win 🏆💰
+            </span>
           </button>
         </div>
 
-        {/* Real-time ticker feedback */}
-        <div className="mt-8 text-[11px] text-neutral-500 font-mono tracking-widest uppercase flex items-center justify-center gap-2">
-          <span className="inline-block w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-          4,129 ACTIVE MATCHES RIGHT NOW
+        {/* Live Tracking Information Ticker */}
+        <div className="mt-8 text-[11px] font-mono tracking-widest uppercase flex items-center justify-center gap-2 font-black">
+          <span className="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-ping" />
+          <span className="bg-gradient-to-r from-rose-400 via-amber-400 via-emerald-400 to-cyan-400 bg-clip-text text-transparent">
+            🔴 4,129 ACTIVE MATCHES RIGHT NOW 📡🔥⚔️
+          </span>
         </div>
       </div>
     </section>
@@ -3499,15 +3516,18 @@ function Footer() {
       <div className="max-w-7xl mx-auto px-6 grid grid-cols-2 md:grid-cols-5 gap-10 mb-12">
 
         <div className="col-span-2">
-          <div className="flex items-center gap-2 mb-4">
-            <div className="relative w-7 h-7 flex items-center justify-center rounded bg-gradient-to-br from-emerald-500 to-cyan-400 p-[1.5px]">
-              <div className="bg-[#0A0A0A] w-full h-full rounded-[3px] flex items-center justify-center font-black text-xs text-white">
-                L
+          <div className="flex items-center gap-6 mb-4">
+            <div className="relative w-9 h-9 flex items-center justify-center rounded-lg bg-[#111111] border border-white/[0.08] transition-colors overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-tr from-emerald-500/5 to-cyan-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <div className="font-mono font-black text-sm text-neutral-100 tracking-tighter">
+                L//G
               </div>
             </div>
-            <span className="font-bold text-white tracking-wider">
-              LEON GAMES
-            </span>
+            <div className="flex flex-col">
+              <span className="font-bold text-sm tracking-widest text-white leading-none">
+                LEON <span className="text-emerald-400 font-light">GAMES</span>
+              </span>
+            </div>
           </div>
           <p className="text-xs text-neutral-500 max-w-xs leading-relaxed">
             The premium international 1v1 skill matchmaking framework. Built for raw competitive capability, protected value custody, and clear transparency.
