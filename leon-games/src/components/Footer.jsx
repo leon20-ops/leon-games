@@ -24,7 +24,7 @@ function Footer() {
             <li><a href="#games" className="hover:text-white transition-colors">Penalty Shootout</a></li>
             <li><a href="#games" className="hover:text-white transition-colors">Reaction Speed</a></li>
             <li><a href="#games" className="hover:text-white transition-colors">Tic Tac Toe</a></li>
-            <li><a href="#games" className="hover:text-white transition-colors">Connect Four</a></li>
+            <li><a href="#games" className="hover:text-white transition-colors">Number Prediction</a></li>
           </ul>
         </div>
 
@@ -34,7 +34,7 @@ function Footer() {
             <li><a href="#how-it-works" className="hover:text-white transition-colors">How It Works</a></li>
             <li><a href="#security" className="hover:text-white transition-colors">Security Controls</a></li>
             <li><a href="#worldwide" className="hover:text-white transition-colors">Global Network</a></li>
-            <li><a href="#" className="hover:text-white transition-colors">Edge Infrastructure</a></li>
+            <li><a href="#payments" className="hover:text-white transition-colors">Payment Infrastructure</a></li>
           </ul>
         </div>
 
