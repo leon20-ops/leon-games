@@ -33,21 +33,33 @@ const NavIcons = {
 };
 
 const NAV_LINKS = [
-  { label: "| Games", href: "#games" },
-  { label: "HowItWorks", href: "#how-it-works" },
-  { label: "Payments", href: "#payments" },
-  { label: "Security |", href: "#security" }
+  { label: "| Games", href: "#games", sectionId: "games" },
+  { label: "HowItWorks", href: "#how-it-works", sectionId: "how-it-works" },
+  { label: "Payments", href: "#payments", sectionId: "payments" },
+  { label: "Security |", href: "#security", sectionId: "security" }
 ];
 
+function getInitialActiveSection() {
+  if (typeof window === "undefined") return null;
 
-
+  const hash = window.location.hash.replace("#", "");
+  return NAV_LINKS.some((link) => link.sectionId === hash) ? hash : null;
+}
 
 export function Navigation() {
   const [hoveredIndex, setHoveredIndex] = useState(null);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [scrollDirection, setScrollDirection] = useState("up");
+  const [activeSection, setActiveSection] = useState(getInitialActiveSection);
   const lastScrollY = useRef(0);
+
+  const handleSectionSelect = (sectionId) => {
+    setActiveSection(sectionId);
+    if (window.location.hash !== `#${sectionId}`) {
+      window.history.replaceState(null, "", `#${sectionId}`);
+    }
+  };
 
   // Monitor scroll dynamics to adjust compression and visibility
   useEffect(() => {
@@ -71,8 +83,39 @@ export function Navigation() {
       lastScrollY.current = currentScrollY;
     };
 
+    handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  useEffect(() => {
+    const sectionElements = NAV_LINKS.map((link) => document.getElementById(link.sectionId)).filter(Boolean);
+
+    if (!sectionElements.length) return;
+
+    const updateActiveSection = () => {
+      const viewportHeight = window.innerHeight;
+      const threshold = viewportHeight * 0.25;
+
+      const visibleSections = sectionElements
+        .map((section) => {
+          const rect = section.getBoundingClientRect();
+          const visibleHeight = Math.max(0, Math.min(rect.bottom, viewportHeight) - Math.max(rect.top, 0));
+          return { id: section.id, visibleHeight };
+        })
+        .filter((section) => section.visibleHeight >= threshold)
+        .sort((a, b) => b.visibleHeight - a.visibleHeight);
+
+      setActiveSection(visibleSections[0] ? visibleSections[0].id : null);
+    };
+
+    updateActiveSection();
+    window.addEventListener("scroll", updateActiveSection, { passive: true });
+    window.addEventListener("resize", updateActiveSection);
+    return () => {
+      window.removeEventListener("scroll", updateActiveSection);
+      window.removeEventListener("resize", updateActiveSection);
+    };
   }, []);
 
   useEffect(() => {
@@ -108,7 +151,7 @@ export function Navigation() {
         {/* 1. BRAND LOGO - Subtle scale & mechanical hover */}
         <div className="flex items-center gap-6">
           <motion.a
-            href="#"
+            href="/"
             className="flex items-center gap-3 group pointer-events-auto"
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
@@ -124,27 +167,34 @@ export function Navigation() {
 
         {/* 2. DESKTOP NAVIGATION - Shared layout ID underline */}
         <nav className="hidden md:flex items-center gap-1">
-          {NAV_LINKS.map((link, idx) => (
-            <a
-              key={idx}
-              href={link.href}
-              className="relative px-4 py-2 text-xs font-medium uppercase tracking-wider text-neutral-400 hover:text-white transition-colors duration-200 whitespace-nowrap"
-              onMouseEnter={() => setHoveredIndex(idx)}
-              onMouseLeave={() => setHoveredIndex(null)}
-            >
-              <span className="relative z-10">{link.label}</span>
-              {hoveredIndex === idx && (
-                <motion.div
-                  layoutId="nav-underline"
-                  className="absolute inset-0 bg-white/[0.03] border-b-2 border-emerald-500 rounded-sm"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={springTransition}
-                />
-              )}
-            </a>
-          ))}
+          {NAV_LINKS.map((link, idx) => {
+            const isActive = activeSection === link.sectionId;
+
+            return (
+              <a
+                key={idx}
+                href={link.href}
+                className={`relative px-4 py-2 text-xs font-medium uppercase tracking-wider transition-colors duration-200 whitespace-nowrap ${
+                  isActive ? "text-white" : "text-neutral-400 hover:text-white"
+                }`}
+                onClick={() => handleSectionSelect(link.sectionId)}
+                onMouseEnter={() => setHoveredIndex(idx)}
+                onMouseLeave={() => setHoveredIndex(null)}
+              >
+                <span className="relative z-10">{link.label}</span>
+                {(hoveredIndex === idx || isActive) && (
+                  <motion.div
+                    layoutId="nav-underline"
+                    className="absolute inset-0 bg-white/[0.03] border-b-2 border-emerald-500 rounded-sm"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={springTransition}
+                  />
+                )}
+              </a>
+            );
+          })}
         </nav>
 
         {/* 3. CTA CONTROLS - Tactile spring-based interactions */}
@@ -193,23 +243,32 @@ export function Navigation() {
                 SYSTEM MODULES
               </span>
               <div className="flex flex-col gap-4">
-                {NAV_LINKS.map((link, idx) => (
-                  <motion.a
-                    key={idx}
-                    href={link.href}
-                    onClick={() => setIsMobileOpen(false)}
-                    initial={{ x: -20, opacity: 0 }}
-                    animate={{ x: 0, opacity: 1 }}
-                    exit={{ x: -10, opacity: 0 }}
-                    transition={{ delay: idx * 0.08, type: "spring", stiffness: 150 }}
-                    className="text-2xl font-bold tracking-tight text-neutral-300 hover:text-emerald-400 flex items-center justify-between group py-2 border-b border-white/[0.03]"
-                  >
-                    <span>{link.label}</span>
-                    <span className="text-neutral-600 text-xs font-mono group-hover:text-emerald-400 transition-colors">
-                      [0{idx + 1}]
-                    </span>
-                  </motion.a>
-                ))}
+                {NAV_LINKS.map((link, idx) => {
+                  const isActive = activeSection === link.sectionId;
+
+                  return (
+                    <motion.a
+                      key={idx}
+                      href={link.href}
+                      onClick={() => {
+                        handleSectionSelect(link.sectionId);
+                        setIsMobileOpen(false);
+                      }}
+                      initial={{ x: -20, opacity: 0 }}
+                      animate={{ x: 0, opacity: 1 }}
+                      exit={{ x: -10, opacity: 0 }}
+                      transition={{ delay: idx * 0.08, type: "spring", stiffness: 150 }}
+                      className={`text-2xl font-bold tracking-tight flex items-center justify-between group py-2 border-b border-white/[0.03] ${
+                        isActive ? "text-emerald-400" : "text-neutral-300 hover:text-emerald-400"
+                      }`}
+                    >
+                      <span>{link.label}</span>
+                      <span className={`text-xs font-mono transition-colors ${isActive ? "text-emerald-400" : "text-neutral-600 group-hover:text-emerald-400"}`}>
+                        [0{idx + 1}]
+                      </span>
+                    </motion.a>
+                  );
+                })}
               </div>
             </div>
 
