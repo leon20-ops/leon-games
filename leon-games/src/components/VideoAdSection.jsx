@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { motion, useScroll, useSpring, useTransform } from "framer-motion";
+import { Icons } from "./GeneralVariables/Icons";
 
 // --- VIDEO ADVERTISEMENT SECTION (VIBRANT REDESIGN + SCROLL ANIMATED) ---
 function VideoAdSection() {
@@ -157,12 +158,24 @@ function VideoAdSection() {
               style={{ y: ctaY, opacity: ctaOpacity }}
               className="flex flex-wrap gap-4"
             >
-              <button className="py-3.5 px-6 rounded-lg bg-gradient-to-r from-emerald-500 to-green-600 text-[#050505] font-black text-xs uppercase tracking-wider transition-all duration-300 shadow-[0_4px_25px_rgba(16,185,129,0.3)] hover:shadow-[0_6px_30px_rgba(16,185,129,0.55)] cursor-pointer flex items-center gap-1.5 hover:scale-[1.01]">
-                👉 Start Your Journey 🔥
-              </button>
-              <button className="py-3.5 px-6 rounded-lg bg-[#111] hover:bg-[#151515] border border-white/[0.08] hover:border-cyan-500/30 text-cyan-400 hover:text-cyan-300 font-black text-xs uppercase tracking-wider transition-all duration-200 cursor-pointer flex items-center gap-1.5">
-                🌟 Join the Discord Hub 💬
-              </button>
+              <motion.button
+                whileTap={{ scale: 0.30, y: 4 }}
+                transition={{ type: "spring", stiffness: 360, damping: 12 }}
+                className="w-full sm:w-auto relative group overflow-hidden rounded-lg bg-[#22C55E] text-[#050505] font-black text-xs py-3.5 px-6 transition-all duration-300 shadow-[0_4px_20px_rgba(34,197,94,0.25)] hover:shadow-[0_6px_25px_rgba(34,197,94,0.4)] flex items-center justify-center cursor-pointer border border-transparent border-b-2 group-hover:border-b-4 group-hover:border-white whitespace-nowrap"
+              >
+                <span className="absolute inset-x-0 bottom-0 h-full bg-[#111111] translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out pointer-events-none z-0" />
+                <span className="relative z-10 flex items-center gap-1.5 uppercase tracking-wider transition-colors duration-500 group-hover:text-white text-[#050505]">Start Your Journey 🔥 <Icons.ArrowRight /></span>
+              </motion.button>
+              <motion.button
+                whileTap={{ scale: 0.30, y: 4 }}
+                transition={{ type: "spring", stiffness: 360, damping: 12 }}
+                className="w-full sm:w-auto relative group overflow-hidden rounded-lg bg-[#111111] border border-white/[0.08] text-white font-semibold text-xs py-3.5 px-6 transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer whitespace-nowrap"
+              >
+                <span className="absolute inset-x-0 bottom-0 h-full bg-orange-400 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out pointer-events-none z-0" />
+                <span className="relative z-10 flex items-center gap-2 uppercase tracking-[0.02em] whitespace-nowrap transition-colors duration-500 group-hover:text-black text-white">
+                  <Icons.Play /> Join the Discord Hub 💬
+                </span>
+              </motion.button>
             </motion.div>
           </motion.div>
 

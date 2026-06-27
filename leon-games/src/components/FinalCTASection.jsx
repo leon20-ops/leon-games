@@ -1,5 +1,6 @@
 import React, { useRef } from "react";
 import { motion, useScroll, useSpring, useTransform } from "framer-motion";
+import { Icons } from "./GeneralVariables/Icons";
 
 // --- FINAL CTA SECTION ---
 function FinalCTASection() {
@@ -60,12 +61,16 @@ function FinalCTASection() {
 
         {/* Action Trigger Button */}
         <div className="max-w-sm mx-auto">
-          <button className="w-full relative group overflow-hidden rounded-lg bg-gradient-to-r from-emerald-500 via-teal-500 via-cyan-500 to-indigo-500 hover:from-emerald-400 hover:to-indigo-400 text-[#050505] font-black text-sm py-4 px-8 transition-all duration-300 shadow-[0_10px_30px_rgba(34,197,94,0.3)] uppercase tracking-wider cursor-pointer">
-            <span className="absolute inset-0 w-full h-full bg-white opacity-0 group-hover:opacity-10 transition-opacity duration-300" />
-            <span className="relative z-10 flex items-center justify-center gap-2 text-neutral-950 font-black">
+          <motion.button
+            whileTap={{ scale: 0.10, y: 4 }}
+            transition={{ type: "spring", stiffness: 360, damping: 12 }}
+            className="w-full relative group overflow-hidden rounded-lg bg-[#22C55E] text-[#050505] font-black text-sm py-4 px-8 transition-all duration-300 shadow-[0_4px_20px_rgba(34,197,94,0.25)] hover:shadow-[0_6px_25px_rgba(34,197,94,0.4)] flex items-center justify-center cursor-pointer border border-transparent border-b-2 group-hover:border-b-4 group-hover:border-white whitespace-nowrap"
+          >
+            <span className="absolute inset-x-0 bottom-0 h-full bg-[#111111] translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out pointer-events-none z-0" />
+            <span className="relative z-10 flex items-center justify-center gap-2 uppercase tracking-wider transition-colors duration-500 group-hover:text-white text-[#050505] font-black">
               🚀 Play Now & Win 🏆💰
             </span>
-          </button>
+          </motion.button>
         </div>
 
         {/* Live Tracking Information Ticker */}

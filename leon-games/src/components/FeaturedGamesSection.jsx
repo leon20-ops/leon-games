@@ -503,9 +503,19 @@ export function FeaturedGamesSection() {
                         <span className="text-xs text-neutral-400 block font-light">Current Arena Focus</span>
                         <h4 className="text-sm font-bold text-white">{activeGame.title}</h4>
                       </div>
-                      <button className="py-3 px-6 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-black font-black text-xs uppercase tracking-wider transition-colors shadow-lg cursor-pointer">
-                        Find Lobby Opponent
-                      </button>
+                      <motion.button
+                        whileTap={{ scale: 0.60, y: 4 }}
+                        transition={{ type: "spring", stiffness: 360, damping: 12 }}
+                        className="group relative overflow-hidden rounded-lg bg-[#22C55E] text-[#050505] font-black text-xs py-3.5 px-6 transition-all duration-300 shadow-[0_4px_20px_rgba(34,197,94,0.25)] hover:shadow-[0_6px_25px_rgba(34,197,94,0.4)] flex items-center justify-center cursor-pointer border border-transparent border-b-2 group-hover:border-b-4 group-hover:border-white whitespace-nowrap"
+                      >
+                        <span className="absolute inset-x-0 bottom-0 h-full bg-[#111111] translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out pointer-events-none z-0" />
+                        <span className="relative z-10 flex items-center gap-1.5 uppercase tracking-wider transition-colors duration-500 group-hover:text-white text-[#050505]">
+                          Find Lobby Opponent
+                          <svg className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.2}>
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H4" />
+                          </svg>
+                        </span>
+                      </motion.button>
                     </motion.div>
                   </div>
                 ) : (
