@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Icons } from "./GeneralVariables";
+import { Icons } from "./GeneralVariables/Icons";
+import logo from "../assets/images/logo.png";
 
 // --- PREMIUM NAV UTILITIES & ICONS ---
 const NavIcons = {
@@ -32,10 +33,10 @@ const NavIcons = {
 };
 
 const NAV_LINKS = [
-  { label: "Arena Games", href: "#games" },
-  { label: "Flow Engine", href: "#how-it-works" },
-  { label: "Vault Security", href: "#security" },
-  { label: "Global Node Network", href: "#worldwide" }
+  { label: "| Games", href: "#games" },
+  { label: "HowItWorks", href: "#how-it-works" },
+  { label: "Payments", href: "#security" },
+  { label: "Security |", href: "#worldwide" }
 ];
 
 
@@ -112,26 +113,13 @@ export function Navigation() {
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
           >
-            {/* Structural geometric logo mark with dynamic radial background glow */}
-            <div className="relative w-9 h-9 flex items-center justify-center rounded-lg bg-[#111111] border border-white/[0.08] transition-colors group-hover:border-emerald-500/30 overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-tr from-emerald-500/5 to-cyan-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              <div className="font-mono font-black text-sm text-neutral-100 group-hover:text-emerald-400 transition-colors tracking-tighter">
-                L//G
-              </div>
-            </div>
-
-            <div className="flex flex-col">
-              <span className="font-bold text-sm tracking-widest text-white leading-none">
-                LEON <span className="text-emerald-400 font-light">GAMES</span>
-              </span>
-            </div>
+            {/* Logo */}
+            <img
+              src={logo}
+              alt="Leon Games logo"
+              className="w-20 h-20 object-contain"
+            />
           </motion.a>
-
-          {/* Real-time latency node status pill */}
-          <div className="hidden lg:flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-white/[0.02] border border-white/[0.04] text-[10px] text-neutral-400 font-mono">
-            <NavIcons.NetworkNode />
-            <span>PING: <strong className="text-emerald-400 font-medium">12ms</strong></span>
-          </div>
         </div>
 
         {/* 2. DESKTOP NAVIGATION - Shared layout ID underline */}
@@ -140,7 +128,7 @@ export function Navigation() {
             <a
               key={idx}
               href={link.href}
-              className="relative px-4 py-2 text-xs font-medium uppercase tracking-wider text-neutral-400 hover:text-white transition-colors duration-200"
+              className="relative px-4 py-2 text-xs font-medium uppercase tracking-wider text-neutral-400 hover:text-white transition-colors duration-200 whitespace-nowrap"
               onMouseEnter={() => setHoveredIndex(idx)}
               onMouseLeave={() => setHoveredIndex(null)}
             >
@@ -161,14 +149,6 @@ export function Navigation() {
 
         {/* 3. CTA CONTROLS - Tactile spring-based interactions */}
         <div className="hidden md:flex items-center gap-4">
-          <motion.button
-            whileHover={{ x: -2 }}
-            className="flex items-center gap-1.5 text-xs font-mono font-bold uppercase tracking-wider text-neutral-400 hover:text-white transition-colors py-2 px-3"
-          >
-            <NavIcons.Terminal />
-            <span>Log In</span>
-          </motion.button>
-
           <motion.button
             whileHover={{ scale: 1.03, y: -1 }}
             whileTap={{ scale: 0.97 }}

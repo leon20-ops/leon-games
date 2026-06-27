@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence, useScroll, useSpring, useTransform } from "framer-motion";
-import { Icons } from "./GeneralVariables";
+import { Icons } from "./GeneralVariables/Icons";
 
 import predictionDuel from "../assets/images/prediction-duel.png";
 import reactionSignal from "../assets/images/reaction-signal.png";

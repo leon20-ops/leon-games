@@ -1,14 +1,14 @@
-import { Navigation } from "./NavBar";
-import HeroSection from "./HeroSection";
-import { FeaturedGamesSection } from "./FeaturedGamesSection";
-import { HowItWorksSection } from "./HowItWorksSection";
-import { LiveActivitySection } from "./LiveActivitySection";
-import { TrustSection } from "./TrustSection";
-import { PaymentsSection } from "./PaymentsSection";
-import { GrowthSection } from "./GrowthSection";
-import VideoAdSection from "./VideoAdSection";
-import FinalCTASection from "./FinalCTASection";
-import Footer from "./Footer";
+import { Navigation } from "../NavBar";
+import HeroSection from "../HeroSection";
+import { FeaturedGamesSection } from "../FeaturedGamesSection";
+import { HowItWorksSection } from "../HowItWorksSection";
+import { LiveActivitySection } from "../LiveActivitySection";
+import { TrustSection } from "../TrustSection";
+import { PaymentsSection } from "../PaymentsSection";
+import { GrowthSection } from "../GrowthSection";
+import VideoAdSection from "../VideoAdSection";
+import FinalCTASection from "../FinalCTASection";
+import Footer from "../Footer";
 
 export default function LeonGamesLanding() {
     return (
@@ -18,15 +18,17 @@ export default function LeonGamesLanding() {
 
             <div className="relative z-10">
                 <Navigation />
+
                 <HeroSection />
                 <FeaturedGamesSection />
-                <VideoAdSection />
                 <HowItWorksSection />
-                <LiveActivitySection />
                 <PaymentsSection />
                 <TrustSection />
+                <LiveActivitySection />
                 <GrowthSection />
+                <VideoAdSection />
                 <FinalCTASection />
+
                 <Footer />
             </div>
         </div>

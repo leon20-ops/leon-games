@@ -1,4 +1,4 @@
-import LeonGamesLanding from "./components/LeonGamesLanding";
+import LeonGamesLanding from "./components/LeonGamesLandingPage/LeonGamesLanding";
 
 function App() {
   return <LeonGamesLanding />;
