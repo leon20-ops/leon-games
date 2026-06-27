@@ -35,8 +35,8 @@ const NavIcons = {
 const NAV_LINKS = [
   { label: "| Games", href: "#games" },
   { label: "HowItWorks", href: "#how-it-works" },
-  { label: "Payments", href: "#security" },
-  { label: "Security |", href: "#worldwide" }
+  { label: "Payments", href: "#payments" },
+  { label: "Security |", href: "#security" }
 ];
 
 

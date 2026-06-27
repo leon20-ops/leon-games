@@ -371,6 +371,7 @@ export function PaymentsSection() {
     <section
       ref={sectionRef}
       className="py-24 bg-[#0A0A0A] relative overflow-hidden border-y border-white/[0.04] z-10"
+      id = "payments"
     >
       {/* Visual Ambience Backgrounds */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#161616_1px,transparent_1px),linear-gradient(to_bottom,#161616_1px,transparent_1px)] bg-[size:6rem_6rem] pointer-events-none opacity-20" />
