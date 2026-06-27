@@ -73,8 +73,6 @@ function VideoAdSection() {
               <span className="text-red-400">🎬 PLAY FEED</span>
               <span className="text-neutral-600">//</span>
               <span className="text-amber-400">🔥 HOT PROMO</span>
-              <span className="text-neutral-600">//</span>
-              <span className="text-emerald-400 animate-pulse">🟢 LIVE MATCHES ACTIVATED</span>
             </div>
 
             {/* Dynamic Multi-Color Gradient Headline */}

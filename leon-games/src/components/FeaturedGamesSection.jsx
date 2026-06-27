@@ -262,9 +262,9 @@ export function FeaturedGamesSection() {
           <motion.div style={{ x: headerTitleX, opacity: headerTitleOpacity }} className="flex flex-col">
             {/* Dynamic Segment Status Tag */}
             <div className="inline-flex items-center gap-2 self-start px-3.5 py-1.5 rounded-full bg-gradient-to-r from-emerald-500/10 via-cyan-500/10 to-blue-500/10 border border-emerald-500/30 text-[10px] font-mono tracking-wider mb-4">
-              <span className="text-emerald-400 font-bold">⚔️ LIVE ARENA CATALOG</span>
+              <span className="text-emerald-400 font-bold">⚔️ LIVE ARENA</span>
               <span className="text-neutral-600">//</span>
-              <span className="text-cyan-400 animate-pulse">5 DETERMINISTIC SKILL CHALLENGES 🏆</span>
+              <span className="text-cyan-400 animate-pulse">5 SKILL CHALLENGES 🏆</span>
             </div>
 
             {/* High-Impact Gradient Title */}

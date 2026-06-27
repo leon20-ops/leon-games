@@ -1,3 +1,4 @@
+import logo from '../assets/images/logo.png';
 // --- FOOTER ---
 function Footer() {
   return (
@@ -5,19 +6,12 @@ function Footer() {
       <div className="max-w-7xl mx-auto px-6 grid grid-cols-2 md:grid-cols-5 gap-10 mb-12">
 
         <div className="col-span-2">
-          <div className="flex items-center gap-6 mb-4">
-            <div className="relative w-9 h-9 flex items-center justify-center rounded-lg bg-[#111111] border border-white/[0.08] transition-colors overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-tr from-emerald-500/5 to-cyan-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              <div className="font-mono font-black text-sm text-neutral-100 tracking-tighter">
-                L//G
-              </div>
-            </div>
-            <div className="flex flex-col">
-              <span className="font-bold text-sm tracking-widest text-white leading-none">
-                LEON <span className="text-emerald-400 font-light">GAMES</span>
-              </span>
-            </div>
-          </div>
+          {/* Logo */}
+                      <img
+                        src={logo}
+                        alt="Leon Games logo"
+                        className="w-20 h-20 object-contain"
+                      />
           <p className="text-xs text-neutral-500 max-w-xs leading-relaxed">
             The premium international 1v1 skill matchmaking framework. Built for raw competitive capability, protected value custody, and clear transparency.
           </p>

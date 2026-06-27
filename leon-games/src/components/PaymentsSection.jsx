@@ -389,7 +389,7 @@ export function PaymentsSection() {
             {/* Dynamic Segment Status Tag */}
             <div className="inline-flex items-center gap-2 self-start px-3.5 py-1.5 rounded-full bg-gradient-to-r from-emerald-500/10 via-cyan-500/10 to-blue-500/10 border border-emerald-500/30 text-[10px] font-mono tracking-wider mb-4">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-              <span className="text-emerald-400 font-bold">💳 PAYMENT INFRASTRUCTURE PROTOCOL // ⚡ LIVE CHANNELS</span>
+              <span className="text-emerald-400 font-bold">💳 PAYMENT PROTOCOL // ⚡ LIVE CHANNELS</span>
             </div>
 
             {/* High-Impact Gradient Title */}

@@ -279,13 +279,7 @@ export function Navigation() {
                 <span>PING: 12ms</span>
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
-                <button
-                  onClick={() => setIsMobileOpen(false)}
-                  className="py-3.5 bg-white/[0.02] border border-white/[0.08] hover:border-neutral-700 rounded-md text-xs font-mono uppercase tracking-widest text-neutral-300 hover:text-white transition-colors"
-                >
-                  Log In
-                </button>
+              <div className="grid grid-cols-1 gap-4">
                 <button
                   onClick={() => setIsMobileOpen(false)}
                   className="py-3.5 bg-emerald-500 text-[#050505] rounded-md text-xs font-mono font-black uppercase tracking-widest hover:bg-emerald-400 transition-colors flex items-center justify-center gap-1.5 shadow-[0_4px_20px_rgba(34,197,94,0.2)]"

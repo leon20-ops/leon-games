@@ -93,7 +93,7 @@ export function GrowthSection() {
               <div className="inline-flex items-center gap-2 self-start px-3.5 py-1.5 rounded-full bg-gradient-to-r from-cyan-500/10 via-emerald-500/10 to-blue-500/10 border border-cyan-500/30 text-[10px] font-mono tracking-wider mb-5">
                 <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
                 <span className="bg-gradient-to-r from-cyan-400 via-emerald-400 to-indigo-400 bg-clip-text text-transparent font-bold">
-                  🚀 ROADMAP // THE FUTURE OF GLOBAL PLAY 🌍🗺️📡
+                  ROADMAP // THE FUTURE OF GLOBAL PLAY 🌍
                 </span>
               </div>
 
