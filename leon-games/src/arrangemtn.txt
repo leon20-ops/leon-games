@@ -1,0 +1,35 @@
+Site section variables, objects, and arrays
+
+Navigation
+- NavIcons
+- NAV_LINKS
+
+Hero Section
+- Icons
+- getHeroVariants
+- FaceOffBackground
+- TechSparkle
+- SLIDER_IMAGES
+- TYPE_WORDS
+- FLOATING_EMOJIS
+- PLATFORM_GIFS
+
+Featured Games Section
+- GAME_DATA
+- sliderColVariants
+
+Video Ad Section
+- STEPS
+
+How It Works Section
+- HOW_IT_WORKS_STEPS
+- StepIndicator
+
+Live Activity Section
+- GAMES_AND_ACTIONS
+- createFakeActivity
+
+Payments Section
+- DEPOSIT_METHODS
+- WITHDRAWAL_METHODS
+- TrustIcons
